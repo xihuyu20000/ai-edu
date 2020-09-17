@@ -2,7 +2,7 @@ module.exports = (app) => {
   const express = require("express");
   const router = express.Router();
   const { Org } = require("../../models/sys/org-model");
-  const helper = require("./api-helper");
+  const h = require("./api-helper");
 
   /**
    * @swagger
@@ -13,8 +13,8 @@ module.exports = (app) => {
    */
   router.get("/", async (req, res) => {
     const all = await Org.find();
-    const tree = helper.resTree(all);
-    res.json(tree);
+    const tree = h.resTree(all);
+    h.ok(res, {data:tree})
   });
 
   /**
@@ -26,7 +26,7 @@ module.exports = (app) => {
    */
   router.get("/:id", async (req, res) => {
     const org = await Org.findById(req.params.id);
-    res.json(org);
+    h.ok(res, {data:org})
   });
 
   /**
@@ -38,7 +38,7 @@ module.exports = (app) => {
    */
   router.put("/:id", async (req, res) => {
     const org = await Org.findByIdAndUpdate(req.params.id, req.body);
-    res.json(org);
+    h.ok(res, { data: org });
   });
 
   /**
@@ -50,10 +50,10 @@ module.exports = (app) => {
    */
   router.post("/", async (req, res) => {
     if (await Org.findOne({ label: req.body.label })) {
-      return res.status(422).json({ msg: "名称已经存在" });
+      return h.fail(res, { msg: "名称已经存在"})
     }
     const org = await Org.create(req.body);
-    res.json(org);
+    h.ok(res, { data: org });
   });
 
   /**
@@ -65,7 +65,8 @@ module.exports = (app) => {
    */
   router.delete("/:id", async (req, res) => {
     const org = await Org.findByIdAndDelete(req.params.id);
-    res.json(org != null);
+    if(org != null)return h.ok(res, {msg:'删除成功'})
+    h.fail(res, {msg:'删除失败'})
   });
   app.use("/api/org", router);
 };
