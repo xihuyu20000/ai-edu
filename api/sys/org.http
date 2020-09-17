@@ -1,0 +1,28 @@
+@url = http://localhost:33333/api/org
+@json = Content-Type: application/json
+
+### 列表
+get {{url}}
+
+### 显示
+get {{url}}/5f630984ed5f01450c36b819
+
+### 修改
+put {{url}}/5f630984ed5f01450c36b819
+{{json}}
+
+{
+    "manager":"吴超"
+}
+
+### 创建
+post {{url}}
+{{json}}
+
+{
+    "label":"西安分公司",
+    "pid":"5f630984ed5f01450c36b819"
+}
+
+### 删除
+delete {{url}}/5f630facd0de294c1cc6844f
