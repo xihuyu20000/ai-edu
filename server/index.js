@@ -2,6 +2,7 @@ require('./db')
 
 const express = require("express");
 const app = express();
+app.use(require('cors')())
 //req.body读取json数据
 app.use(express.json());
 

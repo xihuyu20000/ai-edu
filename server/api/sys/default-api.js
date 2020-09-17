@@ -1,4 +1,5 @@
 module.exports = (app) => {
+  const bcrypt = require("bcrypt");
   const jwt = require("jsonwebtoken");
   const { User } = require("../../models/sys/user-model");
   const { Res } = require("../../models/sys/res-model");
@@ -70,7 +71,7 @@ module.exports = (app) => {
       return res.status(422).json({ msg: "用户名不正确" });
     }
     // 3 验证密码是否正确
-    if (!require("bcrypt").compareSync(req.body.password, user.password)) {
+    if (!bcrypt.compareSync(req.body.password, user.password)) {
       return res.status(422).json({ msg: "密码不正确" });
     }
     // 4 生成token
