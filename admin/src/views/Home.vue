@@ -27,13 +27,26 @@
     <el-container>
       <el-aside width="200px" style="background-color: rgb(238, 241, 246)">
         <el-menu router :default-openeds="['1']">
-          <el-submenu index="1">
+          <el-submenu
+            :index="menu1._id"
+            v-for="menu1 of menuTree"
+            :key="menu1._id"
+          >
             <template slot="title"
-              ><i class="el-icon-setting"></i>基础配置</template
+              ><i :class="menu1.icon"></i>{{ menu1.label }}</template
             >
-            <el-submenu index="1-4">
-              <template slot="title">用户管理</template>
-              <el-menu-item index="/sys/user/list">用户列表</el-menu-item>
+            <el-submenu
+              :index="menu2._id"
+              v-for="menu2 of menu1.children"
+              :key="menu2._id"
+            >
+              <template slot="title">{{ menu2.label }}</template>
+              <el-menu-item
+                :index="menu3.path"
+                v-for="menu3 of menu2.children"
+                :key="menu3._id"
+                >{{ menu3.label }}</el-menu-item
+              >
             </el-submenu>
           </el-submenu>
         </el-menu>
@@ -46,12 +59,15 @@
 <script>
 export default {
   data() {
-    return {};
+    return {
+      menuTree: []
+    };
   },
   methods: {
     async fetch() {
-      const { data } = await this.$http.get("/navs");
-      console.log(data);
+      const { data: resp } = await this.$http.get("/navs");
+      this.menuTree = resp.data;
+      console.log("导航菜单", this.menuTree);
     },
     chpwd() {
       this.$message.success("修改密码");
