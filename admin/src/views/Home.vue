@@ -15,9 +15,11 @@
             王小虎<i class="el-icon-arrow-down el-icon--right"></i>
           </span>
           <el-dropdown-menu slot="dropdown">
-            <el-dropdown-item>修改密码</el-dropdown-item>
-            <el-dropdown-item>个人主页</el-dropdown-item>
-            <el-dropdown-item>退出</el-dropdown-item>
+            <el-dropdown-item @click.native="chpwd">修改密码</el-dropdown-item>
+            <el-dropdown-item @click.native="showprofile"
+              >个人主页</el-dropdown-item
+            >
+            <el-dropdown-item @click.native="logout">退出</el-dropdown-item>
           </el-dropdown-menu>
         </el-dropdown>
       </div>
@@ -41,7 +43,26 @@
   </el-container>
 </template>
 
-<script></script>
+<script>
+export default {
+  data() {
+    return {};
+  },
+  methods: {
+    chpwd() {
+      this.$message.success("修改密码");
+    },
+    showprofile() {
+      this.$message.success("显示个人用户");
+    },
+    logout() {
+      this.$message.success("成功退出");
+      window.sessionStorage.clear();
+      this.$router.push("/login");
+    }
+  }
+};
+</script>
 
 <style lang="scss" scoped>
 .el-header {
