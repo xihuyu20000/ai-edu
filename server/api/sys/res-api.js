@@ -1,5 +1,5 @@
 module.exports = app=>{
-    const helper = require('./api-helper')
+    const h = require('./api-helper')
     const { Res } = require("../../models/sys/res-model");
     const express = require('express')
     const router = express.Router()
@@ -23,8 +23,8 @@ module.exports = app=>{
         console.log("菜单查询参数", req.query, params);
 
         const all = await Res.find(params);
-        const tree = helper.resTree(all)
-        res.json(tree)
+        const tree = h.resTree(all)
+        h.ok(res, {data:tree})
     })
 
     /**
@@ -37,7 +37,7 @@ module.exports = app=>{
     router.get('/:id', async(req, res)=>{
         console.log('显示参数', req.params)
         const resource = await Res.findById(req.params.id);
-        res.send(resource);
+        h.ok(res, { data: resource });
     })
 
     /**
@@ -50,7 +50,7 @@ module.exports = app=>{
     router.put('/:id', async(req, res)=>{
         console.log('修改参数', req.body)
         const resource = await Res.findByIdAndUpdate(req.params.id, req.body, {new:true})
-        res.send(resource);
+        h.ok(res, { data: resource });
     })
 
 
@@ -64,7 +64,7 @@ module.exports = app=>{
     router.post('/', async(req, res)=>{
         console.log('新增参数', req.body)
         const resource = await Res.create(req.body)
-        res.send(resource)
+        h.ok(res, { data: resource });
     })
     
     /**
@@ -77,7 +77,8 @@ module.exports = app=>{
     router.delete('/:id', async(req, res)=>{
         console.log('删除参数', req.params.id)
         const resource = await Res.findByIdAndDelete(req.params.id)
-        res.send(resource != null);
+        if (resource != null) return h.ok(res, { msg: "删除成功" });
+        h.fail(resource, { msg: "删除失败" });
     })
     
     app.use('/api/res', router)
