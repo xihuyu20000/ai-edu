@@ -1,6 +1,7 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
 import Home from "../views/Home.vue";
+import Login from "../views/Login.vue";
 import ListUser from "@/views/sys/user/ListUser.vue";
 Vue.use(VueRouter);
 
@@ -16,6 +17,11 @@ const routes = [
         component: ListUser
       }
     ]
+  },
+  {
+    path: "/login",
+    name: "Login",
+    component: Login
   }
 ];
 

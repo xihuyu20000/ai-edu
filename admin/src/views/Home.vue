@@ -4,7 +4,7 @@
       <div class="left-header">
         xxx管理系统
       </div>
-      <right-header>
+      <div class="right-header">
         <el-dropdown trigger="click">
           <span class="el-dropdown-link">
             <el-image
@@ -20,7 +20,7 @@
             <el-dropdown-item>退出</el-dropdown-item>
           </el-dropdown-menu>
         </el-dropdown>
-      </right-header>
+      </div>
     </el-header>
     <el-container>
       <el-aside width="200px" style="background-color: rgb(238, 241, 246)">
