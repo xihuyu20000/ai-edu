@@ -69,11 +69,11 @@ module.exports = (app) => {
     const user = await User.findOne({ username: req.body.username });
     // 2 判断用户是否存在
     if (!user) {
-      return res.status(400).json({ msg: "用户名不正确" });
+      return h.fail(res, { msg: "用户名不正确" });
     }
     // 3 验证密码是否正确
     if (!bcrypt.compareSync(req.body.password, user.password)) {
-      return res.status(400).json({ msg: "密码不正确" });
+      return h.fail(res, { msg: "密码不正确" });
     }
     // 4 生成token
     const token = jwt.sign({ id: user._id }, TOKEN_KEY, {
