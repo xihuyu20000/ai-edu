@@ -1,0 +1,42 @@
+@url = http://localhost:33333/api
+@json = Content-Type: application/json
+
+### 首页
+get {{url}}
+
+### 全部用户
+get {{url}}/users
+
+### 注册
+post {{url}}/register
+{{json}}
+
+{
+    "username":"usre1",
+    "password":"123456"
+}
+
+
+### 登录
+post {{url}}/login
+{{json}}
+
+{
+    "username":"root",
+    "password":"admin"
+}
+
+### 刷新token
+get {{url}}/token
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVmNjJjZjhlM2U5Mjc5Mzc1ODhmNmQ3NyIsImlhdCI6MTYwMDMyMTAyMywiZXhwIjoxNjAwMzI0NjIzfQ.WPSnBe6Eetf5uZ9sSbNGOaH7sAxIBDVWQemDFDkQ4zs
+
+
+### 导航菜单
+get {{url}}/navs
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVmNjJjZjhlM2U5Mjc5Mzc1ODhmNmQ3NyIsImlhdCI6MTYwMDMyMTAyMywiZXhwIjoxNjAwMzI0NjIzfQ.WPSnBe6Eetf5uZ9sSbNGOaH7sAxIBDVWQemDFDkQ4zs
+
+
+### 初始化
+put {{url}}/init
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVmNjJjZjhlM2U5Mjc5Mzc1ODhmNmQ3NyIsImlhdCI6MTYwMDMyMTAyMywiZXhwIjoxNjAwMzI0NjIzfQ.WPSnBe6Eetf5uZ9sSbNGOaH7sAxIBDVWQemDFDkQ4zs
+
