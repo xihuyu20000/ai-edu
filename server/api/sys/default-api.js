@@ -5,7 +5,7 @@ module.exports = (app) => {
   const { Res } = require("../../models/sys/res-model");
   const { Org } = require("../../models/sys/org-model");
   const { Role } = require("../../models/sys/role-model");
-  const apihelper = require("./api-helper");
+  const h = require("./api-helper");
   const express = require("express");
   const router = express.Router();
 
@@ -16,7 +16,7 @@ module.exports = (app) => {
   const auth = (req, res, next) => {
     const token = req.headers.authorization;
     jwt.verify(token, TOKEN_KEY, (err, payload) => {
-      if (err) return res.status(422).json({ msg: "token不正确" });
+      if (err) return h.fail(res, { msg: "token不正确" });
       // 没问题的话，直接放行
       next();
     });
@@ -30,7 +30,7 @@ module.exports = (app) => {
    *      - sys/default
    */
   router.get("/", async (req, res) => {
-    res.send("测试ok");
+    h.ok(res, {msg:'测试ok'})
   });
 
   /**
@@ -41,7 +41,8 @@ module.exports = (app) => {
    *      - sys/default
    */
   router.get("/users", async (req, res) => {
-    res.json(await User.find());
+    const all = await User.find()
+    h.ok(res, {data: all});
   });
 
   /**
@@ -53,7 +54,7 @@ module.exports = (app) => {
    */
   router.post("/register", async (req, res) => {
     const user = await User.create(req.body);
-    res.send(user);
+    h.ok(res, { data: user });
   });
 
   /**
@@ -68,18 +69,18 @@ module.exports = (app) => {
     const user = await User.findOne({ username: req.body.username });
     // 2 判断用户是否存在
     if (!user) {
-      return res.status(422).json({ msg: "用户名不正确" });
+      return res.status(400).json({ msg: "用户名不正确" });
     }
     // 3 验证密码是否正确
     if (!bcrypt.compareSync(req.body.password, user.password)) {
-      return res.status(422).json({ msg: "密码不正确" });
+      return res.status(400).json({ msg: "密码不正确" });
     }
     // 4 生成token
     const token = jwt.sign({ id: user._id }, TOKEN_KEY, {
       expiresIn: "1h",
     });
     // 5 发送客户端
-    res.json({ msg: "登录成功", data: user, token: token });
+    h.ok(res, { msg: "登录成功", data: user, token: token });
   });
 
   /**
@@ -105,7 +106,7 @@ module.exports = (app) => {
       expiresIn: "1h",
     });
     // 5 发送到客户端
-    res.json({ msg: "刷新成功", token: token1 });
+    h.ok(res, { msg: "刷新成功", token: token1 });
   });
 
   /**
@@ -116,9 +117,9 @@ module.exports = (app) => {
    *      - sys/default
    */
   router.get("/navs", auth, async (req, res) => {
-    const all = Res.find();
-    const tree = apihelper.resTree(all);
-    res.json(tree);
+    const all = await Res.find();
+    const tree = h.resTree(all);
+    h.ok(res, { data: tree });
   });
 
   /**
@@ -304,7 +305,7 @@ module.exports = (app) => {
     let adminRole = { label: "系统管理员" };
     Role.create(adminRole);
 
-    res.send("初始化所有数据");
+    h.ok(res, { msg: "初始化所有数据" });
   });
 
   app.use("/api", router);

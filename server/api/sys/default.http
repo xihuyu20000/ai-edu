@@ -13,7 +13,8 @@ post {{url}}/register
 
 {
     "username":"usre1",
-    "password":"123456"
+    "password":"123456",
+    "style":"staff"
 }
 
 
@@ -28,12 +29,12 @@ post {{url}}/login
 
 ### 刷新token
 get {{url}}/token
-Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVmNjJjZjhlM2U5Mjc5Mzc1ODhmNmQ3NyIsImlhdCI6MTYwMDMyMTAyMywiZXhwIjoxNjAwMzI0NjIzfQ.WPSnBe6Eetf5uZ9sSbNGOaH7sAxIBDVWQemDFDkQ4zs
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVmNjMwOTgzZWQ1ZjAxNDUwYzM2YjgxNyIsImlhdCI6MTYwMDM1NzQwNywiZXhwIjoxNjAwMzYxMDA3fQ.pRAjCo5bmQOB5uzPli7_r_yPUH3U-V4yaOQmRaeZHVo
 
 
 ### 导航菜单
 get {{url}}/navs
-Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVmNjJjZjhlM2U5Mjc5Mzc1ODhmNmQ3NyIsImlhdCI6MTYwMDMyMTAyMywiZXhwIjoxNjAwMzI0NjIzfQ.WPSnBe6Eetf5uZ9sSbNGOaH7sAxIBDVWQemDFDkQ4zs
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVmNjMwOTgzZWQ1ZjAxNDUwYzM2YjgxNyIsImlhdCI6MTYwMDM1NzQwNywiZXhwIjoxNjAwMzYxMDA3fQ.pRAjCo5bmQOB5uzPli7_r_yPUH3U-V4yaOQmRaeZHVo
 
 
 ### 初始化

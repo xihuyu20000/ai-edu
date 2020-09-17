@@ -1,3 +1,15 @@
+function ok(res, obj){
+  const result = { status: 200, msg: "", data:[] };
+  Object.assign(result, obj)
+  res.json(result);
+}
+function fail(res, obj) {
+  const result = { status: 400, msg: "", data: [] };
+  Object.assign(result, obj);
+  res.json(result);
+}
+
+
 /**
  * 生成资源树
  * @param {Array} 资源数组
@@ -23,4 +35,4 @@ function resTree(resArr) {
   return menu1;
 }
 
-module.exports = { resTree };
+module.exports = {ok, fail, resTree };
