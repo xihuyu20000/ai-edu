@@ -2,6 +2,7 @@ module.exports = app=>{
     const { User } = require("../../models/sys/user-model");
     const express = require('express')
     const router = express.Router()
+    const h = require('./api-helper')
 
     /**
      * @swagger
@@ -12,7 +13,7 @@ module.exports = app=>{
      */
     router.get('/staff', async(req, res)=>{
         const all = await User.find({style:'staff'})
-        res.json(all)
+        h.ok(res, {data:all})
     })
 
     /**
@@ -24,7 +25,7 @@ module.exports = app=>{
      */
     router.get('/student', async(req, res)=>{
         const all = await User.find({style:'student'})
-        res.json(all);
+        h.ok(res, { data: all });
     })
 
     /**
@@ -36,7 +37,7 @@ module.exports = app=>{
      */
     router.get('/:id', async(req, res)=>{
         const user = await User.findById(req.params.id);
-        res.json(user)
+        h.ok(res, { data: user });
     })
 
     /**
@@ -48,7 +49,7 @@ module.exports = app=>{
      */
     router.put('/:id', async(req, res)=>{
         const user = await User.findByIdAndUpdate(req.params.id, req.body)
-        res.json(user)
+        h.ok(res, { data: user });
     })
 
     /**
@@ -60,10 +61,10 @@ module.exports = app=>{
      */
     router.post('/', async(req, res)=>{
         if (await User.findOne({ username: req.body.username })) {
-            return res.status(422).json({ msg: "名称已经存在" });
+            return h.fail(res, { msg: "名称已经存在" });
         }
         const user = await User.create(req.body)
-        res.json(user)
+        h.ok(res, { data: user });
     })
 
     /**
@@ -75,7 +76,7 @@ module.exports = app=>{
      */
     router.delete('/:id', async(req, res)=>{
         const user = await User.findByIdAndDelete(req.params.id)
-        res.json(user != null);
+        h.ok(res, { msg: user != null });
     })
 
     app.use('/api/user', router)

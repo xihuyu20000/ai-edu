@@ -77,8 +77,7 @@ module.exports = app=>{
     router.delete('/:id', async(req, res)=>{
         console.log('删除参数', req.params.id)
         const resource = await Res.findByIdAndDelete(req.params.id)
-        if (resource != null) return h.ok(res, { msg: "删除成功" });
-        h.fail(resource, { msg: "删除失败" });
+        h.ok(res, { msg: resource != null });
     })
     
     app.use('/api/res', router)

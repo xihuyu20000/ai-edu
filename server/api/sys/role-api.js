@@ -2,6 +2,7 @@ module.exports = app=>{
   const { Role } = require("../../models/sys/role-model");
   const express = require("express");
   const router = express.Router();
+  const h = require("./api-helper");
 
   /**
    * @swagger
@@ -12,7 +13,7 @@ module.exports = app=>{
    */
   router.get("/", async (req, res) => {
     const all = await Role.find();
-    res.json(all);
+    h.ok(res, {data:all})
   });
 
   /**
@@ -24,7 +25,7 @@ module.exports = app=>{
    */
   router.get("/:id", async (req, res) => {
     const role = await Role.findById(req.params.id);
-    res.json(role);
+    h.ok(res, { data: role });
   });
 
   /**
@@ -36,7 +37,7 @@ module.exports = app=>{
    */
   router.put("/:id", async (req, res) => {
     const role = await Role.findByIdAndUpdate(req.params.id, req.body);
-    res.json(role);
+    h.ok(res, { data: role });
   });
 
   /**
@@ -48,10 +49,10 @@ module.exports = app=>{
    */
   router.post("/", async (req, res) => {
     if (await Role.findOne({ label: req.body.label })) {
-      return res.status(422).json({ msg: "名称已经存在" });
+      return h.fail(res, { msg: "名称已经存在" });
     }
     const role = await Role.create(req.body);
-    res.json(role);
+    h.ok(res, { data: role });
   });
 
   /**
@@ -63,7 +64,7 @@ module.exports = app=>{
    */
   router.delete("/:id", async (req, res) => {
     const role = await Role.findByIdAndRemove(req.params.id);
-    res.json(role != null);
+    h.ok(res, { msg: role != null });
   });
 
   app.use("/api/role", router);

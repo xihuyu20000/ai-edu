@@ -65,8 +65,7 @@ module.exports = (app) => {
    */
   router.delete("/:id", async (req, res) => {
     const org = await Org.findByIdAndDelete(req.params.id);
-    if(org != null)return h.ok(res, {msg:'删除成功'})
-    h.fail(res, {msg:'删除失败'})
+    h.ok(res, { msg: org != null });
   });
   app.use("/api/org", router);
 };
