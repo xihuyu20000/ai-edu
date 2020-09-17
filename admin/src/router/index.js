@@ -30,9 +30,12 @@ const router = new VueRouter({
 });
 
 router.beforeEach((to, from, next) => {
-  const token = sessionStorage.getItem("token");
   // console.log("from", from);
+  // 获取token
+  const token = sessionStorage.getItem("token");
+  // 如果是登录或者有token，则通过
   if (to.path === "/login" || token) return next();
+  console.error("未授权用户，请登录");
   next("/login");
 });
 
