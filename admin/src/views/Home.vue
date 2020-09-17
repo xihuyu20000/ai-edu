@@ -49,6 +49,10 @@ export default {
     return {};
   },
   methods: {
+    async fetch() {
+      const { data } = await this.$http.get("/navs");
+      console.log(data);
+    },
     chpwd() {
       this.$message.success("修改密码");
     },
@@ -60,6 +64,9 @@ export default {
       window.sessionStorage.clear();
       this.$router.push("/login");
     }
+  },
+  created() {
+    this.fetch();
   }
 };
 </script>
