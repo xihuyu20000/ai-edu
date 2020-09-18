@@ -14,9 +14,11 @@
           <el-button type="primary" @click="handleQueryForm">查询</el-button>
         </el-form-item>
       </el-form>
+      <div class="operate-bar"><el-button>新增</el-button></div>
     </div>
     <div class="data-box">
       <el-table :data="tableData">
+        <el-table-column type="selection" width="55"> </el-table-column>
         <el-table-column
           v-for="(field, index) of tableFields"
           :key="index"
@@ -24,6 +26,21 @@
           :label="field.label"
           :width="field.width"
         >
+        </el-table-column>
+        <el-table-column label="操作">
+          <template slot-scope="scope">
+            <el-button @click="handleEdit(scope.$index, scope.row)"
+              >编辑</el-button
+            >
+            <el-popconfirm title="确定删除吗？">
+              <el-button
+                type="danger"
+                slot="reference"
+                @click="handleDelete(scope.$index, scope.row)"
+                >删除</el-button
+              >
+            </el-popconfirm>
+          </template>
         </el-table-column>
       </el-table>
     </div>
@@ -85,6 +102,8 @@ export default {
 <style lang="scss" scoped>
 .data-container {
   .query-box {
+    display: flex;
+    justify-content: space-between;
   }
   .data-box {
   }

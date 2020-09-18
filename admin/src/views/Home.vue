@@ -60,7 +60,7 @@
 export default {
   data() {
     return {
-      menuTree: []
+      menuTree: [],
     };
   },
   methods: {
@@ -79,11 +79,11 @@ export default {
       this.$message.success("成功退出");
       window.sessionStorage.clear();
       this.$router.push("/login");
-    }
+    },
   },
   created() {
     this.fetch();
-  }
+  },
 };
 </script>
 
@@ -102,5 +102,9 @@ export default {
 
 .el-aside {
   color: #333;
+}
+
+.el-main {
+  padding: 10px;
 }
 </style>

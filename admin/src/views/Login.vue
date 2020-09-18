@@ -34,19 +34,19 @@ export default {
     return {
       loginForm: {
         username: "root",
-        password: "admin"
+        password: "admin",
       },
       rules: {
         username: [
-          { required: true, message: "请输入用户名", trigger: "blur" }
+          { required: true, message: "请输入用户名", trigger: "blur" },
         ],
-        password: [{ required: true, message: "请输入密码", trigger: "blur" }]
-      }
+        password: [{ required: true, message: "请输入密码", trigger: "blur" }],
+      },
     };
   },
   methods: {
     submitForm(formName) {
-      this.$refs[formName].validate(async valid => {
+      this.$refs[formName].validate(async (valid) => {
         if (!valid) return false;
         const { data: resp } = await this.$http.post("/login", this.loginForm);
         if (resp.status == 400) return this.$message.error(resp.msg);
@@ -56,8 +56,8 @@ export default {
     },
     resetForm(formName) {
       this.$refs[formName].resetFields();
-    }
-  }
+    },
+  },
 };
 </script>
 
@@ -65,9 +65,9 @@ export default {
 .login-container {
   position: absolute;
   left: 50%;
-  top: 50%;
+  top: 60%;
   transform: translate(-50%, -50%);
-  width: 400px;
+  width: 300px;
   height: 300px;
 }
 </style>
