@@ -12,7 +12,14 @@ module.exports = (app) => {
    *      - sys/staff
    */
   router.get("/", async (req, res) => {
-    const all = await User.find({ style: "staff" });
+    let params = { style: "staff" };
+    if (req.query) {
+      let regexp = new RegExp(req.query.label, "i");
+      params = {
+        $or: [{ label: { $regex: regexp } }],
+      };
+    }
+    const all = await User.find(params);
     h.ok(res, { data: all });
   });
 

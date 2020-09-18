@@ -14,7 +14,7 @@ module.exports = (app) => {
   router.get("/", async (req, res) => {
     let params = {};
     if (req.query) {
-      let regexp = new RegExp(req.body.label, "i");
+      let regexp = new RegExp(req.query.label, "i");
       params = {
         $or: [{ label: { $regex: regexp } }],
       };

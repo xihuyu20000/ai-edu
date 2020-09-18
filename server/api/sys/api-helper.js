@@ -1,6 +1,6 @@
-function ok(res, obj){
-  const result = { status: 200, msg: "", data:[] };
-  Object.assign(result, obj)
+function ok(res, obj) {
+  const result = { status: 200, msg: "", data: [] };
+  Object.assign(result, obj);
   res.json(result);
 }
 function fail(res, obj) {
@@ -9,14 +9,13 @@ function fail(res, obj) {
   res.json(result);
 }
 
-
 /**
  * 生成资源树
  * @param {Array} 资源数组
  */
 function resTree(resArr) {
   const menu1 = resArr.filter((item) => item.pid == null);
-  menu1.sort((a,b)=>a.showOrder-b.showOrder)
+  menu1.sort((a, b) => a.showOrder - b.showOrder);
   for (const mi1 of menu1) {
     const menu2 = resArr.filter((item) => mi1._id.equals(item.pid));
     menu2.sort((a, b) => a.showOrder - b.showOrder);
@@ -35,4 +34,4 @@ function resTree(resArr) {
   return menu1;
 }
 
-module.exports = {ok, fail, resTree };
+module.exports = { ok, fail, resTree };

@@ -12,9 +12,16 @@ module.exports = (app) => {
    *      - sys/org
    */
   router.get("/", async (req, res) => {
-    const all = await Org.find();
+    let params = {};
+    if (req.query) {
+      let regexp = new RegExp(req.query.label, "i");
+      params = {
+        $or: [{ label: { $regex: regexp } }],
+      };
+    }
+    const all = await Org.find(params);
     const tree = h.resTree(all);
-    h.ok(res, {data:tree})
+    h.ok(res, { data: tree });
   });
 
   /**
@@ -26,7 +33,7 @@ module.exports = (app) => {
    */
   router.get("/:id", async (req, res) => {
     const org = await Org.findById(req.params.id);
-    h.ok(res, {data:org})
+    h.ok(res, { data: org });
   });
 
   /**
@@ -50,7 +57,7 @@ module.exports = (app) => {
    */
   router.post("/", async (req, res) => {
     if (await Org.findOne({ label: req.body.label })) {
-      return h.fail(res, { msg: "名称已经存在"})
+      return h.fail(res, { msg: "名称已经存在" });
     }
     const org = await Org.create(req.body);
     h.ok(res, { data: org });
