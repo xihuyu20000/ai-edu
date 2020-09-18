@@ -26,7 +26,7 @@
     </el-header>
     <el-container>
       <el-aside width="200px" style="background-color: rgb(238, 241, 246)">
-        <el-menu router :default-openeds="['1']">
+        <el-menu router :default-active="defaultActive" :unique-opened="true">
           <el-submenu
             :index="menu1._id"
             v-for="menu1 of menuTree"
@@ -45,6 +45,7 @@
                 :index="menu3.path"
                 v-for="menu3 of menu2.children"
                 :key="menu3._id"
+                @click="selectMenu(menu3)"
                 >{{ menu3.label }}</el-menu-item
               >
             </el-submenu>
@@ -60,6 +61,7 @@
 export default {
   data() {
     return {
+      defaultActive: "",
       menuTree: [],
     };
   },
@@ -80,9 +82,17 @@ export default {
       window.sessionStorage.clear();
       this.$router.push("/login");
     },
+    selectMenu(menu) {
+      sessionStorage.setItem("curr_menu", menu.path);
+    },
+    activeMenu(path) {
+      this.defaultActive = path;
+      this.$router.push(path);
+    },
   },
   created() {
     this.fetch();
+    this.activeMenu(sessionStorage.getItem("curr_menu"));
   },
 };
 </script>
