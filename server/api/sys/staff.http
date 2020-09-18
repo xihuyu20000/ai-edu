@@ -1,0 +1,27 @@
+@url = http://localhost:33333/api/staff
+@json = Content-Type: application/json
+
+### 员工列表
+get {{url}}
+
+### 显示
+get {{url}}/5f62f93a123fd24e1438a8e1
+
+### 修改
+put {{url}}/5f62f93a123fd24e1438a8e1
+{{json}}
+
+{"realname":"我是员工"}
+
+### 创建员工
+post {{url}}
+{{json}}
+
+{
+    "username":"staff1",
+    "password":"staff1",
+    "style":"staff"
+}
+
+### 删除
+delete {{url}}/5f62fb1c9af3ff423817df69

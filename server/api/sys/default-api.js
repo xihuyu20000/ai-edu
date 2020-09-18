@@ -131,8 +131,7 @@ module.exports = (app) => {
    */
   router.put("/init", async (req, res) => {
     // 1 初始化资源
-    await Res.remove({});
-    console.log("清除所有Res数据");
+    await Res.deleteMany();
     const menus = [
       {
         label: "基础设置",
@@ -149,19 +148,11 @@ module.exports = (app) => {
             showOrder: 1,
             children: [
               {
-                label: "功能点列表",
+                label: "资源列表",
                 icon: "el-icon-menu",
                 openStyle: "当前窗口",
                 resStyle: "菜单",
-                path: "/sys/funcpoint/list",
-                showOrder: 1,
-              },
-              {
-                label: "添加功能点",
-                icon: "el-icon-menu",
-                openStyle: "当前窗口",
-                resStyle: "菜单",
-                path: "/sys/funcpoint/create",
+                path: "/sys/res/list",
                 showOrder: 1,
               },
             ],
@@ -201,11 +192,28 @@ module.exports = (app) => {
             ],
           },
           {
-            label: "人员管理",
+            label: "员工管理",
             icon: "el-icon-menu",
             openStyle: "当前窗口",
             resStyle: "菜单",
             showOrder: 4,
+            children: [
+              {
+                label: "员工列表",
+                icon: "el-icon-menu",
+                openStyle: "当前窗口",
+                resStyle: "菜单",
+                path: "/sys/staff/list",
+                showOrder: 1,
+              },
+            ],
+          },
+          {
+            label: "学生管理",
+            icon: "el-icon-menu",
+            openStyle: "当前窗口",
+            resStyle: "菜单",
+            showOrder: 5,
             children: [
               {
                 label: "学生列表",
@@ -215,14 +223,6 @@ module.exports = (app) => {
                 path: "/sys/student/list",
                 showOrder: 1,
               },
-              {
-                label: "员工列表",
-                icon: "el-icon-menu",
-                openStyle: "当前窗口",
-                resStyle: "菜单",
-                path: "/sys/staff/list",
-                showOrder: 2,
-              },
             ],
           },
           {
@@ -230,7 +230,7 @@ module.exports = (app) => {
             icon: "el-icon-menu",
             openStyle: "当前窗口",
             resStyle: "菜单",
-            showOrder: 5,
+            showOrder: 6,
           },
         ],
       },
@@ -288,6 +288,7 @@ module.exports = (app) => {
     }
 
     // 2 初始化用户
+    await User.deleteMany();
     User.create({
       realname: "管理员",
       username: "root",
@@ -302,6 +303,7 @@ module.exports = (app) => {
     });
 
     // 3 初始化组织机构
+    await Org.deleteMany();
     let topOrg = [
       {
         label: "集团公司",
@@ -341,6 +343,7 @@ module.exports = (app) => {
     }
 
     // 4 初始化角色
+    await Role.deleteMany();
     for (let i = 0; i < 200; i++) {
       let adminRole = { label: "角色-" + i };
       Role.create(adminRole);
@@ -365,6 +368,7 @@ module.exports = (app) => {
           label: "名称",
           field: "label",
           tip: "角色名称",
+          match: "like",
         },
       ],
       tableFields: [{ prop: "label", label: "名称", width: 140 }],

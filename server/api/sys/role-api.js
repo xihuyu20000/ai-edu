@@ -1,4 +1,4 @@
-module.exports = app=>{
+module.exports = (app) => {
   const { Role } = require("../../models/sys/role-model");
   const express = require("express");
   const router = express.Router();
@@ -12,8 +12,9 @@ module.exports = app=>{
    *      - sys/role
    */
   router.get("/", async (req, res) => {
+    console.log("查询参数", req.query);
     const all = await Role.find();
-    h.ok(res, {data:all})
+    h.ok(res, { data: all });
   });
 
   /**
@@ -68,4 +69,4 @@ module.exports = app=>{
   });
 
   app.use("/api/role", router);
-}
+};

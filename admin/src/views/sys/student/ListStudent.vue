@@ -3,7 +3,7 @@
     <div class="query-box">
       <el-form :inline="true" :model="queryForm" class="query-form-inline">
         <el-form-item>
-          <el-input v-model="queryForm.label" placeholder="岗位名称"></el-input>
+          <el-input v-model="queryForm.label" placeholder="学生姓名"></el-input>
         </el-form-item>
         <el-form-item>
           <el-button type="primary" @click="handleQueryForm">查询</el-button>
@@ -13,9 +13,9 @@
     </div>
     <div class="data-box">
       <el-table :data="tableData">
-        <el-table-column type="selection" width="55"> </el-table-column>
-        <el-table-column label="名称" prop="label" width="120">
-        </el-table-column>
+        <el-table-column type="selection" width="55" />
+        <el-table-column label="真实姓名" prop="realname" width="120" />
+        <el-table-column label="用户名" prop="username" width="120" />
         <el-table-column label="操作">
           <template slot-scope="scope">
             <el-button @click="handleEdit(scope.$index, scope.row)"
@@ -38,7 +38,7 @@
 export default {
   data() {
     return {
-      url: "/role",
+      url: "/student",
       queryForm: {},
       tableData: [],
     };

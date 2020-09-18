@@ -1,11 +1,8 @@
-@url = http://localhost:33333/api/user
+@url = http://localhost:33333/api/student
 @json = Content-Type: application/json
 
-### 员工列表
-get {{url}}/staff
-
 ### 学生列表
-get {{url}}/student
+get {{url}}
 
 ### 显示
 get {{url}}/5f62f93a123fd24e1438a8e1
@@ -16,23 +13,13 @@ put {{url}}/5f62f93a123fd24e1438a8e1
 
 {"realname":"我是学生"}
 
-### 创建员工
-post {{url}}
-{{json}}
-
-{
-    "username":"staff1",
-    "password":"staff1",
-    "style":"staff"
-}
-
 ### 创建学生
 post {{url}}
 {{json}}
 
 {
-    "username":"stu1",
-    "password":"stu1",
+    "username":"student1",
+    "password":"student1",
     "style":"student"
 }
 

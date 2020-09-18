@@ -3,7 +3,7 @@
     <div class="query-box">
       <el-form :inline="true" :model="queryForm" class="query-form-inline">
         <el-form-item>
-          <el-input v-model="queryForm.label" placeholder="岗位名称"></el-input>
+          <el-input v-model="queryForm.label" placeholder="资源名称"></el-input>
         </el-form-item>
         <el-form-item>
           <el-button type="primary" @click="handleQueryForm">查询</el-button>
@@ -12,7 +12,7 @@
       <div class="operate-bar"><el-button>新增</el-button></div>
     </div>
     <div class="data-box">
-      <el-table :data="tableData">
+      <el-table :data="tableData" row-key="_id">
         <el-table-column type="selection" width="55"> </el-table-column>
         <el-table-column label="名称" prop="label" width="120">
         </el-table-column>
@@ -38,7 +38,7 @@
 export default {
   data() {
     return {
-      url: "/role",
+      url: "/res",
       queryForm: {},
       tableData: [],
     };

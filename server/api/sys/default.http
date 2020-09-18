@@ -40,7 +40,6 @@ Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVmNjMwOTgzZWQ1ZjAx
 ### 初始化
 put {{url}}/init
 
-
 ### 表格配置
 get {{url}}/metatable/:id
 
