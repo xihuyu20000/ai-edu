@@ -12,8 +12,15 @@ module.exports = (app) => {
    *      - sys/role
    */
   router.get("/", async (req, res) => {
-    console.log("查询参数", req.query);
-    const all = await Role.find();
+    let params = {};
+    if (req.query) {
+      let regexp = new RegExp(req.body.label, "i");
+      params = {
+        $or: [{ label: { $regex: regexp } }],
+      };
+    }
+
+    const all = await Role.find(params);
     h.ok(res, { data: all });
   });
 

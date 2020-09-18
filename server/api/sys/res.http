@@ -6,7 +6,13 @@
 get {{url}}
 
 ### 查询，只按label模糊查询
-get {{url}}/?label=基础
+get {{url}}
+{{json}}
+
+{
+    "label":"基础"
+}
+
 
 ### 显示
 get {{url}}/5f62e92d731aed26f835f92a
