@@ -39,5 +39,10 @@ Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVmNjMwOTgzZWQ1ZjAx
 
 ### 初始化
 put {{url}}/init
-Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVmNjJjZjhlM2U5Mjc5Mzc1ODhmNmQ3NyIsImlhdCI6MTYwMDMyMTAyMywiZXhwIjoxNjAwMzI0NjIzfQ.WPSnBe6Eetf5uZ9sSbNGOaH7sAxIBDVWQemDFDkQ4zs
 
+
+### 表格配置
+get {{url}}/metatable/:id
+
+### 表单配置
+get {{url}}/metaform/:id

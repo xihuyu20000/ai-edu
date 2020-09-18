@@ -1,15 +1,15 @@
 import Vue from "vue";
 import axios from "axios";
 axios.defaults.baseURL = "http://localhost:33333/api";
-axios.defaults.timeout = 3000;
+axios.defaults.timeout = 30000;
 
 axios.interceptors.request.use(
-  config => {
+  (config) => {
     console.log("请求", config);
     config.headers["Authorization"] = sessionStorage.getItem("token");
     return config;
   },
-  error => {
+  (error) => {
     console.log("axios报错", error); // for debug
     return Promise.reject(error);
   }

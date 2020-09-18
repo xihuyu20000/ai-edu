@@ -3,6 +3,7 @@ import VueRouter from "vue-router";
 import Home from "../views/Home.vue";
 import Login from "../views/Login.vue";
 import ListUser from "@/views/sys/user/ListUser.vue";
+import ListRole from "@/views/sys/role/ListRole.vue";
 Vue.use(VueRouter);
 
 const routes = [
@@ -14,19 +15,24 @@ const routes = [
       {
         path: "/sys/user/list",
         name: "user-list",
-        component: ListUser
-      }
-    ]
+        component: ListUser,
+      },
+      {
+        path: "/sys/role/list",
+        name: "role-list",
+        component: ListRole,
+      },
+    ],
   },
   {
     path: "/login",
     name: "Login",
-    component: Login
-  }
+    component: Login,
+  },
 ];
 
 const router = new VueRouter({
-  routes
+  routes,
 });
 
 router.beforeEach((to, from, next) => {

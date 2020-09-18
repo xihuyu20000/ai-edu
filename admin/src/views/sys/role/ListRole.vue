@@ -1,0 +1,95 @@
+<template>
+  <div class="data-container">
+    <div class="query-box">
+      <el-form :inline="true" :model="queryForm" class="query-form-inline">
+        <template v-for="(field, index) of formFields">
+          <el-form-item v-if="field.style === 'textline'" :key="index">
+            <el-input
+              v-model="queryForm[field.field]"
+              :placeholder="field.label"
+            ></el-input>
+          </el-form-item>
+        </template>
+        <el-form-item>
+          <el-button type="primary" @click="handleQueryForm">查询</el-button>
+        </el-form-item>
+      </el-form>
+    </div>
+    <div class="data-box">
+      <el-table :data="tableData">
+        <el-table-column
+          v-for="(field, index) of tableFields"
+          :key="index"
+          :prop="field.prop"
+          :label="field.label"
+          :width="field.width"
+        >
+        </el-table-column>
+      </el-table>
+    </div>
+    <div class="data-pager">
+      <el-pagination
+        @size-change="handleSizeChange"
+        @current-change="handleCurrentChange"
+        :current-page="1"
+        :page-sizes="[100, 200, 300, 400]"
+        :page-size="100"
+        layout="total, sizes, prev, pager, next, jumper"
+        :total="400"
+      >
+      </el-pagination>
+    </div>
+  </div>
+</template>
+
+<script>
+export default {
+  data() {
+    return {
+      queryUrl: "",
+      queryForm: {},
+      formFields: [],
+      tableFields: [],
+      tableData: [],
+    };
+  },
+  methods: {
+    async fetch() {
+      const { data: resp } = await this.$http.get("/metatable/23");
+      this.queryUrl = resp.data.queryUrl;
+      this.formFields = resp.data.formFields;
+      this.tableFields = resp.data.tableFields;
+      console.log("表格配置", resp);
+
+      this.handleQueryForm();
+    },
+    async handleQueryForm() {
+      console.log("submit!", this.queryForm);
+      const { data: resp } = await this.$http.get(this.queryUrl);
+      console.log("查询结果", resp);
+      this.tableData = resp.data;
+    },
+    handleSizeChange(val) {
+      console.log(`每页 ${val} 条`);
+    },
+    handleCurrentChange(val) {
+      console.log(`当前页: ${val}`);
+    },
+  },
+  created() {
+    this.fetch();
+  },
+};
+</script>
+
+<style lang="scss" scoped>
+.data-container {
+  .query-box {
+  }
+  .data-box {
+  }
+  .data-pager {
+    margin-top: 10px;
+  }
+}
+</style>

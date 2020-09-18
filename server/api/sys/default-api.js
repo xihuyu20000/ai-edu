@@ -30,7 +30,7 @@ module.exports = (app) => {
    *      - sys/default
    */
   router.get("/", async (req, res) => {
-    h.ok(res, {msg:'测试ok'})
+    h.ok(res, { msg: "测试ok" });
   });
 
   /**
@@ -41,8 +41,8 @@ module.exports = (app) => {
    *      - sys/default
    */
   router.get("/users", async (req, res) => {
-    const all = await User.find()
-    h.ok(res, {data: all});
+    const all = await User.find();
+    h.ok(res, { data: all });
   });
 
   /**
@@ -123,6 +123,7 @@ module.exports = (app) => {
   });
 
   /**
+   * @swagger
    * /api/init 初始化数据:
    * put:
    *  tags:
@@ -152,7 +153,7 @@ module.exports = (app) => {
                 icon: "el-icon-menu",
                 openStyle: "当前窗口",
                 resStyle: "菜单",
-                path: "/basic/funcpoint/list",
+                path: "/sys/funcpoint/list",
                 showOrder: 1,
               },
               {
@@ -160,7 +161,7 @@ module.exports = (app) => {
                 icon: "el-icon-menu",
                 openStyle: "当前窗口",
                 resStyle: "菜单",
-                path: "/basic/funcpoint/create",
+                path: "/sys/funcpoint/create",
                 showOrder: 1,
               },
             ],
@@ -171,6 +172,16 @@ module.exports = (app) => {
             openStyle: "当前窗口",
             resStyle: "菜单",
             showOrder: 2,
+            children: [
+              {
+                label: "组织列表",
+                icon: "el-icon-menu",
+                openStyle: "当前窗口",
+                resStyle: "菜单",
+                path: "/sys/org/list",
+                showOrder: 1,
+              },
+            ],
           },
           {
             label: "岗位管理",
@@ -178,6 +189,16 @@ module.exports = (app) => {
             openStyle: "当前窗口",
             resStyle: "菜单",
             showOrder: 3,
+            children: [
+              {
+                label: "岗位列表",
+                icon: "el-icon-menu",
+                openStyle: "当前窗口",
+                resStyle: "菜单",
+                path: "/sys/role/list",
+                showOrder: 1,
+              },
+            ],
           },
           {
             label: "人员管理",
@@ -185,6 +206,24 @@ module.exports = (app) => {
             openStyle: "当前窗口",
             resStyle: "菜单",
             showOrder: 4,
+            children: [
+              {
+                label: "学生列表",
+                icon: "el-icon-menu",
+                openStyle: "当前窗口",
+                resStyle: "菜单",
+                path: "/sys/student/list",
+                showOrder: 1,
+              },
+              {
+                label: "员工列表",
+                icon: "el-icon-menu",
+                openStyle: "当前窗口",
+                resStyle: "菜单",
+                path: "/sys/staff/list",
+                showOrder: 2,
+              },
+            ],
           },
           {
             label: "权限管理",
@@ -302,11 +341,35 @@ module.exports = (app) => {
     }
 
     // 4 初始化角色
-    let adminRole = { label: "系统管理员" };
-    Role.create(adminRole);
+    for (let i = 0; i < 200; i++) {
+      let adminRole = { label: "角色-" + i };
+      Role.create(adminRole);
+    }
 
     h.ok(res, { msg: "初始化所有数据" });
   });
 
+  /**
+   * @swagger
+   * /api/metatable/:id  数据表格元数据:
+   *  get:
+   *    tags:
+   *     - sys/default
+   */
+  router.get("/metatable/:id", async (req, res) => {
+    const result = {
+      queryUrl: "/role/",
+      formFields: [
+        {
+          style: "textline",
+          label: "名称",
+          field: "label",
+          tip: "角色名称",
+        },
+      ],
+      tableFields: [{ prop: "label", label: "名称", width: 140 }],
+    };
+    h.ok(res, { data: result });
+  });
   app.use("/api", router);
 };
