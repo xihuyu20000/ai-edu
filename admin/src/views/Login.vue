@@ -5,16 +5,23 @@
       status-icon
       :rules="rules"
       ref="loginForm"
-      label-width="100px"
+      label-width="0px"
       class="login-form"
     >
-      <el-form-item label="用户名" prop="username">
-        <el-input v-model="loginForm.username" autocomplete="off"></el-input>
-      </el-form-item>
-      <el-form-item label="密码" prop="password">
+      <el-form-item prop="username">
         <el-input
+          prefix-icon="iconfont aliuser"
+          v-model="loginForm.username"
+          placeholder="用户名"
+          autocomplete="off"
+        ></el-input>
+      </el-form-item>
+      <el-form-item prop="password">
+        <el-input
+          prefix-icon="iconfont alilock"
           type="password"
           v-model="loginForm.password"
+          placeholder="密码"
           autocomplete="off"
         ></el-input>
       </el-form-item>
@@ -33,8 +40,8 @@ export default {
   data() {
     return {
       loginForm: {
-        username: "root",
-        password: "admin",
+        username: "",
+        password: "",
       },
       rules: {
         username: [
@@ -68,6 +75,11 @@ export default {
   top: 60%;
   transform: translate(-50%, -50%);
   width: 300px;
-  height: 300px;
+  height: 200px;
+  background-color: bisque;
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 </style>

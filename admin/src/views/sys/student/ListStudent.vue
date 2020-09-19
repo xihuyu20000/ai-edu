@@ -6,10 +6,15 @@
           <el-input v-model="queryForm.label" placeholder="学生姓名"></el-input>
         </el-form-item>
         <el-form-item>
-          <el-button type="primary" @click="handleQueryForm">查询</el-button>
+          <el-button
+            type="primary"
+            icon="el-icon-search"
+            @click="handleQueryForm"
+            >查询</el-button
+          >
         </el-form-item>
       </el-form>
-      <div class="operate-bar"><el-button>新增</el-button></div>
+      <div class="operate-bar"><el-button type="primary">新增</el-button></div>
     </div>
     <div class="data-box">
       <el-table :data="tableData">

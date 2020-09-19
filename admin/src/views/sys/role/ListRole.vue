@@ -6,10 +6,17 @@
           <el-input v-model="queryForm.label" placeholder="岗位名称"></el-input>
         </el-form-item>
         <el-form-item>
-          <el-button type="primary" @click="handleQueryForm">查询</el-button>
+          <el-button
+            type="primary"
+            icon="el-icon-search"
+            @click="handleQueryForm"
+            >查询</el-button
+          >
         </el-form-item>
       </el-form>
-      <div class="operate-bar"><el-button>新增</el-button></div>
+      <div class="operate-bar">
+        <el-button type="primary" @click="toCreate">新增</el-button>
+      </div>
     </div>
     <div class="data-box">
       <el-table :data="tableData">
@@ -31,10 +38,12 @@
         </el-table-column>
       </el-table>
     </div>
+    <create-role ref="createDialog" title="创建角色"></create-role>
   </div>
 </template>
 
 <script>
+import CreateRole from "@/views/sys/role/CreateRole.vue";
 export default {
   data() {
     return {
@@ -48,9 +57,14 @@ export default {
       this.handleQueryForm();
     },
     async handleQueryForm() {
-      const { data: resp } = await this.$http.get(this.url, this.queryForm);
+      const { data: resp } = await this.$http(
+        this.url + "?" + this.$ser(this.queryForm)
+      );
       console.log("查询结果", resp);
       this.tableData = resp.data;
+    },
+    async toCreate() {
+      this.$refs["createDialog"].show();
     },
     async handleDelete(index, row) {
       const { data: resp } = await this.$http.delete(this.url + "/" + row._id);
@@ -63,6 +77,7 @@ export default {
   created() {
     this.fetch();
   },
+  components: { CreateRole },
 };
 </script>
 
