@@ -62,7 +62,7 @@ export default {
       url: "/role",
       queryForm: {},
       tableData: [],
-      editData: {},
+      editData: {}
     };
   },
   methods: {
@@ -89,12 +89,12 @@ export default {
         ? this.$message.success("删除成功")
         : this.$message.error("删除失败");
       this.fetch();
-    },
+    }
   },
   created() {
     this.fetch();
   },
-  components: { FormRole },
+  components: { FormRole }
 };
 </script>
 

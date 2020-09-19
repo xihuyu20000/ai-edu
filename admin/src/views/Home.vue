@@ -74,15 +74,14 @@ export default {
     return {
       collapsed: false,
       defaultActive: "",
-      menuTree: [],
     };
   },
-  methods: {
-    async fetch() {
-      const { data: resp } = await this.$http.get("/navs");
-      this.menuTree = resp.data;
-      console.log("导航菜单", this.menuTree);
+  computed: {
+    menuTree: function() {
+      return JSON.parse(localStorage.getItem("menuTree"));
     },
+  },
+  methods: {
     toggle() {
       this.collapsed = !this.collapsed;
       console.log("点击toggle");
@@ -107,7 +106,6 @@ export default {
     },
   },
   created() {
-    this.fetch();
     this.activeMenu(sessionStorage.getItem("curr_menu"));
   },
 };

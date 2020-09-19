@@ -7,19 +7,19 @@ import NProgress from "nprogress";
 import "nprogress/nprogress.css";
 
 axios.interceptors.request.use(
-  (config) => {
+  config => {
     NProgress.start();
     console.log("请求", config);
     config.headers["Authorization"] = sessionStorage.getItem("token");
     return config;
   },
-  (error) => {
+  error => {
     console.log("axios报错", error); // for debug
     return Promise.reject(error);
   }
 );
 
-axios.interceptors.response.use((config) => {
+axios.interceptors.response.use(config => {
   NProgress.done();
   return config;
 });

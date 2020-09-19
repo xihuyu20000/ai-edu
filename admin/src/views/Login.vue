@@ -59,7 +59,13 @@ export default {
         if (!valid) return false;
         const { data: resp } = await this.$http.post("/login", this.loginForm);
         if (resp.status == 400) return this.$message.error(resp.msg);
+        // 写入session
         window.sessionStorage.setItem("token", resp.token);
+        // 获取导航菜单
+        const { data: resp1 } = await this.$http.get("/navs");
+        localStorage.setItem("menuTree", JSON.stringify(resp1.data));
+        // this.$store.commit("home/setMenuTree", resp1.data);
+        // 转向主页
         this.$router.push("/");
         this.$message.success("登录成功");
       });

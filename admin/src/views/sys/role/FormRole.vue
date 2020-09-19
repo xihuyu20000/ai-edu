@@ -23,11 +23,11 @@ export default {
     isnew: { type: Boolean, default: false },
     url: { type: String, required: true },
     title: { type: String, required: true },
-    formData: { type: Object, required: true },
+    formData: { type: Object, required: true }
   },
   data() {
     return {
-      dialogFormVisible: false,
+      dialogFormVisible: false
     };
   },
   methods: {
@@ -61,8 +61,8 @@ export default {
       if (resp.status != 200) return this.$message.error(resp.msg);
       this.$parent.fetch();
       this.close();
-    },
-  },
+    }
+  }
   // beforeRouteEnter(to, from, next) {
   //   console.log("beforeRouteEnter");
   //   next();

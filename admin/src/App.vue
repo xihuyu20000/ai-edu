@@ -20,11 +20,11 @@ export default {
         }
         console.log("定时", resp);
       }, 5000 * 20 * 30);
-    },
+    }
   },
   created() {
     this.fetch();
-  },
+  }
 };
 </script>
 

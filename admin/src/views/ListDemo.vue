@@ -70,7 +70,7 @@ export default {
       tableData: [],
       currentPage: 1,
       pageSize: 20,
-      total: 1000,
+      total: 1000
     };
   },
   methods: {
@@ -86,11 +86,11 @@ export default {
     async handleQueryForm() {
       let params = {
         currentPage: this.currentPage, //页码
-        pageSize: this.pageSize, //页大小
+        pageSize: this.pageSize //页大小
       };
       Object.assign(params, this.queryForm);
       const { data: resp } = await this.$http.get(this.queryUrl, {
-        params,
+        params
       });
       console.log("查询结果", resp);
       this.tableData = resp.data;
@@ -100,11 +100,11 @@ export default {
     },
     handleCurrentChange(val) {
       console.log(`当前页: ${val}`);
-    },
+    }
   },
   created() {
     this.fetch();
-  },
+  }
 };
 </script>
 

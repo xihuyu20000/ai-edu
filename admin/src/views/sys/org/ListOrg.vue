@@ -45,7 +45,7 @@ export default {
     return {
       url: "/org",
       queryForm: {},
-      tableData: [],
+      tableData: []
     };
   },
   methods: {
@@ -65,11 +65,11 @@ export default {
         ? this.$message.success("删除成功")
         : this.$message.error("删除失败");
       this.fetch();
-    },
+    }
   },
   created() {
     this.fetch();
-  },
+  }
 };
 </script>
 
