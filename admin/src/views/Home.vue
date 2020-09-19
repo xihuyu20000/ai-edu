@@ -107,6 +107,7 @@ export default {
   },
   created() {
     this.activeMenu(sessionStorage.getItem("curr_menu"));
+    console.log(this.$config.title);
   },
 };
 </script>

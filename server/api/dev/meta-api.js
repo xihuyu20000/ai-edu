@@ -21,7 +21,6 @@ module.exports = (app) => {
         createTitle: "创建角色",
         editTitle: "修改角色",
       };
-
       queryFields = [
         {
           style: "textline",
@@ -38,6 +37,15 @@ module.exports = (app) => {
           sortable: true,
         },
       ];
+      formFields = [
+        {
+          style: "textline",
+          label: "岗位名称",
+          field: "label",
+          tip: "岗位名称",
+          width: "120px",
+        },
+      ];
     }
 
     h.ok(res, {
@@ -45,6 +53,7 @@ module.exports = (app) => {
         config,
         queryFields,
         tableFields,
+        formFields,
       },
     });
   });

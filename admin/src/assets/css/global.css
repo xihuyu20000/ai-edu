@@ -1,5 +1,10 @@
-html,body{
-    padding:0;
-    margin:0;
-    background-color: #eee;
+html,
+body {
+  padding: 0;
+  margin: 0;
+  background-color: #eee;
+}
+.el-popconfirm {
+  padding-left: 15px;
+  padding-right: 15px;
 }

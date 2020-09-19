@@ -1,13 +1,18 @@
 <template>
   <el-dialog
-    :title="title"
+    :title="config.createTitle"
     :visible.sync="dialogFormVisible"
     @open="open"
     @close="close"
   >
     <el-form :model="formData" ref="createForm">
-      <el-form-item label="角色名称" label-width="100px">
-        <el-input v-model="formData.label" autocomplete="off"></el-input>
+      <el-form-item
+        v-for="(field, index) in formFields"
+        :label="field.label"
+        :label-width="field.width"
+        :key="index"
+      >
+        <el-input v-model="formData[field.field]" autocomplete="off"></el-input>
       </el-form-item>
     </el-form>
     <div slot="footer" class="dialog-footer">
@@ -18,18 +23,26 @@
 </template>
 
 <script>
+import bus from "./bus";
 export default {
   props: {
-    isnew: { type: Boolean, default: false },
-    url: { type: String, required: true },
-    title: { type: String, required: true },
-    formData: { type: Object, required: true },
+    config: {
+      type: Object,
+      required: true,
+      default: function() {
+        return { url: "", createTitle: "", editTitle: "" };
+      },
+    },
+    formFields: { type: Array },
   },
   data() {
     return {
+      title: "",
       dialogFormVisible: false,
+      formData: { type: Object, required: true },
     };
   },
+  watch: {},
   methods: {
     open() {
       console.log("open");
@@ -48,11 +61,14 @@ export default {
     async save() {
       let resp;
       if (this.isnew) {
-        const { data: _resp } = await this.$http.post(this.url, this.formData);
+        const { data: _resp } = await this.$http.post(
+          this.config.url,
+          this.formData
+        );
         resp = _resp;
       } else {
         const { data: _resp } = await this.$http.put(
-          this.url + "/" + this.formData._id,
+          this.config.url + "/" + this.formData._id,
           this.formData
         );
         resp = _resp;
@@ -62,6 +78,9 @@ export default {
       this.$parent.fetch();
       this.close();
     },
+  },
+  mounted() {
+    bus.$on(bus.showCreateDialog, () => (this.dialogFormVisible = true));
   },
   // beforeRouteEnter(to, from, next) {
   //   console.log("beforeRouteEnter");

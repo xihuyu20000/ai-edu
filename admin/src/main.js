@@ -11,6 +11,8 @@ import "@/plugins/axios.js";
 
 Vue.config.productionTip = false;
 
+import "./config";
+
 Vue.prototype.$ser = function(obj) {
   var str = [];
   for (var p in obj)
@@ -23,5 +25,5 @@ Vue.prototype.$ser = function(obj) {
 new Vue({
   router,
   store,
-  render: h => h(App)
+  render: (h) => h(App),
 }).$mount("#app");
