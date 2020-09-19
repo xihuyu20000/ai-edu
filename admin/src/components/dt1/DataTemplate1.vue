@@ -5,7 +5,10 @@
       :queryFields="queryFields"
       :tableFields="tableFields"
       ref="dataTable"
-    ></common-table>
+      v-slot="scope"
+    >
+      <el-button>{{ scope.row }}</el-button>
+    </common-table>
     <create-form
       :config="config"
       :formFields="formFields"

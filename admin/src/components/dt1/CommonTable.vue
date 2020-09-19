@@ -45,6 +45,7 @@
             >
               <el-button type="danger" slot="reference">删除</el-button>
             </el-popconfirm>
+            <slot :row="scope.row"></slot>
           </template>
         </el-table-column>
       </el-table>
