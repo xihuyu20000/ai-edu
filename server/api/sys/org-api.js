@@ -2,7 +2,7 @@ module.exports = (app) => {
   const express = require("express");
   const router = express.Router();
   const { Org } = require("../../models/sys/org-model");
-  const h = require("./api-helper");
+  const h = require("../api-helper");
 
   /**
    * @swagger

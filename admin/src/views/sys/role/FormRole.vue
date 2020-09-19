@@ -11,7 +11,7 @@
       </el-form-item>
     </el-form>
     <div slot="footer" class="dialog-footer">
-      <el-button @click="reset">取 消</el-button>
+      <el-button @click="close">取 消</el-button>
       <el-button type="primary" @click="save">确 定</el-button>
     </div>
   </el-dialog>
@@ -23,11 +23,11 @@ export default {
     isnew: { type: Boolean, default: false },
     url: { type: String, required: true },
     title: { type: String, required: true },
-    formData: { type: Object, required: true }
+    formData: { type: Object, required: true },
   },
   data() {
     return {
-      dialogFormVisible: false
+      dialogFormVisible: false,
     };
   },
   methods: {
@@ -61,8 +61,8 @@ export default {
       if (resp.status != 200) return this.$message.error(resp.msg);
       this.$parent.fetch();
       this.close();
-    }
-  }
+    },
+  },
   // beforeRouteEnter(to, from, next) {
   //   console.log("beforeRouteEnter");
   //   next();

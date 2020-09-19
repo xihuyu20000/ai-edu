@@ -1,5 +1,5 @@
 module.exports = (app) => {
-  const h = require("./api-helper");
+  const h = require("../api-helper");
   const { Res } = require("../../models/sys/res-model");
   const express = require("express");
   const router = express.Router();

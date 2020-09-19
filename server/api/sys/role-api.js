@@ -2,7 +2,24 @@ module.exports = (app) => {
   const { Role } = require("../../models/sys/role-model");
   const express = require("express");
   const router = express.Router();
-  const h = require("./api-helper");
+  const h = require("../api-helper");
+
+  /**
+   * @swagger
+   * /api/role/meta 元数据:
+   *  get:
+   *    tags:
+   *     - sys/role
+   */
+  router.get("/meta", async (req, res) => {
+    h.ok(res, {
+      data: {
+        baseUrl: "",
+        queryFields: [],
+        tableFields: [],
+      },
+    });
+  });
 
   /**
    * @swagger

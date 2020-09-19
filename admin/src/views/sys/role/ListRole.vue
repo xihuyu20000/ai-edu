@@ -2,8 +2,12 @@
   <div class="data-container">
     <div class="query-box">
       <el-form :inline="true" :model="queryForm" class="query-form-inline">
-        <el-form-item>
-          <el-input v-model="queryForm.label" placeholder="岗位名称"></el-input>
+        <el-form-item v-for="(field, index) in queryFields" :key="index">
+          <el-input
+            v-if="field.style == 'textline'"
+            v-model="queryForm[field.field]"
+            :placeholder="field.label"
+          ></el-input>
         </el-form-item>
         <el-form-item>
           <el-button
@@ -21,7 +25,14 @@
     <div class="data-box">
       <el-table :data="tableData">
         <el-table-column type="selection" width="55"> </el-table-column>
-        <el-table-column label="名称" prop="label" width="120">
+        <el-table-column
+          v-for="(field, index) in tableFields"
+          :key="index"
+          :label="field.label"
+          :prop="field.field"
+          :width="field.width"
+          :sortable="field.sortable"
+        >
         </el-table-column>
         <el-table-column label="操作">
           <template slot-scope="scope">
@@ -40,16 +51,16 @@
     </div>
     <form-role
       :isnew="true"
-      ref="createDialog"
-      :url="url"
-      title="创建角色"
+      :url="config.url"
+      :title="config.createTitle"
       :formData="editData"
+      ref="createDialog"
     ></form-role>
     <form-role
-      ref="editDialog"
-      :url="url"
-      title="修改角色"
+      :url="config.url"
+      :title="config.editTitle"
       :formData="editData"
+      ref="editDialog"
     ></form-role>
   </div>
 </template>
@@ -59,19 +70,26 @@ import FormRole from "@/views/sys/role/FormRole.vue";
 export default {
   data() {
     return {
-      url: "/role",
+      config: { url: "", createTitle: "", editTitle: "" },
+      queryFields: [],
+      tableFields: [],
       queryForm: {},
       tableData: [],
-      editData: {}
+      editData: {},
     };
   },
   methods: {
     async fetch() {
+      const { data: resp } = await this.$http.get("/meta/table/100");
+      this.config = resp.data.config;
+      this.queryFields = resp.data.queryFields;
+      this.tableFields = resp.data.tableFields;
+      console.log("元数据", resp.data);
       this.handleQueryForm();
     },
     async handleQueryForm() {
       const { data: resp } = await this.$http(
-        this.url + "?" + this.$ser(this.queryForm)
+        this.config.url + "?" + this.$ser(this.queryForm)
       );
       console.log("查询结果", resp);
       this.tableData = resp.data;
@@ -84,17 +102,19 @@ export default {
       this.$refs["editDialog"].show();
     },
     async handleDelete(index, row) {
-      const { data: resp } = await this.$http.delete(this.url + "/" + row._id);
+      const { data: resp } = await this.$http.delete(
+        this.config.url + "/" + row._id
+      );
       resp.msg
         ? this.$message.success("删除成功")
         : this.$message.error("删除失败");
       this.fetch();
-    }
+    },
   },
   created() {
     this.fetch();
   },
-  components: { FormRole }
+  components: { FormRole },
 };
 </script>
 

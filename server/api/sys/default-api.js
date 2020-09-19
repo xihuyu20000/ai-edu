@@ -5,7 +5,7 @@ module.exports = (app) => {
   const { Res } = require("../../models/sys/res-model");
   const { Org } = require("../../models/sys/org-model");
   const { Role } = require("../../models/sys/role-model");
-  const h = require("./api-helper");
+  const h = require("../api-helper");
   const express = require("express");
   const router = express.Router();
 
