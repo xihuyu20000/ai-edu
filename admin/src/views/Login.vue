@@ -1,37 +1,39 @@
 <template>
   <div class="login-container">
-    <el-form
-      :model="loginForm"
-      status-icon
-      :rules="rules"
-      ref="loginForm"
-      label-width="0px"
-      class="login-form"
-    >
-      <el-form-item prop="username">
-        <el-input
-          prefix-icon="iconfont aliuser"
-          v-model="loginForm.username"
-          placeholder="用户名"
-          autocomplete="off"
-        ></el-input>
-      </el-form-item>
-      <el-form-item prop="password">
-        <el-input
-          prefix-icon="iconfont alilock"
-          type="password"
-          v-model="loginForm.password"
-          placeholder="密码"
-          autocomplete="off"
-        ></el-input>
-      </el-form-item>
-      <el-form-item>
-        <el-button type="primary" @click="submitForm('loginForm')"
-          >提交</el-button
-        >
-        <el-button @click="resetForm('loginForm')">重置</el-button>
-      </el-form-item>
-    </el-form>
+    <div class="login-box">
+      <el-form
+        :model="loginForm"
+        status-icon
+        :rules="rules"
+        ref="loginForm"
+        label-width="0px"
+        class="login-form"
+      >
+        <el-form-item prop="username">
+          <el-input
+            prefix-icon="iconfont aliuser"
+            v-model="loginForm.username"
+            placeholder="用户名"
+            autocomplete="off"
+          ></el-input>
+        </el-form-item>
+        <el-form-item prop="password">
+          <el-input
+            prefix-icon="iconfont alilock"
+            type="password"
+            v-model="loginForm.password"
+            placeholder="密码"
+            autocomplete="off"
+          ></el-input>
+        </el-form-item>
+        <el-form-item class="actions">
+          <el-button type="primary" @click="submitForm('loginForm')"
+            >提交</el-button
+          >
+          <el-button @click="resetForm('loginForm')">重置</el-button>
+        </el-form-item>
+      </el-form>
+    </div>
   </div>
 </template>
 
@@ -69,17 +71,30 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.image {
+  height: 100vh;
+}
 .login-container {
-  position: absolute;
-  left: 50%;
-  top: 60%;
-  transform: translate(-50%, -50%);
-  width: 300px;
-  height: 200px;
-  background-color: bisque;
-  border-radius: 10px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  .login-box {
+    height: 100vh;
+    background-color: #eee;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+
+    .el-form {
+      width: 300px;
+      height: 150px;
+      padding: 20px;
+      background-color: bisque;
+      border-radius: 10px;
+
+      .actions {
+        display: flex;
+        justify-content: space-evenly;
+      }
+    }
+  }
 }
 </style>
