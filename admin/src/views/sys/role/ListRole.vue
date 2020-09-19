@@ -38,18 +38,31 @@
         </el-table-column>
       </el-table>
     </div>
-    <create-role ref="createDialog" title="创建角色"></create-role>
+    <form-role
+      :isnew="true"
+      ref="createDialog"
+      :url="url"
+      title="创建角色"
+      :formData="editData"
+    ></form-role>
+    <form-role
+      ref="editDialog"
+      :url="url"
+      title="修改角色"
+      :formData="editData"
+    ></form-role>
   </div>
 </template>
 
 <script>
-import CreateRole from "@/views/sys/role/CreateRole.vue";
+import FormRole from "@/views/sys/role/FormRole.vue";
 export default {
   data() {
     return {
       url: "/role",
       queryForm: {},
       tableData: [],
+      editData: {},
     };
   },
   methods: {
@@ -66,6 +79,10 @@ export default {
     async toCreate() {
       this.$refs["createDialog"].show();
     },
+    async handleEdit(index, row) {
+      this.editData = row;
+      this.$refs["editDialog"].show();
+    },
     async handleDelete(index, row) {
       const { data: resp } = await this.$http.delete(this.url + "/" + row._id);
       resp.msg
@@ -77,7 +94,7 @@ export default {
   created() {
     this.fetch();
   },
-  components: { CreateRole },
+  components: { FormRole },
 };
 </script>
 

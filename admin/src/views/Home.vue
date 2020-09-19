@@ -2,7 +2,9 @@
   <el-container style="height: 100vh;">
     <el-header style="text-align: right; font-size: 12px">
       <div class="left-header">
-        xxx管理系统
+        <div class="big-title">
+          <span class="toggle" @click="toggle">|||</span>管理系统
+        </div>
       </div>
       <div class="right-header">
         <el-dropdown trigger="click">
@@ -25,8 +27,17 @@
       </div>
     </el-header>
     <el-container>
-      <el-aside width="200px" style="background-color: rgb(238, 241, 246)">
-        <el-menu router :default-active="defaultActive" :unique-opened="true">
+      <el-aside
+        :width="collapsed ? '64px' : '200px'"
+        style="background-color: rgb(238, 241, 246)"
+      >
+        <el-menu
+          router
+          :default-active="defaultActive"
+          :unique-opened="true"
+          :collapse="collapsed"
+          :collapse-transition="false"
+        >
           <el-submenu
             :index="menu1._id"
             v-for="menu1 of menuTree"
@@ -61,6 +72,7 @@
 export default {
   data() {
     return {
+      collapsed: false,
       defaultActive: "",
       menuTree: [],
     };
@@ -70,6 +82,10 @@ export default {
       const { data: resp } = await this.$http.get("/navs");
       this.menuTree = resp.data;
       console.log("导航菜单", this.menuTree);
+    },
+    toggle() {
+      this.collapsed = !this.collapsed;
+      console.log("点击toggle");
     },
     chpwd() {
       this.$message.success("修改密码");
@@ -98,6 +114,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.toggle {
+  width: 150px;
+}
 .el-header {
   background-color: #b3c0d1;
   color: #333;

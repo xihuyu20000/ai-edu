@@ -42,8 +42,8 @@ export default {
   data() {
     return {
       loginForm: {
-        username: "",
-        password: "",
+        username: "root",
+        password: "admin",
       },
       rules: {
         username: [
@@ -61,6 +61,7 @@ export default {
         if (resp.status == 400) return this.$message.error(resp.msg);
         window.sessionStorage.setItem("token", resp.token);
         this.$router.push("/");
+        this.$message.success("登录成功");
       });
     },
     resetForm(formName) {
