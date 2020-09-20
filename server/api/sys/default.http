@@ -12,9 +12,11 @@ post {{url}}/register
 {{json}}
 
 {
+    "realname":"user1",
     "username":"usre1",
-    "password":"123456",
-    "style":"staff"
+    "password":"admin",
+    "style":"0100",
+    "status":"在岗"
 }
 
 
@@ -29,12 +31,12 @@ post {{url}}/login
 
 ### 刷新token
 get {{url}}/token
-Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVmNjMwOTgzZWQ1ZjAxNDUwYzM2YjgxNyIsImlhdCI6MTYwMDM1NzQwNywiZXhwIjoxNjAwMzYxMDA3fQ.pRAjCo5bmQOB5uzPli7_r_yPUH3U-V4yaOQmRaeZHVo
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVmNjZjNTQyNDMxM2M4NTJmODhhZDkzMCIsImlhdCI6MTYwMDU3ODA3OCwiZXhwIjoxNjAwNTgxNjc4fQ.GmTWcq0TfJy_aFhAC8F6qW35CcRqC6xtJ3agmQQXBC4
 
 
 ### 导航菜单
 get {{url}}/navs
-Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVmNjMwOTgzZWQ1ZjAxNDUwYzM2YjgxNyIsImlhdCI6MTYwMDM1NzQwNywiZXhwIjoxNjAwMzYxMDA3fQ.pRAjCo5bmQOB5uzPli7_r_yPUH3U-V4yaOQmRaeZHVo
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVmNjZjNTQyNDMxM2M4NTJmODhhZDkzMCIsImlhdCI6MTYwMDU3ODA3OCwiZXhwIjoxNjAwNTgxNjc4fQ.GmTWcq0TfJy_aFhAC8F6qW35CcRqC6xtJ3agmQQXBC4
 
 
 ### 初始化

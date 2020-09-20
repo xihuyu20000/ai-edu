@@ -1,3 +1,5 @@
+const { query, exec, create, find, findOne } = require("../db/mysql");
+
 function ok(res, obj) {
   const result = { status: 200, msg: "", data: [] };
   Object.assign(result, obj);
@@ -34,4 +36,4 @@ function resTree(resArr) {
   return menu1;
 }
 
-module.exports = { ok, fail, resTree };
+module.exports = { query, exec, create, find, findOne, ok, fail, resTree };
