@@ -12,6 +12,7 @@ import "@/plugins/axios.js";
 Vue.config.productionTip = false;
 
 import "./config";
+import "./components/_globals";
 
 Vue.prototype.$ser = function(obj) {
   var str = [];

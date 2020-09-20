@@ -24,9 +24,6 @@
 </template>
 
 <script>
-import CommonTable from "@/components/dt1/CommonTable.vue";
-import CreateForm from "@/components/dt1/CreateForm.vue";
-import EditForm from "@/components/dt1/EditForm.vue";
 export default {
   props: {
     data: {
@@ -55,7 +52,6 @@ export default {
   },
   methods: {},
   created() {},
-  components: { CreateForm, EditForm, CommonTable },
 };
 </script>
 

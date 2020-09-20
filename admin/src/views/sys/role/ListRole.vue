@@ -3,7 +3,7 @@
 </template>
 
 <script>
-import DataTemplate1 from "@/components/dt1/DataTemplate1.vue";
+import DataTemplate1 from "@/components/DataTemplate1.vue";
 export default {
   data() {
     return {
