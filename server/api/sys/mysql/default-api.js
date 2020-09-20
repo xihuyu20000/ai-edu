@@ -184,23 +184,23 @@ module.exports = (app) => {
     // 3 初始化组织机构
     h.exec("truncate table sys_org");
     const sys_org_sql = [
-      "insert into `sys_org` (`id`, `pid`, `name`, `admin`, `contact`, `showOrder`) values('1','0','集团公司',NULL,NULL,'1');               ",
-      "insert into `sys_org` (`id`, `pid`, `name`, `admin`, `contact`, `showOrder`) values('2','1','北京教育科技发展公司',NULL,NULL,'1');   ",
-      "insert into `sys_org` (`id`, `pid`, `name`, `admin`, `contact`, `showOrder`) values('3','1','北京软件开发公司',NULL,NULL,'2');       ",
-      "insert into `sys_org` (`id`, `pid`, `name`, `admin`, `contact`, `showOrder`) values('4','1','河南分公司',NULL,NULL,'3');             ",
-      "insert into `sys_org` (`id`, `pid`, `name`, `admin`, `contact`, `showOrder`) values('5','2','开发部',NULL,NULL,'1');                 ",
-      "insert into `sys_org` (`id`, `pid`, `name`, `admin`, `contact`, `showOrder`) values('6','2','市场部',NULL,NULL,'2');                 ",
-      "insert into `sys_org` (`id`, `pid`, `name`, `admin`, `contact`, `showOrder`) values('7','2','财务部',NULL,NULL,'3');                 ",
+      "insert into `sys_org` (`id`, `pid`, `label`, `manager`, `contact`, `showOrder`) values('1','0','集团公司',NULL,NULL,'1');               ",
+      "insert into `sys_org` (`id`, `pid`, `label`, `manager`, `contact`, `showOrder`) values('2','1','北京教育科技发展公司',NULL,NULL,'1');   ",
+      "insert into `sys_org` (`id`, `pid`, `label`, `manager`, `contact`, `showOrder`) values('3','1','北京软件开发公司',NULL,NULL,'2');       ",
+      "insert into `sys_org` (`id`, `pid`, `label`, `manager`, `contact`, `showOrder`) values('4','1','河南分公司',NULL,NULL,'3');             ",
+      "insert into `sys_org` (`id`, `pid`, `label`, `manager`, `contact`, `showOrder`) values('5','2','开发部',NULL,NULL,'1');                 ",
+      "insert into `sys_org` (`id`, `pid`, `label`, `manager`, `contact`, `showOrder`) values('6','2','市场部',NULL,NULL,'2');                 ",
+      "insert into `sys_org` (`id`, `pid`, `label`, `manager`, `contact`, `showOrder`) values('7','2','财务部',NULL,NULL,'3');                 ",
     ];
     h.exec(sys_org_sql);
 
     // 4 初始化角色
     h.exec("truncate table sys_role");
     const sys_role_sql = [
-      "insert into `sys_role` (`id`, `name`) values('1','管理员');      ",
-      "insert into `sys_role` (`id`, `name`) values('2','讲师');        ",
-      "insert into `sys_role` (`id`, `name`) values('3','财务-出纳');   ",
-      "insert into `sys_role` (`id`, `name`) values('4','财务-会计');   ",
+      "insert into `sys_role` (`id`, `label`) values('1','管理员');      ",
+      "insert into `sys_role` (`id`, `label`) values('2','讲师');        ",
+      "insert into `sys_role` (`id`, `label`) values('3','财务-出纳');   ",
+      "insert into `sys_role` (`id`, `label`) values('4','财务-会计');   ",
     ];
     h.exec(sys_role_sql);
     h.ok(res, { msg: "初始化所有数据" });

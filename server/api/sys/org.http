@@ -5,10 +5,10 @@
 get {{url}}
 
 ### 显示
-get {{url}}/5f630984ed5f01450c36b819
+get {{url}}/1
 
 ### 修改
-put {{url}}/5f630984ed5f01450c36b819
+put {{url}}/1
 {{json}}
 
 {
@@ -21,8 +21,8 @@ post {{url}}
 
 {
     "label":"西安分公司",
-    "pid":"5f630984ed5f01450c36b819"
+    "pid":"1"
 }
 
 ### 删除
-delete {{url}}/5f630facd0de294c1cc6844f
+delete {{url}}/8

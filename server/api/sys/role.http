@@ -1,26 +1,20 @@
 @url = http://localhost:33333/api/role
 @json = Content-Type: application/json
 
-### 测试
-get {{url}}/test
 
 ### 列表
 get {{url}}
-{{json}}
 
-{
-    "label":"107"
-}
 
 ### 查找
-get {{url}}/5f63125225c7dd3f2c89e6d0
+get {{url}}/1
 
 ### 修改
-put {{url}}/5f63125225c7dd3f2c89e6d0
+put {{url}}/2
 {{json}}
 
 {
-    "icon":"aaaa"
+    "label":"讲师123345"
 }
 
 ### 新增
@@ -32,4 +26,4 @@ post {{url}}
 }
 
 ### 删除
-delete {{url}}/5f63162e9bf25d31c8b41c3f
+delete {{url}}/14

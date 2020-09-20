@@ -3,14 +3,14 @@ module.exports = (app) => {
   const router = express.Router();
   const h = require("../../api-helper");
 
-  const T_ROLE = "sys_role";
+  const T_ORG = "sys_org";
 
   /**
    * @swagger
-   * /api/role/ 列表:
+   * /api/org/  列表:
    *  get:
    *    tags:
-   *      - sys/role
+   *      - sys/org
    */
   router.get("/", async (req, res) => {
     let params = "";
@@ -22,60 +22,61 @@ module.exports = (app) => {
       };
     }
 
-    const all = await h.find(T_ROLE, "*", params);
-    h.ok(res, { data: all });
+    const all = await h.find(T_ORG, "*", params);
+    const tree = h.tree(all);
+    console.log("机构树", tree);
+    h.ok(res, { data: tree });
   });
 
   /**
    * @swagger
-   * /api/role/:id  查找:
+   * /api/org/:id  查找:
    *  get:
-   *    tags:
-   *      - sys/role
+   *   tags:
+   *     - sys/org
    */
   router.get("/:id", async (req, res) => {
-    const role = await h.findOne(T_ROLE, "*", { id: req.params.id });
-    h.ok(res, { data: role });
+    const org = await h.findOne(T_ORG, "*", { id: req.params.id });
+    h.ok(res, { data: org });
   });
 
   /**
    * @swagger
-   * /api/role/:id  修改:
+   * /api/org/:id  修改:
    *  put:
-   *    tags:
-   *      - sys/role
+   *   tags:
+   *     - sys/org
    */
   router.put("/:id", async (req, res) => {
-    const id = await h.update(T_ROLE, req.body, { id: req.params.id });
-    h.ok(res, { data: id });
+    const org = await h.update(T_ORG, req.body, { id: req.params.id });
+    h.ok(res, { data: org });
   });
 
   /**
    * @swagger
-   * /api/role/  创建:
+   * /api/org/  创建:
    *  post:
    *    tags:
-   *      - sys/role
+   *      - sys/org
    */
   router.post("/", async (req, res) => {
-    if (await h.findOne(T_ROLE, "*", { label: req.body.label })) {
+    if (await h.findOne(T_ORG, "*", { label: req.body.label })) {
       return h.fail(res, { msg: "名称已经存在" });
     }
-    const id = await h.create(T_ROLE, req.body);
+    const id = await h.create(T_ORG, req.body);
     h.ok(res, { data: id });
   });
 
   /**
    * @swagger
-   * /api/role/:id  删除:
+   * /api/org/:id  删除:
    *  delete:
-   *    tags:
-   *      - sys/role
+   *     tags:
+   *      - sys/org
    */
   router.delete("/:id", async (req, res) => {
-    const id = await h.remove(T_ROLE, { id: req.params.id });
+    const id = await h.remove(T_ORG, { id: req.params.id });
     h.ok(res, { data: id });
   });
-
-  app.use("/api/role", router);
+  app.use("/api/org", router);
 };

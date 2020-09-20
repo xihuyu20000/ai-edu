@@ -87,6 +87,84 @@ async function create(table, values) {
   return results.insertId;
 }
 /**
+ * 修改
+ *
+ * const tableName = 'my_table';
+ * const values = {name: 'bruce'};
+ * const where = {id: 1};
+ *
+ * @param {string} table
+ * @param {Object} values
+ * @param {Object} where
+ * @return {Promise<*>}
+ */
+async function update(table, values, where) {
+  let sql = `update ${table} set `;
+  // 转 values 为 sql
+  let keys,
+    vals,
+    args = [];
+  keys = Object.keys(values);
+  vals = Object.values(values);
+  if (keys && keys.length > 0 && vals && vals.length > 0) {
+    sql += " " + keys.join(" = ? , ") + " = ?";
+    args = [...vals];
+  }
+  // 转 where 为 sql
+  keys = Object.keys(where);
+  vals = Object.values(where);
+  if (keys && keys.length > 0 && vals && vals.length > 0) {
+    sql += " where " + keys.join(" = ? and ") + " = ?";
+    args = [...args, ...vals];
+  }
+  let results = await exec(sql, args);
+  return results.affectedRows;
+}
+/**
+ * 新增或修改
+ *
+ * const tableName = 'my_table';
+ * const values = {name: 'bruce', age: 28};
+ *
+ * @param table 表名
+ * @param values
+ * @return {Promise<*|number>}
+ */
+async function replace(table, values) {
+  let sql = `replace into ${table} set ?`;
+  let results = await exec(sql, values);
+  return results.insertId;
+}
+
+/**
+ * 删除
+ *
+ * const tableName = 'my_table'
+ * const where = {id: 1};
+ *
+ * @param {string} table
+ * @param {Object} [where]
+ * @param {Number} [limit]
+ * @return {Promise<*>}
+ */
+async function remove(table, where, limit) {
+  let sql = `delete from ${table}`;
+  let args = [];
+  if (where) {
+    let keys = Object.keys(where);
+    let vals = Object.values(where);
+    if (keys && keys.length > 0 && vals && vals.length > 0) {
+      sql += " where " + keys.join(" = ? and ") + " = ?";
+      args = [...vals];
+    }
+  }
+  if (limit) {
+    sql += ` limit ${limit}`;
+  }
+  let results = await exec(sql, args);
+  return results.affectedRows;
+}
+/**
  * 查询
  *
  * // 第1种，promise 写法
@@ -121,7 +199,6 @@ async function create(table, values) {
 async function find(table, fields, where, limit) {
   if (!fields) fields = ["*"];
   if (typeof fields === "string") fields = [fields];
-
   let fieldsStr = fields.join(", ");
   let sql = `select ${fieldsStr} from ${table}`;
   // condition 和 condArgs 可能为空数组
@@ -168,4 +245,13 @@ async function findOne(table, fields, where) {
   return result[0];
 }
 
-module.exports = { query, exec, create, find, findOne };
+module.exports = {
+  query,
+  exec,
+  create,
+  update,
+  replace,
+  remove,
+  find,
+  findOne,
+};
