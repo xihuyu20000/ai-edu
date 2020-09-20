@@ -1,8 +1,8 @@
 module.exports = (app) => {
-  const { Role } = require("../../models/sys/role-model");
   const express = require("express");
   const router = express.Router();
-  const h = require("../api-helper");
+  const h = require("../../api-helper");
+  const { Role } = require("../../../models/sys/role-model");
 
   /**
    * @swagger

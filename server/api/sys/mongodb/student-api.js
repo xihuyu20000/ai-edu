@@ -1,8 +1,8 @@
 module.exports = (app) => {
-  const { User } = require("../../models/sys/user-model");
   const express = require("express");
   const router = express.Router();
-  const h = require("../api-helper");
+  const h = require("../../api-helper");
+  const { User } = require("../../../models/sys/user-model");
 
   /**
    * @swagger

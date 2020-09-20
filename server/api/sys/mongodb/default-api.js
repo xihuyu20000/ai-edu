@@ -1,11 +1,11 @@
 module.exports = (app) => {
   const bcrypt = require("bcrypt");
   const jwt = require("jsonwebtoken");
-  const { User } = require("../../models/sys/user-model");
-  const { Res } = require("../../models/sys/res-model");
-  const { Org } = require("../../models/sys/org-model");
-  const { Role } = require("../../models/sys/role-model");
-  const h = require("../api-helper");
+  const h = require("../../api-helper");
+  const { User } = require("../../../models/sys/user-model");
+  const { Res } = require("../../../models/sys/res-model");
+  const { Org } = require("../../../models/sys/org-model");
+  const { Role } = require("../../../models/sys/role-model");
   const express = require("express");
   const router = express.Router();
 
