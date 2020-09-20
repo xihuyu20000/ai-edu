@@ -88,13 +88,22 @@ export default {
     },
     async handleDelete(index, row) {
       const { data: resp } = await this.$http.delete(
-        this.config.url + "/" + row._id
+        this.config.url + "/" + row.id
       );
-      resp.msg
-        ? this.$message.success("删除成功")
-        : this.$message.error("删除失败");
-      this.fetch();
+      console.log("删除", resp);
+      if (resp.data == 1) {
+        this.$message.success("删除成功");
+        this.handleQueryForm(this.config.url);
+      } else {
+        this.$message.error("删除失败");
+      }
     },
+  },
+  mounted() {
+    bus.$on(bus.query, () => {
+      console.log("执行查询");
+      this.handleQueryForm(this.config.url);
+    });
   },
 };
 </script>

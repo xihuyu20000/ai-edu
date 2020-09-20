@@ -61,7 +61,9 @@ module.exports = (app) => {
     if (await h.findOne(T_ROLE, "*", { label: req.body.label })) {
       return h.fail(res, { msg: "名称已经存在" });
     }
-    const id = await h.create(T_ROLE, req.body);
+    const id = await h.create(T_ROLE, {
+      label: req.body.label,
+    });
     h.ok(res, { data: id });
   });
 

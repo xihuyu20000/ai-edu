@@ -36,7 +36,7 @@ Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVmNjZjNTQyNDMxM2M4
 
 ### 导航菜单
 get {{url}}/navs
-Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVmNjZjNTQyNDMxM2M4NTJmODhhZDkzMCIsImlhdCI6MTYwMDU3ODA3OCwiZXhwIjoxNjAwNTgxNjc4fQ.GmTWcq0TfJy_aFhAC8F6qW35CcRqC6xtJ3agmQQXBC4
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjAwNTg1OTE1LCJleHAiOjE2MDA1ODk1MTV9.cq45y14f0UstpkF_Jmp-ciAdHZNBZrqKpm_d2tIVcog
 
 
 ### 初始化

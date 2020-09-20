@@ -39,23 +39,23 @@
           :collapse-transition="false"
         >
           <el-submenu
-            :index="menu1._id"
+            :index="menu1.id + ''"
             v-for="menu1 of menuTree"
-            :key="menu1._id"
+            :key="menu1.id"
           >
             <template slot="title"
               ><i :class="menu1.icon"></i>{{ menu1.label }}</template
             >
             <el-submenu
-              :index="menu2._id"
+              :index="menu2.id + ''"
               v-for="menu2 of menu1.children"
-              :key="menu2._id"
+              :key="menu2.id"
             >
               <template slot="title">{{ menu2.label }}</template>
               <el-menu-item
                 :index="menu3.path"
                 v-for="menu3 of menu2.children"
-                :key="menu3._id"
+                :key="menu3.id"
                 @click="selectMenu(menu3)"
                 >{{ menu3.label }}</el-menu-item
               >

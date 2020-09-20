@@ -58,23 +58,13 @@ export default {
       this.$refs["createForm"].resetFields();
     },
     async save() {
-      let resp;
-      if (this.isnew) {
-        const { data: _resp } = await this.$http.post(
-          this.config.url,
-          this.formData
-        );
-        resp = _resp;
-      } else {
-        const { data: _resp } = await this.$http.put(
-          this.config.url + "/" + this.formData._id,
-          this.formData
-        );
-        resp = _resp;
-      }
+      const { data: resp } = await this.$http.put(
+        this.config.url + "/" + this.formData.id,
+        this.formData
+      );
 
       if (resp.status != 200) return this.$message.error(resp.msg);
-      this.$parent.fetch();
+      this.$emit(bus.query);
       this.close();
     },
   },

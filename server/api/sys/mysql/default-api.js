@@ -121,8 +121,8 @@ module.exports = (app) => {
    *      - sys/default
    */
   router.get("/navs", auth, async (req, res) => {
-    const all = h.find("sys_res", "*");
-    const tree = h.resTree(all);
+    const all = await h.find("sys_res", "*");
+    const tree = h.tree(all);
     h.ok(res, { data: tree });
   });
 
