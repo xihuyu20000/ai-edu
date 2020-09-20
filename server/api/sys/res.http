@@ -15,14 +15,14 @@ get {{url}}
 
 
 ### 显示
-get {{url}}/5f62e92d731aed26f835f92a
+get {{url}}/2
 
 ### 修改
-put {{url}}/5f62e92d731aed26f835f92a
+put {{url}}/2
 {{json}}
 
 {
-    "label":"基础设置"
+    "label":"教务设置"
 }
 
 ### 新建
@@ -31,8 +31,8 @@ post {{url}}
 
 {
     "label":"测试1122",
-    "pid":"5f62ec98b3c5f44420cb8e10"
+    "pid":"1"
 }
 
 ### 删除
-delete {{url}}/5f62ebf6683c084b68462488
+delete {{url}}/1042

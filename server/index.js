@@ -11,7 +11,7 @@ require("./api/dev/mongodb/meta-api")(app);
 require("./api/sys/mysql/default-api")(app);
 require("./api/sys/mysql/org-api")(app);
 require("./api/sys/mysql/role-api")(app);
-require("./api/sys/mongodb/res-api")(app);
+require("./api/sys/mysql/res-api")(app);
 require("./api/sys/mongodb/staff-api")(app);
 require("./api/sys/mongodb/student-api")(app);
 
