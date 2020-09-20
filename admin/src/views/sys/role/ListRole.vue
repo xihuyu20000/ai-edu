@@ -1,9 +1,8 @@
 <template>
-  <data-template1 :data="data"></data-template1>
+  <dt1 :data="data"></dt1>
 </template>
 
 <script>
-import DataTemplate1 from "@/components/DataTemplate1.vue";
 export default {
   data() {
     return {
@@ -19,7 +18,6 @@ export default {
   created() {
     this.fetch();
   },
-  components: { DataTemplate1 },
 };
 </script>
 
