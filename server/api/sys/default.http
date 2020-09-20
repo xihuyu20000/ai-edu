@@ -15,7 +15,7 @@ post {{url}}/register
     "realname":"user1",
     "username":"usre1",
     "password":"admin",
-    "style":"0100",
+    "style":"staff",
     "status":"在岗"
 }
 

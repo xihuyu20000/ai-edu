@@ -8,6 +8,8 @@ module.exports = (app) => {
   // token密钥
   const TOKEN_KEY = "2f.-Alkl3w20LKLS)A09S()(*";
 
+  const T_USER = "sys_user";
+
   // 验证token中间件
   const auth = (req, res, next) => {
     const token = req.headers.authorization;
@@ -49,6 +51,9 @@ module.exports = (app) => {
    *      - sys/default
    */
   router.post("/register", async (req, res) => {
+    if (await h.findOne(T_USER, "*", { username: req.body.username })) {
+      return h.fail(res, { msg: "用户名已经存在" });
+    }
     req.body.password = require("bcrypt").hashSync(req.body.password, 10);
     const user = await h.create("sys_user", req.body);
     h.ok(res, { data: user });
@@ -177,7 +182,7 @@ module.exports = (app) => {
     // 2 初始化用户
     h.exec("truncate table sys_user");
     const sys_user_staff = [
-      "insert into `sys_user` (`id`, `realname`, `username`, `password`, `style`, `canlogin`, `status`) values('1','管理员','root','admin','0100','0','在职')",
+      "insert into `sys_user` (`id`, `realname`, `username`, `password`, `style`, `canlogin`, `status`) values('1','管理员','root','admin','staff','0','在职')",
     ];
     h.exec(sys_user_staff);
 

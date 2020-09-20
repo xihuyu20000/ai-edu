@@ -5,10 +5,10 @@
 get {{url}}
 
 ### 显示
-get {{url}}/5f62f93a123fd24e1438a8e1
+get {{url}}/4
 
 ### 修改
-put {{url}}/5f62f93a123fd24e1438a8e1
+put {{url}}/4
 {{json}}
 
 {"realname":"我是学生"}
@@ -18,10 +18,12 @@ post {{url}}
 {{json}}
 
 {
+    "realname":"student1",
     "username":"student1",
     "password":"student1",
-    "style":"student"
+    "style":"student",
+    "status":"在岗"
 }
 
 ### 删除
-delete {{url}}/5f62fb1c9af3ff423817df69
+delete {{url}}/10
