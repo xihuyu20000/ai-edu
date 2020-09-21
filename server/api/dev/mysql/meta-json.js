@@ -19,6 +19,26 @@ const res = {
       width: "120px",
       sortable: true,
     },
+    {
+      label: "图标",
+      field: "icon",
+      width: "100px",
+    },
+    {
+      label: "打开方式",
+      field: "openStyle",
+      width: "100px",
+    },
+    {
+      label: "资源类型",
+      field: "resStyle",
+      width: "100px",
+    },
+    {
+      label: "访问路径",
+      field: "path",
+      width: "200px",
+    },
   ],
   formFields: [
     {
@@ -31,7 +51,8 @@ const res = {
       rule: [{ required: true, message: "请选择上级资源", trigger: "blur" }],
       options: {
         style: "sql",
-        sql: "SELECT id AS value, label FROM sys_org",
+        sql:
+          "SELECT 0 AS id, '顶级机构' AS label UNION SELECT id, label FROM sys_res ",
         values: new Array(),
       },
     },
