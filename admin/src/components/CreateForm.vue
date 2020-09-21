@@ -13,40 +13,11 @@
         :key="index"
         :prop="field.field"
       >
-        <el-input
-          v-if="field.style == 'textline'"
-          v-model="formData[field.field]"
-          autocomplete="off"
-        ></el-input>
-        <el-input
-          v-if="field.style == 'textarea'"
-          type="textarea"
-          v-model="formData[field.field]"
-        ></el-input>
-        <el-select
-          v-if="field.style == 'selectlist'"
-          v-model="formData[field.field]"
-          :value="field.value"
-          :placeholder="field.tip"
-        >
-          <el-option
-            v-for="item in field.options.values"
-            :key="item.value"
-            :label="item.label"
-            :value="item.value"
-          >
-          </el-option>
-        </el-select>
-        <el-radio-group
-          v-if="field.style == 'radio'"
-          v-model="formData[field.field]"
-        >
-          <el-radio
-            v-for="item in field.options.values"
-            :key="item"
-            :label="item"
-          ></el-radio>
-        </el-radio-group>
+        <form-textline :formData="formData" :field="field" />
+        <form-textarea :formData="formData" :field="field" />
+        <form-select-list :formData="formData" :field="field" />
+        <form-select-tree :formData="formData" :field="field" />
+        <form-radio :formData="formData" :field="field" />
       </el-form-item>
     </el-form>
     <div slot="footer" class="dialog-footer">
@@ -57,24 +28,23 @@
 </template>
 
 <script>
-import bus from "./bus";
 export default {
   props: {
     config: {
       type: Object,
       required: true,
       default: function() {
-        return { url: "", createTitle: "", editTitle: "" };
-      }
+        return { url: "" };
+      },
     },
-    formFields: { type: Array }
+    formFields: { type: Array },
   },
   data() {
     return {
       title: "",
       dialogFormVisible: false,
       formData: { type: Object, required: true },
-      rules: {}
+      rules: {},
     };
   },
   watch: {
@@ -83,7 +53,7 @@ export default {
       newVal.forEach(function(field) {
         _this.rules[field.field] = field.rule;
       });
-    }
+    },
   },
   methods: {
     open() {
@@ -100,25 +70,26 @@ export default {
       this.$refs["form1"].resetFields();
     },
     async save() {
-      this.$refs["form1"].validate(async valid => {
+      this.$refs["form1"].validate(async (valid) => {
         if (!valid) return false;
 
         const { data: resp } = await this.$http.post(
           this.config.url,
           this.formData
         );
-        if (resp.status === 200) {
-          this.$emit(bus.query);
-          this.close();
-        } else {
-          return this.$message.error(resp.msg);
-        }
+        if (resp.status != 200) return this.$message.error(resp.msg);
+        this.$bus.$emit(this.$bus.loadData);
+        this.close();
       });
-    }
+    },
   },
   mounted() {
-    bus.$on(bus.showCreateDialog, () => (this.dialogFormVisible = true));
-  }
+    this.$bus.$on(
+      this.$bus.showCreateDialog,
+      () => (this.dialogFormVisible = true)
+    );
+  },
+
   // beforeRouteEnter(to, from, next) {
   //   console.log("beforeRouteEnter");
   //   next();

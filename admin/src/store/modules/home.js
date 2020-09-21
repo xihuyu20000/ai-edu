@@ -4,13 +4,13 @@ module.exports = {
   getters: {
     menuTree: function(state) {
       return state.menuTree;
-    }
+    },
   },
   mutations: {
     setMenuTree: function(state, data) {
       state.menuTree = data;
-    }
+    },
   },
   actions: {},
-  modules: {}
+  modules: {},
 };

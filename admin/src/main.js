@@ -11,6 +11,7 @@ import "@/plugins/axios.js";
 
 Vue.config.productionTip = false;
 
+import "./bus";
 import "./config";
 import "./components/_globals";
 
@@ -26,5 +27,5 @@ Vue.prototype.$ser = function(obj) {
 new Vue({
   router,
   store,
-  render: h => h(App)
+  render: (h) => h(App),
 }).$mount("#app");

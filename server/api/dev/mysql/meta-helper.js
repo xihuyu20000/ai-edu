@@ -11,6 +11,10 @@ async function getMetaTable(id) {
       formField.options.style == "sql"
     ) {
       formField.options.values = await h.query(formField.options.sql);
+
+      if (formField.style == "selecttree") {
+        formField.options.values = h.tree(formField.options.values);
+      }
     }
   }
   return metaTable;

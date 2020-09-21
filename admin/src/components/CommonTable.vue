@@ -69,7 +69,6 @@
 </template>
 
 <script>
-import bus from "./bus";
 export default {
   props: {
     config: {
@@ -96,10 +95,10 @@ export default {
       this.tableData = resp.data;
     },
     async handleCreate() {
-      bus.$emit(bus.showCreateDialog);
+      this.$bus.$emit(this.$bus.showCreateDialog);
     },
     async handleEdit(index, row) {
-      bus.$emit(bus.showEditDialog, row);
+      this.$bus.$emit(this.$bus.showEditDialog, row);
     },
     async handleDelete(index, row) {
       const { data: resp } = await this.$http.delete(
@@ -115,8 +114,8 @@ export default {
     },
   },
   mounted() {
-    bus.$on(bus.query, () => {
-      console.log("执行查询");
+    this.$bus.$on(this.$bus.loadData, () => {
+      console.log("回调，执行查询");
       this.handleQueryForm(this.config.url);
     });
   },

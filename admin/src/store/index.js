@@ -1,11 +1,11 @@
 import Vue from "vue";
 import Vuex from "vuex";
-import home from "./modules/home";
+import dt1 from "./modules/dt1";
 Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {},
   mutations: {},
   actions: {},
-  modules: { home }
+  modules: { dt1 },
 });

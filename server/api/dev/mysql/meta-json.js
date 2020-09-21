@@ -46,7 +46,7 @@ const org = {
       options: {
         style: "sql",
         sql:
-          "SELECT 0 AS value, '顶级机构' AS label UNION SELECT id, label FROM sys_org ",
+          "SELECT 0 AS id, '顶级机构' AS label UNION SELECT id, label FROM sys_org ",
         values: [],
       },
     },
@@ -128,7 +128,7 @@ const res = {
   ],
   formFields: [
     {
-      style: "selectlist",
+      style: "selecttree",
       label: "上级资源",
       field: "pid",
       value: "",
@@ -137,8 +137,7 @@ const res = {
       rule: [{ required: true, message: "请选择上级资源", trigger: "blur" }],
       options: {
         style: "sql",
-        sql:
-          "SELECT 0 AS value, '顶级机构' AS label UNION SELECT id, label FROM sys_res ",
+        sql: "SELECT id, pid, label FROM sys_res ",
         values: [],
       },
     },

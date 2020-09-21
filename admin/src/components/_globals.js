@@ -8,3 +8,14 @@ Vue.component("common-table", CommonTable);
 Vue.component("create-form", EditForm);
 Vue.component("dt1", DataTemplate1);
 Vue.component("edit-form", CreateForm);
+
+import FormTextline from "./form/FormTextline.vue";
+import FormTextarea from "./form/FormTextarea.vue";
+import FormSelectList from "./form/FormSelectList.vue";
+import FormSelectTree from "./form/FormSelectTree.vue";
+import FormRadio from "./form/FormRadio.vue";
+Vue.component("form-textline", FormTextline);
+Vue.component("form-textarea", FormTextarea);
+Vue.component("form-select-list", FormSelectList);
+Vue.component("form-select-tree", FormSelectTree);
+Vue.component("form-radio", FormRadio);
