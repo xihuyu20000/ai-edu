@@ -13,7 +13,35 @@
         :key="index"
         :prop="field.field"
       >
-        <el-input v-model="formData[field.field]" autocomplete="off"></el-input>
+        <el-input
+          v-if="field.style == 'textline'"
+          v-model="formData[field.field]"
+          autocomplete="off"
+        ></el-input>
+        <el-select
+          v-if="field.style == 'selectlist'"
+          v-model="formData[field.field]"
+          :value="field.value"
+          :placeholder="field.tip"
+        >
+          <el-option
+            v-for="item in field.options.values"
+            :key="item.value"
+            :label="item.label"
+            :value="item.value"
+          >
+          </el-option>
+        </el-select>
+        <el-radio-group
+          v-if="field.style == 'radio'"
+          v-model="formData[field.field]"
+        >
+          <el-radio
+            :key="index"
+            v-for="(value, index) in field.options.values"
+            :label="value"
+          ></el-radio>
+        </el-radio-group>
       </el-form-item>
     </el-form>
     <div slot="footer" class="dialog-footer">

@@ -23,7 +23,7 @@
       </div>
     </div>
     <div class="data-box">
-      <el-table :data="tableData">
+      <el-table :data="tableData" row-key="id">
         <el-table-column type="selection" width="55"> </el-table-column>
         <el-table-column
           v-for="(field, index) in tableFields"

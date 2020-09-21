@@ -11,6 +11,17 @@ const config = {
 };
 
 const pool = mysql.createPool(config);
+// Attempt to catch disconnects
+pool.on("connection", function (connection) {
+  console.log("MySQL is normal");
+
+  connection.on("error", function (err) {
+    console.error(new Date(), "MySQL error", err.code);
+  });
+  connection.on("close", function (err) {
+    console.error(new Date(), "MySQL close", err);
+  });
+});
 
 const connection = () => {
   return new Promise((resolve, reject) => {

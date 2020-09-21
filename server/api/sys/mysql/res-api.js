@@ -47,7 +47,16 @@ module.exports = (app) => {
    *       - sys/res
    */
   router.put("/:id", async (req, res) => {
-    const id = await h.update(T_RES, req.body, { id: req.params.id });
+    console.log("修改资源", req.body);
+    let data = {
+      pid: req.body.id,
+      label: req.body.label,
+      openStyle: req.body.openStyle,
+      resStyle: req.body.resStyle,
+      path: req.body.path,
+      showOrder: req.body.showOrder,
+    };
+    const id = await h.update(T_RES, data, { id: req.params.id });
     h.ok(res, { data: id });
   });
 
