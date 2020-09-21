@@ -5,19 +5,20 @@
     @open="open"
     @close="close"
   >
-    <el-form :model="formData" ref="createForm">
+    <el-form :model="formData" ref="form1" :rules="rules">
       <el-form-item
         v-for="(field, index) in formFields"
         :label="field.label"
         :label-width="field.width"
         :key="index"
+        :prop="field.field"
       >
         <el-input v-model="formData[field.field]" autocomplete="off"></el-input>
       </el-form-item>
     </el-form>
     <div slot="footer" class="dialog-footer">
       <el-button @click="close">取 消</el-button>
-      <el-button type="primary" @click="save">确 定</el-button>
+      <el-button type="primary" @click="save">保 存</el-button>
     </div>
   </el-dialog>
 </template>
@@ -39,9 +40,17 @@ export default {
     return {
       dialogFormVisible: false,
       formData: { type: Object, required: true },
+      rules: {},
     };
   },
-  watch: {},
+  watch: {
+    formFields: function(newVal) {
+      let _this = this;
+      newVal.forEach(function(field) {
+        _this.rules[field.field] = field.rule;
+      });
+    },
+  },
   methods: {
     open() {
       console.log("open");
@@ -54,18 +63,21 @@ export default {
       this.dialogFormVisible = false;
     },
     reset() {
-      console.log("重置");
-      this.$refs["createForm"].resetFields();
+      this.$refs["form1"].resetFields();
     },
     async save() {
-      const { data: resp } = await this.$http.put(
-        this.config.url + "/" + this.formData.id,
-        this.formData
-      );
+      this.$refs["form1"].validate(async (valid) => {
+        if (!valid) return false;
 
-      if (resp.status != 200) return this.$message.error(resp.msg);
-      this.$emit(bus.query);
-      this.close();
+        const { data: resp } = await this.$http.put(
+          this.config.url + "/" + this.formData.id,
+          this.formData
+        );
+
+        if (resp.status != 200) return this.$message.error(resp.msg);
+        this.$emit(bus.query);
+        this.close();
+      });
     },
   },
   mounted() {

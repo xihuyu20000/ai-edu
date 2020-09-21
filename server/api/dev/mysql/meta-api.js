@@ -44,6 +44,9 @@ module.exports = (app) => {
           field: "label",
           tip: "岗位名称",
           width: "120px",
+          rule: [
+            { required: true, message: "请输入岗位名称", trigger: "blur" },
+          ],
         },
       ];
     }
