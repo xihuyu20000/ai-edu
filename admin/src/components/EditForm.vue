@@ -18,6 +18,11 @@
           v-model="formData[field.field]"
           autocomplete="off"
         ></el-input>
+        <el-input
+          v-if="field.style == 'textarea'"
+          type="textarea"
+          v-model="formData[field.field]"
+        ></el-input>
         <el-select
           v-if="field.style == 'selectlist'"
           v-model="formData[field.field]"

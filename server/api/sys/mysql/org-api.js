@@ -48,7 +48,14 @@ module.exports = (app) => {
    *     - sys/org
    */
   router.put("/:id", async (req, res) => {
-    const org = await h.update(T_ORG, req.body, { id: req.params.id });
+    let data = {
+      pid: req.body.pid,
+      label: req.body.label,
+      manager: req.body.manager,
+      contact: req.body.contact,
+      showOrder: req.body.showOrder,
+    };
+    const org = await h.update(T_ORG, data, { id: req.params.id });
     h.ok(res, { data: org });
   });
 
@@ -63,7 +70,14 @@ module.exports = (app) => {
     if (await h.findOne(T_ORG, "*", { label: req.body.label })) {
       return h.fail(res, { msg: "名称已经存在" });
     }
-    const id = await h.create(T_ORG, req.body);
+    let data = {
+      pid: req.body.pid,
+      label: req.body.label,
+      manager: req.body.manager,
+      contact: req.body.contact,
+      showOrder: req.body.showOrder,
+    };
+    const id = await h.create(T_ORG, data);
     h.ok(res, { data: id });
   });
 

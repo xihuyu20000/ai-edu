@@ -46,7 +46,10 @@ module.exports = (app) => {
    *      - sys/role
    */
   router.put("/:id", async (req, res) => {
-    const id = await h.update(T_ROLE, req.body, { id: req.params.id });
+    let data = {
+      label: req.body.label,
+    };
+    const id = await h.update(T_ROLE, data, { id: req.params.id });
     h.ok(res, { data: id });
   });
 
@@ -61,9 +64,10 @@ module.exports = (app) => {
     if (await h.findOne(T_ROLE, "*", { label: req.body.label })) {
       return h.fail(res, { msg: "名称已经存在" });
     }
-    const id = await h.create(T_ROLE, {
+    let data = {
       label: req.body.label,
-    });
+    };
+    const id = await h.create(T_ROLE, data);
     h.ok(res, { data: id });
   });
 

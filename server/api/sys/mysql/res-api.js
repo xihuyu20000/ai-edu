@@ -49,7 +49,7 @@ module.exports = (app) => {
   router.put("/:id", async (req, res) => {
     console.log("修改资源", req.body);
     let data = {
-      pid: req.body.id,
+      pid: req.body.pid,
       label: req.body.label,
       openStyle: req.body.openStyle,
       resStyle: req.body.resStyle,
@@ -71,7 +71,15 @@ module.exports = (app) => {
     if (await h.findOne(T_RES, "*", { label: req.body.label })) {
       return h.fail(res, { msg: "名称已经存在" });
     }
-    const id = await h.create(T_RES, req.body);
+    let data = {
+      pid: req.body.pid,
+      label: req.body.label,
+      openStyle: req.body.openStyle,
+      resStyle: req.body.resStyle,
+      path: req.body.path,
+      showOrder: req.body.showOrder,
+    };
+    const id = await h.create(T_RES, data);
     h.ok(res, { data: id });
   });
 

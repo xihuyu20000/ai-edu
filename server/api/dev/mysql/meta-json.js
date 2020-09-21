@@ -1,3 +1,79 @@
+const org = {
+  config: {
+    url: "/org",
+    createTitle: "创建机构",
+    editTitle: "修改机构",
+  },
+  queryFields: [
+    {
+      style: "textline",
+      label: "机构名称",
+      field: "label",
+      tip: "机构名称",
+    },
+  ],
+  tableFields: [
+    {
+      label: "机构名称",
+      field: "label",
+      width: "200px",
+      sortable: true,
+    },
+    {
+      label: "负责人",
+      field: "manager",
+      width: "100px",
+    },
+    {
+      label: "联系方式",
+      field: "contact",
+      width: "300px",
+    },
+  ],
+  formFields: [
+    {
+      style: "selectlist",
+      label: "上级机构",
+      field: "pid",
+      value: "",
+      tip: "上级机构",
+      width: "120px",
+      rule: [{ required: true, message: "请选择上级机构", trigger: "blur" }],
+      options: {
+        style: "sql",
+        sql:
+          "SELECT 0 AS value, '顶级机构' AS label UNION SELECT id, label FROM sys_org ",
+        values: [],
+      },
+    },
+    {
+      style: "textline",
+      label: "机构名称",
+      field: "label",
+      value: "",
+      tip: "机构名称",
+      width: "120px",
+      rule: [{ required: true, message: "请输入机构名称", trigger: "blur" }],
+    },
+    {
+      style: "textline",
+      label: "负责人",
+      field: "manager",
+      value: "",
+      tip: "负责人",
+      width: "120px",
+      rule: [{ required: true, message: "请输入负责人", trigger: "blur" }],
+    },
+    {
+      style: "textarea",
+      label: "联系方式",
+      field: "contact",
+      value: "",
+      tip: "联系方式",
+      width: "200px",
+    },
+  ],
+};
 const res = {
   config: {
     url: "/res",
@@ -52,8 +128,8 @@ const res = {
       options: {
         style: "sql",
         sql:
-          "SELECT 0 AS id, '顶级机构' AS label UNION SELECT id, label FROM sys_res ",
-        values: new Array(),
+          "SELECT 0 AS value, '顶级机构' AS label UNION SELECT id, label FROM sys_res ",
+        values: [],
       },
     },
     {
@@ -135,4 +211,4 @@ const role = {
     },
   ],
 };
-module.exports = { 900: res, 1000: role };
+module.exports = { 800: org, 900: res, 1000: role };

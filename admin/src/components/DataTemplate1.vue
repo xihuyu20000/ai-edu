@@ -7,7 +7,7 @@
       ref="dataTable"
       v-slot="scope"
     >
-      <el-button>{{ scope.row }}</el-button>
+      <el-button>{{ typeof scope }}</el-button>
     </common-table>
     <create-form
       :config="config"
@@ -28,8 +28,8 @@ export default {
   props: {
     data: {
       type: Object,
-      require: true,
-    },
+      require: true
+    }
   },
   data() {
     return {
@@ -37,7 +37,7 @@ export default {
       formFields: [],
       queryFields: [],
       tableFields: [],
-      editData: {},
+      editData: {}
     };
   },
   watch: {
@@ -48,10 +48,10 @@ export default {
       this.queryFields = newVal.data.queryFields;
       this.tableFields = newVal.data.tableFields;
       this.$refs.dataTable.handleQueryForm(this.config.url);
-    },
+    }
   },
   methods: {},
-  created() {},
+  created() {}
 };
 </script>
 
