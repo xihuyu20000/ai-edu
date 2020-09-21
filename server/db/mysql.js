@@ -1,7 +1,7 @@
 const lodash = require("lodash");
 const mysql = require("mysql");
 const config = {
-  connectionLimit: 10,
+  connectionLimit: 100,
   host: "localhost",
   port: 3306,
   user: "root",
@@ -11,7 +11,6 @@ const config = {
 };
 
 const pool = mysql.createPool(config);
-// Attempt to catch disconnects
 pool.on("connection", function (connection) {
   console.log("MySQL is normal");
 

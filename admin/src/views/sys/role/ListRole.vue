@@ -1,23 +1,23 @@
 <template>
-  <dt1 :data="data"></dt1>
+  <dt1 :data="data"> </dt1>
 </template>
 
 <script>
 export default {
   data() {
     return {
-      data: {}
+      data: {},
     };
   },
   methods: {
     async fetch() {
       const { data: resp } = await this.$http.get("/meta/table/1000");
       this.data = resp;
-    }
+    },
   },
   created() {
     this.fetch();
-  }
+  },
 };
 </script>
 

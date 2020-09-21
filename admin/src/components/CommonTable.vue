@@ -76,10 +76,10 @@ export default {
       required: true,
       default: function() {
         return { url: "" };
-      },
+      }
     },
     queryFields: { type: Array },
-    tableFields: { type: Array },
+    tableFields: { type: Array }
   },
   data() {
     return { queryForm: {}, tableData: [] };
@@ -111,14 +111,14 @@ export default {
       } else {
         this.$message.error("删除失败");
       }
-    },
+    }
   },
   mounted() {
     this.$bus.$on(this.$bus.loadData, () => {
       console.log("回调，执行查询");
       this.handleQueryForm(this.config.url);
     });
-  },
+  }
 };
 </script>
 

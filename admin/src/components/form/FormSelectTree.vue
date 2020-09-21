@@ -2,9 +2,9 @@
   <treeselect
     v-if="field.style == 'selecttree'"
     v-model="formData[field.field]"
-    :multiple="false"
     :default-expand-level="2"
     :options="field.options.values"
+    :multiple="field.multiple"
   />
 </template>
 
@@ -19,13 +19,13 @@ export default {
       required: true,
       default: function() {
         return {};
-      },
-    },
+      }
+    }
   },
   data() {
     return {};
   },
-  components: { Treeselect },
+  components: { Treeselect }
 };
 </script>
 

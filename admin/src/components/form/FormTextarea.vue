@@ -15,12 +15,12 @@ export default {
       required: true,
       default: function() {
         return {};
-      },
-    },
+      }
+    }
   },
   setup() {
     return {};
-  },
+  }
 };
 </script>
 

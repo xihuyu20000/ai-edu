@@ -91,6 +91,21 @@ const user = {
         values: ["学生", "员工"],
       },
     },
+    {
+      style: "selectlist",
+      label: "角色",
+      field: "pid",
+      default: "",
+      tip: "角色",
+      width: "120px",
+      rule: [{ required: true, message: "请选择角色", trigger: "blur" }],
+      options: {
+        style: "sql",
+        sql: "SELECT id, label FROM sys_res ",
+        values: [],
+      },
+      multiple: true,
+    },
   ],
 };
 

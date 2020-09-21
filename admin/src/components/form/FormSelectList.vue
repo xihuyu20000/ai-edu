@@ -4,6 +4,7 @@
     v-model="formData[field.field]"
     :value="field.value"
     :placeholder="field.tip"
+    :multiple="field.multiple"
   >
     <el-option
       v-for="item in field.options.values"
@@ -24,12 +25,12 @@ export default {
       required: true,
       default: function() {
         return {};
-      },
-    },
+      }
+    }
   },
   setup() {
     return {};
-  },
+  }
 };
 </script>
 

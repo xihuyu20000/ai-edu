@@ -18,34 +18,34 @@ const routes = [
       {
         path: "/sys/res/list",
         name: "res-list",
-        component: ListRes,
+        component: ListRes
       },
       {
         path: "/sys/role/list",
         name: "role-list",
-        component: ListRole,
+        component: ListRole
       },
       {
         path: "/sys/org/list",
         name: "org-list",
-        component: ListOrg,
+        component: ListOrg
       },
       {
         path: "/sys/user/list",
         name: "user-list",
-        component: ListUser,
-      },
-    ],
+        component: ListUser
+      }
+    ]
   },
   {
     path: "/login",
     name: "Login",
-    component: Login,
-  },
+    component: Login
+  }
 ];
 
 const router = new VueRouter({
-  routes,
+  routes
 });
 
 router.beforeEach((to, from, next) => {
@@ -60,7 +60,7 @@ router.beforeEach((to, from, next) => {
 
 const originalPush = VueRouter.prototype.push;
 VueRouter.prototype.push = function push(location) {
-  return originalPush.call(this, location).catch((err) => err);
+  return originalPush.call(this, location).catch(err => err);
 };
 
 export default router;
