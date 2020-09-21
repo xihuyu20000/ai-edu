@@ -6,18 +6,18 @@
 export default {
   data() {
     return {
-      data: {},
+      data: {}
     };
   },
   methods: {
     async fetch() {
       const { data: resp } = await this.$http.get("/meta/table/900");
       this.data = resp;
-    },
+    }
   },
   created() {
     this.fetch();
-  },
+  }
 };
 </script>
 

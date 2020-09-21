@@ -65,15 +65,15 @@ export default {
       required: true,
       default: function() {
         return { url: "", createTitle: "", editTitle: "" };
-      },
+      }
     },
-    formFields: { type: Array },
+    formFields: { type: Array }
   },
   data() {
     return {
       dialogFormVisible: false,
       formData: { type: Object, required: true },
-      rules: {},
+      rules: {}
     };
   },
   watch: {
@@ -82,7 +82,7 @@ export default {
       newVal.forEach(function(field) {
         _this.rules[field.field] = field.rule;
       });
-    },
+    }
   },
   methods: {
     open() {
@@ -99,7 +99,7 @@ export default {
       this.$refs["form1"].resetFields();
     },
     async save() {
-      this.$refs["form1"].validate(async (valid) => {
+      this.$refs["form1"].validate(async valid => {
         if (!valid) return false;
 
         const { data: resp } = await this.$http.put(
@@ -111,14 +111,14 @@ export default {
         this.$emit(bus.query);
         this.close();
       });
-    },
+    }
   },
   mounted() {
-    bus.$on(bus.showEditDialog, (row) => {
+    bus.$on(bus.showEditDialog, row => {
       this.dialogFormVisible = true;
       this.formData = row;
     });
-  },
+  }
   // beforeRouteEnter(to, from, next) {
   //   console.log("beforeRouteEnter");
   //   next();

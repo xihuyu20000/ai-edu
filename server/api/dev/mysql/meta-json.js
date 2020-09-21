@@ -3,6 +3,7 @@ const org = {
     url: "/org",
     createTitle: "创建机构",
     editTitle: "修改机构",
+    pagable: false,
   },
   queryFields: [
     {
@@ -17,16 +18,19 @@ const org = {
       label: "机构名称",
       field: "label",
       width: "200px",
+      style: "text",
       sortable: true,
     },
     {
       label: "负责人",
       field: "manager",
+      style: "text",
       width: "100px",
     },
     {
       label: "联系方式",
       field: "contact",
+      style: "text",
       width: "300px",
     },
   ],
@@ -79,6 +83,7 @@ const res = {
     url: "/res",
     createTitle: "创建资源",
     editTitle: "修改资源",
+    pagable: false,
   },
   queryFields: [
     {
@@ -92,28 +97,33 @@ const res = {
     {
       label: "资源名称",
       field: "label",
-      width: "120px",
+      width: "200px",
+      style: "text",
       sortable: true,
     },
     {
       label: "图标",
       field: "icon",
       width: "100px",
+      style: "icon",
     },
     {
       label: "打开方式",
       field: "openStyle",
       width: "100px",
+      style: "text",
     },
     {
       label: "资源类型",
       field: "resStyle",
       width: "100px",
+      style: "text",
     },
     {
       label: "访问路径",
       field: "path",
       width: "200px",
+      style: "text",
     },
   ],
   formFields: [
@@ -183,6 +193,7 @@ const role = {
     url: "/role",
     createTitle: "创建角色",
     editTitle: "修改角色",
+    pagable: false,
   },
   queryFields: [
     {
@@ -197,6 +208,7 @@ const role = {
       label: "岗位名称",
       field: "label",
       width: "120px",
+      style: "text",
       sortable: true,
     },
   ],

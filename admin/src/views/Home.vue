@@ -73,13 +73,13 @@ export default {
   data() {
     return {
       collapsed: false,
-      defaultActive: "",
+      defaultActive: ""
     };
   },
   computed: {
     menuTree: function() {
       return JSON.parse(localStorage.getItem("menuTree"));
-    },
+    }
   },
   methods: {
     toggle() {
@@ -103,12 +103,12 @@ export default {
     activeMenu(path) {
       this.defaultActive = path;
       this.$router.push(path);
-    },
+    }
   },
   created() {
     this.activeMenu(sessionStorage.getItem("curr_menu"));
     console.log(this.$config.title);
-  },
+  }
 };
 </script>
 

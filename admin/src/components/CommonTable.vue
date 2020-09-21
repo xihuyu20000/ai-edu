@@ -23,17 +23,32 @@
       </div>
     </div>
     <div class="data-box">
-      <el-table :data="tableData" row-key="id">
+      <el-table :data="tableData" row-key="id" border default-expand-all>
         <el-table-column type="selection" width="55"> </el-table-column>
-        <el-table-column
-          v-for="(field, index) in tableFields"
-          :key="index"
-          :label="field.label"
-          :prop="field.field"
-          :width="field.width"
-          :sortable="field.sortable"
-        >
-        </el-table-column>
+
+        <template v-for="(field, index) in tableFields">
+          <el-table-column
+            v-if="field.style === 'icon'"
+            :key="index"
+            :label="field.label"
+            :prop="field.field"
+            :width="field.width"
+            :sortable="field.sortable"
+          >
+            <template slot-scope="scope">
+              <i :class="scope.row.icon"></i>
+            </template>
+          </el-table-column>
+          <el-table-column
+            v-else
+            :key="index"
+            :label="field.label"
+            :prop="field.field"
+            :width="field.width"
+            :sortable="field.sortable"
+          >
+          </el-table-column>
+        </template>
         <el-table-column label="操作">
           <template slot-scope="scope">
             <el-button @click="handleEdit(scope.$index, scope.row)"
