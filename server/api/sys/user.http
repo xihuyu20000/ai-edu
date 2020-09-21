@@ -1,7 +1,7 @@
 @url = http://localhost:33333/api/staff
 @json = Content-Type: application/json
 
-### 员工列表
+### 用户列表
 get {{url}}
 
 ### 显示
@@ -11,9 +11,9 @@ get {{url}}/5f62f93a123fd24e1438a8e1
 put {{url}}/5f62f93a123fd24e1438a8e1
 {{json}}
 
-{"realname":"我是员工"}
+{"realname":"我是用户"}
 
-### 创建员工
+### 创建用户
 post {{url}}
 {{json}}
 

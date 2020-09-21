@@ -7,13 +7,13 @@ module.exports = (app) => {
 
   /**
    * @swagger
-   * /api/student 学生列表:
+   * /api/user 用户列表:
    *  get:
    *    tags:
-   *      - sys/student
+   *      - sys/user
    */
   router.get("/", async (req, res) => {
-    let params = { style: { "=": "student" } };
+    let params = "";
     if (req.query && Object.keys(req.query).length) {
       params.label = {
         like: req.query.label,
@@ -25,10 +25,10 @@ module.exports = (app) => {
 
   /**
    * @swagger
-   * /api/student/:id 查找:
+   * /api/user/:id 查找:
    *  get:
    *    tags:
-   *      - sys/student
+   *      - sys/user
    */
   router.get("/:id", async (req, res) => {
     const resource = await h.findOne(T_USER, "*", { id: req.params.id });
@@ -37,10 +37,10 @@ module.exports = (app) => {
 
   /**
    * @swagger
-   * /api/student/:id  修改:
+   * /api/user/:id  修改:
    *  put:
    *    tags:
-   *       - sys/student
+   *       - sys/user
    */
   router.put("/:id", async (req, res) => {
     const id = await h.update(T_USER, req.body, { id: req.params.id });
@@ -49,10 +49,10 @@ module.exports = (app) => {
 
   /**
    * @swagger
-   * /api/student/ 创建:
+   * /api/user/ 创建:
    *  post:
    *    tags:
-   *      - sys/student
+   *      - sys/user
    */
   router.post("/", async (req, res) => {
     req.body.password = require("bcrypt").hashSync(req.body.password, 10);
@@ -65,15 +65,15 @@ module.exports = (app) => {
 
   /**
    * @swagger
-   * /api/student/:id  删除:
+   * /api/user/:id  删除:
    *  delete:
    *    tags:
-   *      - sys/student
+   *      - sys/user
    */
   router.delete("/:id", async (req, res) => {
     const id = await h.remove(T_USER, { id: req.params.id });
     h.ok(res, { data: id });
   });
 
-  app.use("/api/student", router);
+  app.use("/api/user", router);
 };

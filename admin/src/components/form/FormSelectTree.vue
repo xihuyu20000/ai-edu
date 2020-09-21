@@ -3,6 +3,7 @@
     v-if="field.style == 'selecttree'"
     v-model="formData[field.field]"
     :multiple="false"
+    :default-expand-level="2"
     :options="field.options.values"
   />
 </template>

@@ -12,8 +12,7 @@ require("./api/sys/mysql/default-api")(app);
 require("./api/sys/mysql/org-api")(app);
 require("./api/sys/mysql/role-api")(app);
 require("./api/sys/mysql/res-api")(app);
-require("./api/sys/mysql/staff-api")(app);
-require("./api/sys/mysql/student-api")(app);
+require("./api/sys/mysql/user-api")(app);
 
 const PORT = 33333;
 app.listen(PORT, () => console.log(`the server is running on ${PORT} .....`));

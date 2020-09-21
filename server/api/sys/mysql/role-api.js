@@ -47,6 +47,7 @@ module.exports = (app) => {
    */
   router.put("/:id", async (req, res) => {
     let data = {
+      org_id: req.body.org_id,
       label: req.body.label,
     };
     const id = await h.update(T_ROLE, data, { id: req.params.id });
@@ -65,6 +66,7 @@ module.exports = (app) => {
       return h.fail(res, { msg: "名称已经存在" });
     }
     let data = {
+      org_id: req.body.org_id,
       label: req.body.label,
     };
     const id = await h.create(T_ROLE, data);

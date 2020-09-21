@@ -51,6 +51,7 @@ module.exports = (app) => {
     let data = {
       pid: req.body.pid,
       label: req.body.label,
+      icon: req.body.icon,
       openStyle: req.body.openStyle,
       resStyle: req.body.resStyle,
       path: req.body.path,
@@ -74,6 +75,7 @@ module.exports = (app) => {
     let data = {
       pid: req.body.pid,
       label: req.body.label,
+      icon: req.body.icon,
       openStyle: req.body.openStyle,
       resStyle: req.body.resStyle,
       path: req.body.path,

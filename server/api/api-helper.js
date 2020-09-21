@@ -23,9 +23,10 @@ function fail(res, obj) {
 /**
  * 生成资源树
  * @param {Array} 资源数组
+ * @param {Number} 顶级节点的id号；主要用域页面构建虚拟选项
  */
-function tree(resArr) {
-  const menu1 = resArr.filter((item) => item.pid == 0);
+function tree(resArr, top = 0) {
+  const menu1 = resArr.filter((item) => item.pid == top);
   menu1.sort((a, b) => a.showOrder - b.showOrder);
   for (const mi1 of menu1) {
     const menu2 = resArr.filter((item) => mi1.id == item.pid);
@@ -42,6 +43,32 @@ function tree(resArr) {
       }
     }
   }
+
+  // 如果children为空，则删除该属性
+  menu1.forEach((mi1) => {
+    if (mi1.hasOwnProperty("children")) {
+      if (mi1.children.length == 0) delete mi1.children;
+      else
+        mi1.children.forEach((mi2) => {
+          if (mi2.hasOwnProperty("children")) {
+            if (mi2.children.length == 0) delete mi2.children;
+            else
+              mi2.children.forEach((mi3) => {
+                if (mi3.hasOwnProperty("children")) {
+                  if (mi3.children.length == 0) delete mi3.children;
+                  else
+                    mi3.children.forEach((mi4) => {
+                      if (mi4.hasOwnProperty("children")) {
+                        if (mi4.children.length == 0) delete mi4.children;
+                      }
+                    });
+                }
+              });
+          }
+        });
+    }
+  });
+
   return menu1;
 }
 

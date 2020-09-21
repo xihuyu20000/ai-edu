@@ -13,7 +13,7 @@ async function getMetaTable(id) {
       formField.options.values = await h.query(formField.options.sql);
 
       if (formField.style == "selecttree") {
-        formField.options.values = h.tree(formField.options.values);
+        formField.options.values = h.tree(formField.options.values, -1);
       }
     }
   }

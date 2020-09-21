@@ -1,3 +1,99 @@
+const user = {
+  config: {
+    url: "/user",
+    createTitle: "添加用户",
+    editTitle: "修改用户信息",
+    pagable: false,
+  },
+  queryFields: [
+    {
+      style: "textline",
+      label: "真实姓名",
+      field: "realname",
+      tip: "真实姓名",
+    },
+    {
+      style: "textline",
+      label: "用户名",
+      field: "username",
+      tip: "用户名",
+    },
+  ],
+  tableFields: [
+    {
+      label: "真实姓名",
+      field: "realname",
+      width: "200px",
+      style: "text",
+      sortable: true,
+    },
+    {
+      label: "用户名",
+      field: "username",
+      style: "text",
+      width: "100px",
+    },
+    {
+      label: "类型",
+      field: "style",
+      style: "text",
+      width: "100px",
+    },
+    {
+      label: "状态",
+      field: "status",
+      style: "text",
+      width: "100px",
+    },
+  ],
+  formFields: [
+    {
+      style: "textline",
+      label: "真实姓名",
+      field: "realname",
+      default: "",
+      tip: "真实姓名",
+      width: "120px",
+      rule: [{ required: true, message: "请输入真实姓名", trigger: "blur" }],
+    },
+    {
+      style: "textline",
+      label: "用户名",
+      field: "username",
+      default: "",
+      tip: "用户名",
+      width: "120px",
+      rule: [{ required: true, message: "请输入用户名", trigger: "blur" }],
+    },
+    {
+      style: "radio",
+      label: "状态",
+      field: "status",
+      default: "正常",
+      tip: "状态",
+      width: "120px",
+      rule: [{ required: true, message: "请输入用户名", trigger: "blur" }],
+      options: {
+        style: "value",
+        values: ["正常", "离开"],
+      },
+    },
+    {
+      style: "radio",
+      label: "类型",
+      field: "style",
+      default: "",
+      tip: "类型",
+      width: "120px",
+      rule: [{ required: true, message: "请选择类型", trigger: "blur" }],
+      options: {
+        style: "value",
+        values: ["学生", "员工"],
+      },
+    },
+  ],
+};
+
 const org = {
   config: {
     url: "/org",
@@ -36,17 +132,17 @@ const org = {
   ],
   formFields: [
     {
-      style: "selectlist",
+      style: "selecttree",
       label: "上级机构",
       field: "pid",
-      value: "",
+      default: "",
       tip: "上级机构",
       width: "120px",
       rule: [{ required: true, message: "请选择上级机构", trigger: "blur" }],
       options: {
         style: "sql",
         sql:
-          "SELECT 0 AS id, '顶级机构' AS label UNION SELECT id, label FROM sys_org ",
+          "select 0 as id, -1 as pid, '==顶级=='as label  UNION SELECT id, pid, label FROM sys_org ",
         values: [],
       },
     },
@@ -54,7 +150,7 @@ const org = {
       style: "textline",
       label: "机构名称",
       field: "label",
-      value: "",
+      default: "",
       tip: "机构名称",
       width: "120px",
       rule: [{ required: true, message: "请输入机构名称", trigger: "blur" }],
@@ -63,7 +159,7 @@ const org = {
       style: "textline",
       label: "负责人",
       field: "manager",
-      value: "",
+      default: "",
       tip: "负责人",
       width: "120px",
       rule: [{ required: true, message: "请输入负责人", trigger: "blur" }],
@@ -72,12 +168,13 @@ const org = {
       style: "textarea",
       label: "联系方式",
       field: "contact",
-      value: "",
+      default: "",
       tip: "联系方式",
       width: "200px",
     },
   ],
 };
+
 const res = {
   config: {
     url: "/res",
@@ -131,13 +228,14 @@ const res = {
       style: "selecttree",
       label: "上级资源",
       field: "pid",
-      value: "",
+      default: "",
       tip: "上级资源",
       width: "120px",
       rule: [{ required: true, message: "请选择上级资源", trigger: "blur" }],
       options: {
         style: "sql",
-        sql: "SELECT id, pid, label FROM sys_res ",
+        sql:
+          "select 0 as id, -1 as pid, '==顶级=='as label union SELECT id, pid, label FROM sys_res ",
         values: [],
       },
     },
@@ -145,7 +243,7 @@ const res = {
       style: "textline",
       label: "资源名称",
       field: "label",
-      value: "",
+      default: "",
       tip: "资源名称",
       width: "120px",
       rule: [{ required: true, message: "请输入资源名称", trigger: "blur" }],
@@ -154,7 +252,7 @@ const res = {
       style: "textline",
       label: "图标",
       field: "icon",
-      value: "",
+      default: "",
       tip: "图标",
       width: "120px",
       rule: [{ required: true, message: "请输入图标", trigger: "blur" }],
@@ -163,7 +261,7 @@ const res = {
       style: "radio",
       label: "打开方式",
       field: "openStyle",
-      value: "当前窗口",
+      default: "当前窗口",
       tip: "打开方式",
       width: "120px",
       rule: [{ required: true, message: "请输入打开方式", trigger: "blur" }],
@@ -176,7 +274,7 @@ const res = {
       style: "radio",
       label: "资源类型",
       field: "resStyle",
-      value: "",
+      default: "",
       tip: "资源类型",
       width: "120px",
       rule: [{ required: true, message: "请输入资源类型", trigger: "blur" }],
@@ -187,6 +285,7 @@ const res = {
     },
   ],
 };
+
 const role = {
   config: {
     url: "/role",
@@ -204,6 +303,13 @@ const role = {
   ],
   tableFields: [
     {
+      label: "机构名称",
+      field: "org_id",
+      width: "120px",
+      style: "text",
+      sortable: true,
+    },
+    {
       label: "岗位名称",
       field: "label",
       width: "120px",
@@ -213,13 +319,34 @@ const role = {
   ],
   formFields: [
     {
+      style: "selecttree",
+      label: "所属机构",
+      field: "org_id",
+      default: "",
+      tip: "所属机构",
+      width: "120px",
+      rule: [{ required: true, message: "请选择所属机构", trigger: "blur" }],
+      options: {
+        style: "sql",
+        sql:
+          "select 0 as id, -1 as pid, '==顶级=='as label  UNION SELECT id, pid, label FROM sys_org ",
+        values: [],
+      },
+    },
+    {
       style: "textline",
       label: "岗位名称",
       field: "label",
+      default: "",
       tip: "岗位名称",
       width: "120px",
       rule: [{ required: true, message: "请输入岗位名称", trigger: "blur" }],
     },
   ],
 };
-module.exports = { 800: org, 900: res, 1000: role };
+module.exports = {
+  700: user,
+  800: org,
+  900: res,
+  1000: role,
+};
