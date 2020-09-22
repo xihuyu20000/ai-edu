@@ -413,18 +413,11 @@ const role = {
     editTitle: "修改角色",
     pagable: false,
   },
-  queryFields: [
-    {
-      style: "textline",
-      label: "岗位名称",
-      field: "label",
-      tip: "岗位名称",
-    },
-  ],
+  queryFields: [],
   tableFields: [
     {
       label: "机构名称",
-      field: "org_id",
+      field: "rog_name",
       width: "120px",
       style: "text",
       sortable: true,

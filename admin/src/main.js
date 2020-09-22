@@ -8,6 +8,7 @@ import "./plugins/element.js";
 import "@/assets/css/global.css";
 import "@/assets/fonts/iconfont.css";
 import "@/plugins/axios.js";
+import "@/components/comps.js";
 
 Vue.config.productionTip = false;
 
@@ -27,5 +28,5 @@ Vue.prototype.$ser = function(obj) {
 new Vue({
   router,
   store,
-  render: h => h(App)
+  render: (h) => h(App),
 }).$mount("#app");

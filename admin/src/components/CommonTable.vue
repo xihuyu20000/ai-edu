@@ -23,6 +23,9 @@
           >
         </el-form-item>
       </el-form>
+      <div class="operator-bar">
+        <slot name="header"></slot>
+      </div>
       <div class="operate-bar">
         <el-button type="primary" @click="handleCreate">新增</el-button>
       </div>
@@ -65,7 +68,7 @@
             >
               <el-button type="danger" slot="reference">删除</el-button>
             </el-popconfirm>
-            <slot :row="scope.row"></slot>
+            <slot name="row" :row="scope.row"></slot>
           </template>
         </el-table-column>
       </el-table>

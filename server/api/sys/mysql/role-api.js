@@ -13,16 +13,9 @@ module.exports = (app) => {
    *      - sys/role
    */
   router.get("/", async (req, res) => {
-    let params = "";
-    if (req.query && Object.keys(req.query).length) {
-      params = {
-        label: {
-          like: req.query.label,
-        },
-      };
-    }
-
-    const all = await h.find(T_ROLE, "*", params);
+    const all = await h.query(
+      `select r.id, r.org_id,  o.label AS rog_name, r.label  from sys_role as r left join sys_org as o on r.org_id=o.id`
+    );
     h.ok(res, { data: all });
   });
 

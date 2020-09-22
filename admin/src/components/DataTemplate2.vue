@@ -10,8 +10,11 @@
         :tableFields="tableFields"
         ref="dataTable"
       >
-      </common-table
-    ></el-col>
+        <template v-slot:header>
+          <el-button>员工</el-button><el-button>学生</el-button>
+        </template>
+      </common-table></el-col
+    >
   </el-row>
 </template>
 
