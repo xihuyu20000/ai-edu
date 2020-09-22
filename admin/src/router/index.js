@@ -6,6 +6,8 @@ import ListRole from "@/views/sys/role/ListRole.vue";
 import ListOrg from "@/views/sys/org/ListOrg.vue";
 import ListRes from "@/views/sys/res/ListRes.vue";
 import ListUser from "@/views/sys/user/ListUser.vue";
+import ListAuth from "@/views/sys/auth/ListAuth.vue";
+import DataTemplate1Loader from "@/components/DataTemplate1Loader.vue";
 
 Vue.use(VueRouter);
 
@@ -17,35 +19,45 @@ const routes = [
     children: [
       {
         path: "/sys/res/list",
-        name: "res-list",
-        component: ListRes
+        name: "资源列表",
+        component: ListRes,
       },
       {
         path: "/sys/role/list",
-        name: "role-list",
-        component: ListRole
+        name: "角色列表",
+        component: ListRole,
       },
       {
         path: "/sys/org/list",
-        name: "org-list",
-        component: ListOrg
+        name: "组织机构列表",
+        component: ListOrg,
       },
       {
         path: "/sys/user/list",
-        name: "user-list",
-        component: ListUser
-      }
-    ]
+        name: "用户列表",
+        component: ListUser,
+      },
+      {
+        path: "/sys/auth/list",
+        name: "授权列表",
+        component: ListAuth,
+      },
+      {
+        path: "/dt1/:id",
+        name: "dt1",
+        component: DataTemplate1Loader,
+      },
+    ],
   },
   {
     path: "/login",
     name: "Login",
-    component: Login
-  }
+    component: Login,
+  },
 ];
 
 const router = new VueRouter({
-  routes
+  routes,
 });
 
 router.beforeEach((to, from, next) => {
@@ -60,7 +72,7 @@ router.beforeEach((to, from, next) => {
 
 const originalPush = VueRouter.prototype.push;
 VueRouter.prototype.push = function push(location) {
-  return originalPush.call(this, location).catch(err => err);
+  return originalPush.call(this, location).catch((err) => err);
 };
 
 export default router;

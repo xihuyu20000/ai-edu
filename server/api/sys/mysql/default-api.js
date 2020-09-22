@@ -1,3 +1,4 @@
+// 首页的所有操作
 module.exports = (app) => {
   const bcrypt = require("bcrypt");
   const jwt = require("jsonwebtoken");
@@ -202,10 +203,10 @@ module.exports = (app) => {
     // 4 初始化角色
     h.exec("truncate table sys_role");
     const sys_role_sql = [
-      "insert into `sys_role` (`id`, `label`) values('1','管理员');      ",
-      "insert into `sys_role` (`id`, `label`) values('2','讲师');        ",
-      "insert into `sys_role` (`id`, `label`) values('3','财务-出纳');   ",
-      "insert into `sys_role` (`id`, `label`) values('4','财务-会计');   ",
+      "insert into `sys_role` (`id`, `label`) values('100000','开发人员');      ",
+      "insert into `sys_role` (`id`, `label`) values('100002','讲师');        ",
+      "insert into `sys_role` (`id`, `label`) values('100003','财务-出纳');   ",
+      "insert into `sys_role` (`id`, `label`) values('100004','财务-会计');   ",
     ];
     h.exec(sys_role_sql);
     h.ok(res, { msg: "初始化所有数据" });

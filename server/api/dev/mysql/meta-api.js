@@ -5,7 +5,7 @@ module.exports = (app) => {
   const mh = require("./meta-helper");
   /**
    * @swagger
-   * /api/meta 元数据:
+   * /api/meta 获取表格模板的元数据配置:
    *  get:
    *    tags:
    *     - dev/meta

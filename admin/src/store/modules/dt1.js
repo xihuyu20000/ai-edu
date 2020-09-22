@@ -1,3 +1,4 @@
+// todo 未启用
 module.exports = {
   namespaced: true,
   state: { openCreateDialog: false, openEditDialog: false },
@@ -12,5 +13,5 @@ module.exports = {
     // }
   },
   actions: {},
-  modules: {}
+  modules: {},
 };

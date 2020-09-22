@@ -1,7 +1,12 @@
 <template>
   <div class="data-container">
     <div class="query-box">
-      <el-form :inline="true" :model="queryForm" class="query-form-inline">
+      <el-form
+        v-if="queryFields.length > 0"
+        :inline="true"
+        :model="queryForm"
+        class="query-form-inline"
+      >
         <el-form-item v-for="(field, index) in queryFields" :key="index">
           <el-input
             v-if="field.style == 'textline'"
@@ -76,10 +81,10 @@ export default {
       required: true,
       default: function() {
         return { url: "" };
-      }
+      },
     },
     queryFields: { type: Array },
-    tableFields: { type: Array }
+    tableFields: { type: Array },
   },
   data() {
     return { queryForm: {}, tableData: [] };
@@ -111,14 +116,14 @@ export default {
       } else {
         this.$message.error("删除失败");
       }
-    }
+    },
   },
   mounted() {
     this.$bus.$on(this.$bus.loadData, () => {
       console.log("回调，执行查询");
       this.handleQueryForm(this.config.url);
     });
-  }
+  },
 };
 </script>
 

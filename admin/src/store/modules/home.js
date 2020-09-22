@@ -1,16 +1,17 @@
+//todo 未启用
 module.exports = {
   namespaced: true,
   state: { menuTree: [] },
   getters: {
-    menuTree: function(state) {
-      return state.menuTree;
-    }
+    // menuTree: function(state) {
+    //   return state.menuTree;
+    // }
   },
   mutations: {
-    setMenuTree: function(state, data) {
-      state.menuTree = data;
-    }
+    // setMenuTree: function(state, data) {
+    //   state.menuTree = data;
+    // }
   },
   actions: {},
-  modules: {}
+  modules: {},
 };

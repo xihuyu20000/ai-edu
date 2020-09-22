@@ -1,3 +1,108 @@
+/**
+ * todo  生成表单实体的配置参数，后期用数据库替代
+ * 配置参数说明
+ * config 表示实体的配置信息
+ * queryFields 表示查询参数的配置
+ * tableFields 表示表格信息的配置
+ * formFields  表示表单信息的配置
+ */
+const auth = {
+  config: {
+    url: "/auth",
+    createTitle: "添加权限",
+    editTitle: "修改权限信息",
+    pagable: false,
+  },
+  queryFields: [],
+  tableFields: [
+    {
+      label: "真实姓名",
+      field: "realname",
+      width: "200px",
+      style: "text",
+      sortable: true,
+    },
+    {
+      label: "用户名",
+      field: "username",
+      style: "text",
+      width: "100px",
+    },
+    {
+      label: "类型",
+      field: "style",
+      style: "text",
+      width: "100px",
+    },
+    {
+      label: "状态",
+      field: "status",
+      style: "text",
+      width: "100px",
+    },
+  ],
+  formFields: [
+    {
+      style: "textline",
+      label: "真实姓名",
+      field: "realname",
+      default: "",
+      tip: "真实姓名",
+      width: "120px",
+      rule: [{ required: true, message: "请输入真实姓名", trigger: "blur" }],
+    },
+    {
+      style: "textline",
+      label: "用户名",
+      field: "username",
+      default: "",
+      tip: "用户名",
+      width: "120px",
+      rule: [{ required: true, message: "请输入用户名", trigger: "blur" }],
+    },
+    {
+      style: "radio",
+      label: "状态",
+      field: "status",
+      default: "正常",
+      tip: "状态",
+      width: "120px",
+      rule: [{ required: true, message: "请输入用户名", trigger: "blur" }],
+      options: {
+        style: "value",
+        values: ["正常", "离开"],
+      },
+    },
+    {
+      style: "radio",
+      label: "类型",
+      field: "style",
+      default: "",
+      tip: "类型",
+      width: "120px",
+      rule: [{ required: true, message: "请选择类型", trigger: "blur" }],
+      options: {
+        style: "value",
+        values: ["学生", "员工"],
+      },
+    },
+    {
+      style: "selectlist",
+      label: "角色",
+      field: "pid",
+      default: "",
+      tip: "角色",
+      width: "120px",
+      rule: [{ required: true, message: "请选择角色", trigger: "blur" }],
+      options: {
+        style: "sql",
+        sql: "SELECT id, label FROM sys_res ",
+        values: [],
+      },
+      multiple: true,
+    },
+  ],
+};
 const user = {
   config: {
     url: "/user",
@@ -359,7 +464,9 @@ const role = {
     },
   ],
 };
+
 module.exports = {
+  600: auth,
   700: user,
   800: org,
   900: res,
