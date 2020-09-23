@@ -1,11 +1,11 @@
-//todo 未启用
 module.exports = {
   namespaced: true,
   state: { menuTree: [] },
   getters: {
-    // menuTree: function(state) {
-    //   return state.menuTree;
-    // }
+    headerNav: function(state) {
+      state.menuTree = JSON.parse(localStorage.getItem('menuTree'))
+      return state.menuTree.filter(item => item.pid == 0)
+    }
   },
   mutations: {
     // setMenuTree: function(state, data) {
@@ -13,5 +13,5 @@ module.exports = {
     // }
   },
   actions: {},
-  modules: {},
-};
+  modules: {}
+}

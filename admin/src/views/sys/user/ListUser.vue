@@ -7,18 +7,18 @@ export default {
   data() {
     return {
       data: {}
-    };
+    }
   },
   methods: {
     async fetch() {
-      const { data: resp } = await this.$http.get("/meta/table/700");
-      this.data = resp;
+      const { data: resp } = await this.$http.get('/meta/table/700')
+      this.data = resp
     }
   },
   created() {
-    this.fetch();
+    this.fetch()
   }
-};
+}
 </script>
 
 <style lang="scss" scoped></style>

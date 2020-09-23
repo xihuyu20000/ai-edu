@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Login from '../views/Login.vue'
-import Home from '../views/Home.vue'
+import Layout from '../views/Layout.vue'
 import Default from '../views/Default.vue'
 
 Vue.use(VueRouter)
@@ -11,7 +11,7 @@ const routes = [
   {
     path: '/',
     name: '布局',
-    component: Home,
+    component: Layout,
     children: [
       {
         path: '/',

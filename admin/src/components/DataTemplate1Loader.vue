@@ -6,21 +6,21 @@
 export default {
   data() {
     return {
-      data: {},
-    };
+      data: {}
+    }
   },
   methods: {
     async fetch() {
       const { data: resp } = await this.$http.get(
         `/meta/table/` + this.$route.params.id
-      );
-      this.data = resp;
-    },
+      )
+      this.data = resp
+    }
   },
   created() {
-    this.fetch();
-  },
-};
+    this.fetch()
+  }
+}
 </script>
 
 <style lang="scss" scoped></style>

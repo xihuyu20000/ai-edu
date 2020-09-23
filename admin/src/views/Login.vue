@@ -8,7 +8,8 @@
         ref="loginForm"
         label-width="0px"
         class="login-form"
-      >
+        size="large"
+        ><h2 style="text-align:center">{{ this.$config.title }}</h2>
         <el-form-item prop="username">
           <el-input
             prefix-icon="iconfont aliuser"
@@ -42,39 +43,39 @@ export default {
   data() {
     return {
       loginForm: {
-        username: "root",
-        password: "admin"
+        username: 'root',
+        password: 'admin'
       },
       rules: {
         username: [
-          { required: true, message: "请输入用户名", trigger: "blur" }
+          { required: true, message: '请输入用户名', trigger: 'blur' }
         ],
-        password: [{ required: true, message: "请输入密码", trigger: "blur" }]
+        password: [{ required: true, message: '请输入密码', trigger: 'blur' }]
       }
-    };
+    }
   },
   methods: {
     submitForm(formName) {
       this.$refs[formName].validate(async valid => {
-        if (!valid) return false;
-        const { data: resp } = await this.$http.post("/login", this.loginForm);
-        if (resp.status == 400) return this.$message.error(resp.msg);
+        if (!valid) return false
+        const { data: resp } = await this.$http.post('/login', this.loginForm)
+        if (resp.status == 400) return this.$message.error(resp.msg)
         // 写入session
-        window.sessionStorage.setItem("token", resp.token);
+        window.sessionStorage.setItem('token', resp.token)
         // 获取导航菜单
-        const { data: resp1 } = await this.$http.get("/navs");
-        localStorage.setItem("menuTree", JSON.stringify(resp1.data));
+        const { data: resp1 } = await this.$http.get('/navs')
+        localStorage.setItem('menuTree', JSON.stringify(resp1.data))
         // this.$store.commit("home/setMenuTree", resp1.data);
         // 转向主页
-        this.$router.push("/");
-        this.$message.success("登录成功");
-      });
+        this.$router.push('/')
+        this.$message.success('登录成功')
+      })
     },
     resetForm(formName) {
-      this.$refs[formName].resetFields();
+      this.$refs[formName].resetFields()
     }
   }
-};
+}
 </script>
 
 <style lang="scss" scoped>
@@ -91,12 +92,13 @@ export default {
     align-items: center;
 
     .el-form {
-      width: 300px;
-      height: 150px;
+      width: 400px;
+      height: 250px;
       padding: 20px;
       background-color: bisque;
       border-radius: 10px;
-
+      h2 {
+      }
       .actions {
         display: flex;
         justify-content: space-evenly;

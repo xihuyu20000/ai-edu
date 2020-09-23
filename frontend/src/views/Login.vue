@@ -1,19 +1,28 @@
 <template>
   <div class="login-box">
     <a-form-model
-      :model="formInline"
+      :model="loginForm"
+      ref="loginForm"
       @submit="handleSubmit"
       @submit.native.prevent
     >
-      <h1 style="width:100%;text-align:center">xxx管理系统</h1>
-      <a-form-model-item>
-        <a-input v-model="formInline.user" placeholder="用户名">
+      <h1 style="width:100%;text-align:center">edu AI管理系统</h1>
+      <a-form-model-item ref="username" prop="username">
+        <a-input
+          v-model="loginForm.username"
+          placeholder="用户名"
+          @blur="
+            () => {
+              $refs.username.onFieldBlur()
+            }
+          "
+        >
           <a-icon slot="prefix" type="user" style="color:rgba(0,0,0,.25)" />
         </a-input>
       </a-form-model-item>
-      <a-form-model-item>
+      <a-form-model-item ref="password" prop="password">
         <a-input
-          v-model="formInline.password"
+          v-model="loginForm.password"
           type="password"
           placeholder="密码"
         >
@@ -21,12 +30,7 @@
         </a-input>
       </a-form-model-item>
       <a-form-model-item>
-        <a-button
-          type="primary"
-          html-type="submit"
-          :disabled="formInline.user === '' || formInline.password === ''"
-          style="width:100%"
-        >
+        <a-button type="primary" html-type="submit" style="width:100%">
           登录
         </a-button>
       </a-form-model-item>
@@ -50,15 +54,35 @@
 export default {
   data() {
     return {
-      formInline: {
-        user: '',
+      loginForm: {
+        username: '',
         password: ''
+      },
+      rules: {
+        username: [
+          {
+            required: true,
+            message: '请输入用户名',
+            trigger: 'blur'
+          }
+        ],
+        password: [
+          {
+            required: true,
+            message: '请输入密码',
+            trigger: 'blur'
+          }
+        ]
       }
     }
   },
   methods: {
-    handleSubmit(e) {
-      console.log(this.formInline, e)
+    handleSubmit() {
+      this.$refs.loginForm.validate(async valid => {
+        if (!valid) return false
+        const { data: resp } = await this.$http.post('/login', this.loginForm)
+        console.log('登录结果', resp)
+      })
     }
   }
 }

@@ -5,8 +5,9 @@ import store from './store'
 import './plugins/bus'
 import './plugins/antd'
 import './plugins/axios'
+import './plugins/bootstrap4'
+import './components/comps'
 
-import 'bootstrap/dist/css/bootstrap.min.css'
 import './assets/css/_global.css'
 
 Vue.config.productionTip = false

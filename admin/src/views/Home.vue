@@ -1,29 +1,66 @@
 <template>
-  <el-container style="height: 100vh;">
-    <el-header style="text-align: right; font-size: 12px">
+  <el-container style="height: 100vh;" size="small">
+    <el-header>
       <div class="left-header">
         <div class="big-title">
-          <span class="toggle" @click="toggle">|||</span>管理系统
+          <img :src="logo" style="margin:10px;height:45px;width:45px" />
+          <h3 v-show="!collapsed" style="margin:10px">
+            {{ this.$config.title }}
+          </h3>
+          <span
+            class="iconfont"
+            style="cursor:pointer;font-size: 40px;margin-left:20px"
+            @click="toggle"
+            ><template v-if="collapsed">&#xe86f;</template
+            ><template v-else>&#xe870;</template></span
+          >
+          <h5
+            style="margin:30px;font-size:20px;font-family:cursive;color:#fff;text-align:center"
+          >
+            {{ this.$config.subtitle }}
+          </h5>
         </div>
       </div>
+      <div class="nav-header">
+        <el-menu
+          :default-active="activeTopMenu"
+          mode="horizontal"
+          background-color="#1890ff"
+          text-color="#fff"
+          active-text-color="#ffd04b"
+          @select="headerNav"
+        >
+        
+          <el-menu-item>
+            v-for="nav in headerMenus"
+            :index="nav.id + ''"
+            :key="nav.id"
+            >{{ nav.label }}</el-menu-item
+          >
+        </el-menu>
+      </div>
       <div class="right-header">
-        <el-dropdown trigger="click">
-          <span class="el-dropdown-link">
+        <el-dropdown trigger="hover">
+          <span class="el-dropdown-link" style="height:50px">
             <el-image
-              style="width: 15px; height: 15px;"
+              style="width: 15px; height: 15px; border-radius:1px;margin-right:5px"
               src="https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg"
               fit="center"
             ></el-image>
-            王小虎<i class="el-icon-arrow-down el-icon--right"></i>
+            <span style="color:#fff;text-align:center">欢迎您，王小虎</span>
           </span>
           <el-dropdown-menu slot="dropdown">
             <el-dropdown-item @click.native="chpwd">修改密码</el-dropdown-item>
             <el-dropdown-item @click.native="showprofile"
               >个人主页</el-dropdown-item
             >
-            <el-dropdown-item @click.native="logout">退出</el-dropdown-item>
           </el-dropdown-menu>
         </el-dropdown>
+        <el-link
+          style="margin-left:40px;margin-right:20px"
+          @click.native="logout"
+          ><span class="iconfont">&#xe7a1;</span>退出登录</el-link
+        >
       </div>
     </el-header>
     <el-container>
@@ -33,37 +70,48 @@
       >
         <el-menu
           router
-          :default-active="defaultActive"
+          :default-active="activeLeftActive"
           :unique-opened="true"
           :collapse="collapsed"
           :collapse-transition="false"
+          size="mini"
         >
+          <el-menu-item
+            ><i class="el-icon-s-home"></i
+            ><span v-show="!collapsed">首页</span></el-menu-item
+          >
           <el-submenu
             :index="menu1.id + ''"
-            v-for="menu1 of menuTree"
+            v-for="menu1 of leftMenus"
             :key="menu1.id"
           >
             <template slot="title"
-              ><i :class="menu1.icon"></i>{{ menu1.label }}</template
+              ><i :class="menu1.icon"></i
+              ><span v-show="!collapsed">{{ menu1.label }}</span></template
             >
-            <el-submenu
-              :index="menu2.id + ''"
+            <el-menu-item
+              :index="menu2.path"
               v-for="menu2 of menu1.children"
               :key="menu2.id"
+              @click="selectLeftMenu(menu2)"
+              >{{ menu2.label }}</el-menu-item
             >
-              <template slot="title">{{ menu2.label }}</template>
-              <el-menu-item
-                :index="menu3.path"
-                v-for="menu3 of menu2.children"
-                :key="menu3.id"
-                @click="selectMenu(menu3)"
-                >{{ menu3.label }}</el-menu-item
-              >
-            </el-submenu>
           </el-submenu>
         </el-menu>
       </el-aside>
-      <el-main><router-view /></el-main>
+      <el-main>
+        <el-tabs editable v-model="activeTabName" @tab-click="selectTab">
+          <el-tab-pane label="首页" name="first" :closable="false"
+            >首页</el-tab-pane
+          >
+          <el-tab-pane label="配置管理" name="second">配置管理</el-tab-pane>
+          <el-tab-pane label="角色管理" name="third">角色管理</el-tab-pane>
+          <el-tab-pane label="定时任务补偿" name="fourth"
+            >定时任务补偿</el-tab-pane
+          >
+        </el-tabs>
+        <router-view
+      /></el-main>
     </el-container>
   </el-container>
 </template>
@@ -72,44 +120,66 @@
 export default {
   data() {
     return {
+      logo: require('@/assets/logo.jpg'),
       collapsed: false,
-      defaultActive: ""
-    };
+      activeTopMenu: '2',
+      activeLeftActive: '',
+      activeTabName: '',
+      headerMenus1: [],
+      leftMenus: []
+    }
   },
   computed: {
     menuTree: function() {
-      return JSON.parse(localStorage.getItem("menuTree"));
+      return JSON.parse(localStorage.getItem('menuTree'))
+    },
+    headerMenus: function() {
+      // eslint-disable-next-line vue/no-side-effects-in-computed-properties
+      this.headerMenus1 = this.menuTree.filter(item => item.pid == 0)
+      return this.headerMenus1
+    }
+  },
+  watch: {
+    headerMenus1: function(newVal) {
+      this.headerNav(newVal[0].id)
     }
   },
   methods: {
     toggle() {
-      this.collapsed = !this.collapsed;
-      console.log("点击toggle");
+      this.collapsed = !this.collapsed
+    },
+    headerNav(index) {
+      sessionStorage.setItem('top_menu', index)
+      let m = this.menuTree.filter(item => item.id == index)
+      if (m[0].children) this.leftMenus = m[0].children
+      else this.leftMenus = []
     },
     chpwd() {
-      this.$message.success("修改密码");
+      this.$message.success('修改密码')
     },
     showprofile() {
-      this.$message.success("显示个人用户");
+      this.$message.success('显示个人用户')
     },
     logout() {
-      this.$message.success("成功退出");
-      window.sessionStorage.clear();
-      this.$router.push("/login");
+      this.$message.success('成功退出')
+      window.sessionStorage.clear()
+      this.$router.push('/login')
     },
-    selectMenu(menu) {
-      sessionStorage.setItem("curr_menu", menu.path);
+    selectLeftMenu(menu) {
+      sessionStorage.setItem('curr_menu', menu.path)
     },
-    activeMenu(path) {
-      this.defaultActive = path;
-      this.$router.push(path);
+    activeLeftMenu(path) {
+      this.activeLeftActive = path
+      this.$router.push(path)
+    },
+    selectTab(tab, event) {
+      console.log(tab, event)
     }
   },
   created() {
-    this.activeMenu(sessionStorage.getItem("curr_menu"));
-    console.log(this.$config.title);
+    this.activeTopMenu = sessionStorage.getItem('top_menu')
   }
-};
+}
 </script>
 
 <style lang="scss" scoped>
@@ -117,14 +187,25 @@ export default {
   width: 150px;
 }
 .el-header {
-  background-color: #b3c0d1;
+  padding: 0;
+  background-color: #1890ff;
   color: #333;
   line-height: 60px;
   display: flex;
   justify-content: space-between;
 
   .left-header {
-    font-size: 24px;
+    .big-title {
+      display: flex;
+      text-align: center;
+      img {
+        border-radius: 5px;
+        box-shadow: 15px 0 15px -15px #000, -15px 0 15px -15px #000;
+      }
+    }
+  }
+  .right-header {
+    display: flex;
   }
 }
 

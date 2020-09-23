@@ -34,60 +34,60 @@ export default {
       type: Object,
       required: true,
       default: function() {
-        return { url: "" };
+        return { url: '' }
       }
     },
     formFields: { type: Array }
   },
   data() {
     return {
-      title: "",
+      title: '',
       dialogFormVisible: false,
       formData: { type: Object, required: true },
       rules: {}
-    };
+    }
   },
   watch: {
     formFields: function(newVal) {
-      let _this = this;
+      let _this = this
       newVal.forEach(function(field) {
-        _this.rules[field.field] = field.rule;
-      });
+        _this.rules[field.field] = field.rule
+      })
     }
   },
   methods: {
     open() {
-      console.log("open");
+      console.log('open')
     },
     show() {
-      this.dialogFormVisible = true;
+      this.dialogFormVisible = true
     },
     close() {
-      this.reset();
-      this.dialogFormVisible = false;
+      this.reset()
+      this.dialogFormVisible = false
     },
     reset() {
-      this.$refs["form1"].resetFields();
+      this.$refs['form1'].resetFields()
     },
     async save() {
-      this.$refs["form1"].validate(async valid => {
-        if (!valid) return false;
+      this.$refs['form1'].validate(async valid => {
+        if (!valid) return false
 
         const { data: resp } = await this.$http.post(
           this.config.url,
           this.formData
-        );
-        if (resp.status != 200) return this.$message.error(resp.msg);
-        this.$bus.$emit(this.$bus.loadData);
-        this.close();
-      });
+        )
+        if (resp.status != 200) return this.$message.error(resp.msg)
+        this.$bus.$emit(this.$bus.loadData)
+        this.close()
+      })
     }
   },
   mounted() {
     this.$bus.$on(
       this.$bus.showCreateDialog,
       () => (this.dialogFormVisible = true)
-    );
+    )
   }
 
   // beforeRouteEnter(to, from, next) {
@@ -102,7 +102,7 @@ export default {
   //   console.log("beforeRouteLeave");
   //   next();
   // },
-};
+}
 </script>
 
 <style lang="scss" scoped></style>

@@ -83,51 +83,51 @@ export default {
       type: Object,
       required: true,
       default: function() {
-        return { url: "" };
-      },
+        return { url: '' }
+      }
     },
     queryFields: { type: Array },
-    tableFields: { type: Array },
+    tableFields: { type: Array }
   },
   data() {
-    return { queryForm: {}, tableData: [] };
+    return { queryForm: {}, tableData: [] }
   },
   watch: {},
   methods: {
     async handleQueryForm(url) {
-      console.log("查询的url", url);
+      console.log('查询的url', url)
       const { data: resp } = await this.$http(
-        url + "?" + this.$ser(this.queryForm)
-      );
-      console.log("查询结果", resp);
-      this.tableData = resp.data;
+        url + '?' + this.$ser(this.queryForm)
+      )
+      console.log('查询结果', resp)
+      this.tableData = resp.data
     },
     async handleCreate() {
-      this.$bus.$emit(this.$bus.showCreateDialog);
+      this.$bus.$emit(this.$bus.showCreateDialog)
     },
     async handleEdit(index, row) {
-      this.$bus.$emit(this.$bus.showEditDialog, row);
+      this.$bus.$emit(this.$bus.showEditDialog, row)
     },
     async handleDelete(index, row) {
       const { data: resp } = await this.$http.delete(
-        this.config.url + "/" + row.id
-      );
-      console.log("删除", resp);
+        this.config.url + '/' + row.id
+      )
+      console.log('删除', resp)
       if (resp.data == 1) {
-        this.$message.success("删除成功");
-        this.handleQueryForm(this.config.url);
+        this.$message.success('删除成功')
+        this.handleQueryForm(this.config.url)
       } else {
-        this.$message.error("删除失败");
+        this.$message.error('删除失败')
       }
-    },
+    }
   },
   mounted() {
     this.$bus.$on(this.$bus.loadData, () => {
-      console.log("回调，执行查询");
-      this.handleQueryForm(this.config.url);
-    });
-  },
-};
+      console.log('回调，执行查询')
+      this.handleQueryForm(this.config.url)
+    })
+  }
+}
 </script>
 
 <style lang="scss" scoped>

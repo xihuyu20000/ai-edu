@@ -26,7 +26,7 @@ module.exports = (app) => {
    * /api/ 首页:
    *  get:
    *    tags:
-   *      - sys/default
+   *- sys/default
    */
   router.get("/", async (req, res) => {
     h.ok(res, { msg: "测试ok" });
@@ -37,7 +37,7 @@ module.exports = (app) => {
    * /api/users 用户列表:
    *  get:
    *    tags:
-   *      - sys/default
+   *- sys/default
    */
   router.get("/users", async (req, res) => {
     const all = await h.find("sys_user");
@@ -49,7 +49,7 @@ module.exports = (app) => {
    * /api/register 注册:
    *  post:
    *    tags:
-   *      - sys/default
+   *- sys/default
    */
   router.post("/register", async (req, res) => {
     if (await h.findOne(T_USER, "*", { username: req.body.username })) {
@@ -65,7 +65,7 @@ module.exports = (app) => {
    * /api/login  登录:
    * post:
    *    tags:
-   *      - sys/default
+   *- sys/default
    */
   router.post("/login", async (req, res) => {
     // 1 查询用户
@@ -93,7 +93,7 @@ module.exports = (app) => {
    * /api/token 刷新token:
    *  get:
    *    tags:
-   *      - sys/default
+   *- sys/default
    */
   router.get("/token", auth, async (req, res) => {
     // 1 从请求头获取token
@@ -119,7 +119,7 @@ module.exports = (app) => {
    * /api/navs  导航菜单:
    *  get:
    *    tags:
-   *      - sys/default
+   *- sys/default
    */
   router.get("/navs", auth, async (req, res) => {
     const all = await h.find("sys_res", "*");
@@ -138,73 +138,85 @@ module.exports = (app) => {
     // 1 初始化资源
     h.exec("truncate table sys_res");
     const sys_res_sql = [
-      "insert into `sys_res` (`id`, `pid`, `label`, `icon`, `level`, `openStyle`, `resStyle`, `path`, `showOrder`) values('1','0','基础设置','el-icon-menu','1','当前窗口','菜单',NULL,'1');                      ",
-      "insert into `sys_res` (`id`, `pid`, `label`, `icon`, `level`, `openStyle`, `resStyle`, `path`, `showOrder`) values('2','0','教务设置','el-icon-menu','1','当前窗口','菜单',NULL,'2');                      ",
-      "insert into `sys_res` (`id`, `pid`, `label`, `icon`, `level`, `openStyle`, `resStyle`, `path`, `showOrder`) values('3','0','教学设置','el-icon-menu','1','当前窗口','菜单',NULL,'3');                      ",
-      "insert into `sys_res` (`id`, `pid`, `label`, `icon`, `level`, `openStyle`, `resStyle`, `path`, `showOrder`) values('4','0','学习设置','el-icon-menu','1','当前窗口','菜单',NULL,'4');                      ",
-      "insert into `sys_res` (`id`, `pid`, `label`, `icon`, `level`, `openStyle`, `resStyle`, `path`, `showOrder`) values('5','0','报表设置','el-icon-menu','1','当前窗口','菜单',NULL,'5');                      ",
-      "insert into `sys_res` (`id`, `pid`, `label`, `icon`, `level`, `openStyle`, `resStyle`, `path`, `showOrder`) values('6','0','监控设置','el-icon-menu','1','当前窗口','菜单',NULL,'6');                      ",
-      "insert into `sys_res` (`id`, `pid`, `label`, `icon`, `level`, `openStyle`, `resStyle`, `path`, `showOrder`) values('100','1','功能管理','el-icon-menu','2','当前窗口','菜单',NULL,'1');                    ",
-      "insert into `sys_res` (`id`, `pid`, `label`, `icon`, `level`, `openStyle`, `resStyle`, `path`, `showOrder`) values('101','1','组织管理','el-icon-menu','2','当前窗口','菜单',NULL,'2');                    ",
-      "insert into `sys_res` (`id`, `pid`, `label`, `icon`, `level`, `openStyle`, `resStyle`, `path`, `showOrder`) values('102','1','角色管理','el-icon-menu','2','当前窗口','菜单',NULL,'3');                    ",
-      "insert into `sys_res` (`id`, `pid`, `label`, `icon`, `level`, `openStyle`, `resStyle`, `path`, `showOrder`) values('103','1','人员管理','el-icon-menu','2','当前窗口','菜单',NULL,'4');                    ",
-      "insert into `sys_res` (`id`, `pid`, `label`, `icon`, `level`, `openStyle`, `resStyle`, `path`, `showOrder`) values('104','1','权限管理','el-icon-menu','2','当前窗口','菜单',NULL,'5');                    ",
-      "insert into `sys_res` (`id`, `pid`, `label`, `icon`, `level`, `openStyle`, `resStyle`, `path`, `showOrder`) values('105','1','其他管理','el-icon-menu','2','当前窗口','菜单',NULL,'6');                    ",
-      "insert into `sys_res` (`id`, `pid`, `label`, `icon`, `level`, `openStyle`, `resStyle`, `path`, `showOrder`) values('200','2','班级管理','el-icon-menu','2','当前窗口','菜单',NULL,'1');                    ",
-      "insert into `sys_res` (`id`, `pid`, `label`, `icon`, `level`, `openStyle`, `resStyle`, `path`, `showOrder`) values('201','2','学籍管理','el-icon-menu','2','当前窗口','菜单',NULL,'2');                    ",
-      "insert into `sys_res` (`id`, `pid`, `label`, `icon`, `level`, `openStyle`, `resStyle`, `path`, `showOrder`) values('202','2','访谈管理','el-icon-menu','2','当前窗口','菜单',NULL,'3');                    ",
-      "insert into `sys_res` (`id`, `pid`, `label`, `icon`, `level`, `openStyle`, `resStyle`, `path`, `showOrder`) values('203','2','奖惩管理','el-icon-menu','2','当前窗口','菜单',NULL,'4');                    ",
-      "insert into `sys_res` (`id`, `pid`, `label`, `icon`, `level`, `openStyle`, `resStyle`, `path`, `showOrder`) values('300','3','课程管理','el-icon-menu','2','当前窗口','菜单',NULL,'5');                    ",
-      "insert into `sys_res` (`id`, `pid`, `label`, `icon`, `level`, `openStyle`, `resStyle`, `path`, `showOrder`) values('301','3','教案管理','el-icon-menu','2','当前窗口','菜单',NULL,'1');                    ",
-      "insert into `sys_res` (`id`, `pid`, `label`, `icon`, `level`, `openStyle`, `resStyle`, `path`, `showOrder`) values('302','3','教学管理','el-icon-menu','2','当前窗口','菜单',NULL,'2');                    ",
-      "insert into `sys_res` (`id`, `pid`, `label`, `icon`, `level`, `openStyle`, `resStyle`, `path`, `showOrder`) values('303','3','排课管理','el-icon-menu','2','当前窗口','菜单',NULL,'3');                    ",
-      "insert into `sys_res` (`id`, `pid`, `label`, `icon`, `level`, `openStyle`, `resStyle`, `path`, `showOrder`) values('304','3','题库管理','el-icon-menu','2','当前窗口','菜单',NULL,'4');                    ",
-      "insert into `sys_res` (`id`, `pid`, `label`, `icon`, `level`, `openStyle`, `resStyle`, `path`, `showOrder`) values('305','3','考试管理','el-icon-menu','2','当前窗口','菜单',NULL,'5');                    ",
-      "insert into `sys_res` (`id`, `pid`, `label`, `icon`, `level`, `openStyle`, `resStyle`, `path`, `showOrder`) values('306','3','监考管理','el-icon-menu','2','当前窗口','菜单',NULL,'6');                    ",
-      "insert into `sys_res` (`id`, `pid`, `label`, `icon`, `level`, `openStyle`, `resStyle`, `path`, `showOrder`) values('307','3','阅卷管理','el-icon-menu','2','当前窗口','菜单',NULL,'7');                    ",
-      "insert into `sys_res` (`id`, `pid`, `label`, `icon`, `level`, `openStyle`, `resStyle`, `path`, `showOrder`) values('400','4','直播管理','el-icon-menu','2','当前窗口','菜单',NULL,'1');                    ",
-      "insert into `sys_res` (`id`, `pid`, `label`, `icon`, `level`, `openStyle`, `resStyle`, `path`, `showOrder`) values('401','4','视频管理','el-icon-menu','2','当前窗口','菜单',NULL,'2');                    ",
-      "insert into `sys_res` (`id`, `pid`, `label`, `icon`, `level`, `openStyle`, `resStyle`, `path`, `showOrder`) values('402','4','笔记管理','el-icon-menu','2','当前窗口','菜单',NULL,'3');                    ",
-      "insert into `sys_res` (`id`, `pid`, `label`, `icon`, `level`, `openStyle`, `resStyle`, `path`, `showOrder`) values('500','5','教育概况','el-icon-menu','2','当前窗口','菜单',NULL,'1');                    ",
-      "insert into `sys_res` (`id`, `pid`, `label`, `icon`, `level`, `openStyle`, `resStyle`, `path`, `showOrder`) values('501','5','就业概况','el-icon-menu','2','当前窗口','菜单',NULL,'2');                    ",
-      "insert into `sys_res` (`id`, `pid`, `label`, `icon`, `level`, `openStyle`, `resStyle`, `path`, `showOrder`) values('502','5','授课进度','el-icon-menu','2','当前窗口','菜单',NULL,'3');                    ",
-      "insert into `sys_res` (`id`, `pid`, `label`, `icon`, `level`, `openStyle`, `resStyle`, `path`, `showOrder`) values('503','5','学生成绩','el-icon-menu','2','当前窗口','菜单',NULL,'4');                    ",
-      "insert into `sys_res` (`id`, `pid`, `label`, `icon`, `level`, `openStyle`, `resStyle`, `path`, `showOrder`) values('504','5','学生足迹','el-icon-menu','2','当前窗口','菜单',NULL,'5');                    ",
-      "insert into `sys_res` (`id`, `pid`, `label`, `icon`, `level`, `openStyle`, `resStyle`, `path`, `showOrder`) values('505','5','学生画像','el-icon-menu','2','当前窗口','菜单',NULL,'6');                    ",
-      "insert into `sys_res` (`id`, `pid`, `label`, `icon`, `level`, `openStyle`, `resStyle`, `path`, `showOrder`) values('1001','100','资源列表','el-icon-menu','3','当前窗口','菜单','/sys/res/list','1');      ",
-      "insert into `sys_res` (`id`, `pid`, `label`, `icon`, `level`, `openStyle`, `resStyle`, `path`, `showOrder`) values('1011','101','组织列表','el-icon-menu','3','当前窗口','菜单','/sys/org/list','1');      ",
-      "insert into `sys_res` (`id`, `pid`, `label`, `icon`, `level`, `openStyle`, `resStyle`, `path`, `showOrder`) values('1021','102','岗位列表','el-icon-menu','3','当前窗口','菜单','/sys/role/list','1');     ",
-      "insert into `sys_res` (`id`, `pid`, `label`, `icon`, `level`, `openStyle`, `resStyle`, `path`, `showOrder`) values('1031','103','员工列表','el-icon-menu','3','当前窗口','菜单','/sys/staff/list','1');    ",
-      "insert into `sys_res` (`id`, `pid`, `label`, `icon`, `level`, `openStyle`, `resStyle`, `path`, `showOrder`) values('1041','104','权限列表','el-icon-menu','3','当前窗口','菜单',NULL,'1');                 ",
-      "insert into `sys_res` (`id`, `pid`, `label`, `icon`, `level`, `openStyle`, `resStyle`, `path`, `showOrder`) values('1032','103','学生列表','el-icon-menu','3','当前窗口','菜单','/sys/student/list','2');  ",
+      "insert into `sys_res` (`id`, `pid`, `label`, `icon`, `openStyle`, `resStyle`, `path`, `showOrder`) values('1','0','业务管理','el-icon-menu','当前窗口','菜单',NULL,'1');",
+      "insert into `sys_res` (`id`, `pid`, `label`, `icon`, `openStyle`, `resStyle`, `path`, `showOrder`) values('20','1','教务设置','el-icon-s-ticket','当前窗口','菜单',NULL,'2');",
+      "insert into `sys_res` (`id`, `pid`, `label`, `icon`, `openStyle`, `resStyle`, `path`, `showOrder`) values('200','20','班级管理','el-icon-menu','当前窗口','菜单',NULL,'1');",
+      "insert into `sys_res` (`id`, `pid`, `label`, `icon`, `openStyle`, `resStyle`, `path`, `showOrder`) values('201','20','学籍管理','el-icon-menu','当前窗口','菜单',NULL,'2');",
+      "insert into `sys_res` (`id`, `pid`, `label`, `icon`, `openStyle`, `resStyle`, `path`, `showOrder`) values('202','20','访谈管理','el-icon-menu','当前窗口','菜单',NULL,'3');",
+      "insert into `sys_res` (`id`, `pid`, `label`, `icon`, `openStyle`, `resStyle`, `path`, `showOrder`) values('203','20','奖惩管理','el-icon-menu','当前窗口','菜单',NULL,'4');",
+
+      "insert into `sys_res` (`id`, `pid`, `label`, `icon`, `openStyle`, `resStyle`, `path`, `showOrder`) values('30','1','教学设置','el-icon-s-order','当前窗口','菜单',NULL,'3');",
+      "insert into `sys_res` (`id`, `pid`, `label`, `icon`, `openStyle`, `resStyle`, `path`, `showOrder`) values('300','30','课程管理','el-icon-menu','当前窗口','菜单',NULL,'5');",
+      "insert into `sys_res` (`id`, `pid`, `label`, `icon`, `openStyle`, `resStyle`, `path`, `showOrder`) values('301','30','教案管理','el-icon-menu','当前窗口','菜单',NULL,'1');",
+      "insert into `sys_res` (`id`, `pid`, `label`, `icon`, `openStyle`, `resStyle`, `path`, `showOrder`) values('302','30','教学管理','el-icon-menu','当前窗口','菜单',NULL,'2');",
+      "insert into `sys_res` (`id`, `pid`, `label`, `icon`, `openStyle`, `resStyle`, `path`, `showOrder`) values('303','30','排课管理','el-icon-menu','当前窗口','菜单',NULL,'3');",
+      "insert into `sys_res` (`id`, `pid`, `label`, `icon`, `openStyle`, `resStyle`, `path`, `showOrder`) values('304','30','题库管理','el-icon-menu','当前窗口','菜单',NULL,'4');",
+      "insert into `sys_res` (`id`, `pid`, `label`, `icon`, `openStyle`, `resStyle`, `path`, `showOrder`) values('305','30','考试管理','el-icon-menu','当前窗口','菜单',NULL,'5');",
+      "insert into `sys_res` (`id`, `pid`, `label`, `icon`, `openStyle`, `resStyle`, `path`, `showOrder`) values('306','30','监考管理','el-icon-menu','当前窗口','菜单',NULL,'6');",
+      "insert into `sys_res` (`id`, `pid`, `label`, `icon`, `openStyle`, `resStyle`, `path`, `showOrder`) values('307','30','阅卷管理','el-icon-menu','当前窗口','菜单',NULL,'7');",
+
+      "insert into `sys_res` (`id`, `pid`, `label`, `icon`, `openStyle`, `resStyle`, `path`, `showOrder`) values('40','1','学习设置','el-icon-s-flag','当前窗口','菜单',NULL,'4');",
+      "insert into `sys_res` (`id`, `pid`, `label`, `icon`, `openStyle`, `resStyle`, `path`, `showOrder`) values('400','40','直播管理','el-icon-menu','当前窗口','菜单',NULL,'1');",
+      "insert into `sys_res` (`id`, `pid`, `label`, `icon`, `openStyle`, `resStyle`, `path`, `showOrder`) values('401','40','视频管理','el-icon-menu','当前窗口','菜单',NULL,'2');",
+      "insert into `sys_res` (`id`, `pid`, `label`, `icon`, `openStyle`, `resStyle`, `path`, `showOrder`) values('402','40','笔记管理','el-icon-menu','当前窗口','菜单',NULL,'3');",
+
+      "insert into `sys_res` (`id`, `pid`, `label`, `icon`, `openStyle`, `resStyle`, `path`, `showOrder`) values('50','1','报表设置','el-icon-s-marketing','当前窗口','菜单',NULL,'5');",
+      "insert into `sys_res` (`id`, `pid`, `label`, `icon`, `openStyle`, `resStyle`, `path`, `showOrder`) values('500','50','教育概况','el-icon-menu','当前窗口','菜单',NULL,'1');",
+      "insert into `sys_res` (`id`, `pid`, `label`, `icon`, `openStyle`, `resStyle`, `path`, `showOrder`) values('501','50','就业概况','el-icon-menu','当前窗口','菜单',NULL,'2');",
+      "insert into `sys_res` (`id`, `pid`, `label`, `icon`, `openStyle`, `resStyle`, `path`, `showOrder`) values('502','50','授课进度','el-icon-menu','当前窗口','菜单',NULL,'3');",
+      "insert into `sys_res` (`id`, `pid`, `label`, `icon`, `openStyle`, `resStyle`, `path`, `showOrder`) values('503','50','学生成绩','el-icon-menu','当前窗口','菜单',NULL,'4');",
+      "insert into `sys_res` (`id`, `pid`, `label`, `icon`, `openStyle`, `resStyle`, `path`, `showOrder`) values('504','50','学生足迹','el-icon-menu','当前窗口','菜单',NULL,'5');",
+      "insert into `sys_res` (`id`, `pid`, `label`, `icon`, `openStyle`, `resStyle`, `path`, `showOrder`) values('505','50','学生画像','el-icon-menu','当前窗口','菜单',NULL,'6');",
+
+      "insert into `sys_res` (`id`, `pid`, `label`, `icon`, `openStyle`, `resStyle`, `path`, `showOrder`) values('60','1','监控设置','el-icon-s-shop','当前窗口','菜单',NULL,'6');",
+
+      "insert into `sys_res` (`id`, `pid`, `label`, `icon`, `openStyle`, `resStyle`, `path`, `showOrder`) values('2','0','系统配置','el-icon-menu','当前窗口','菜单',NULL,'1');",
+      "insert into `sys_res` (`id`, `pid`, `label`, `icon`, `openStyle`, `resStyle`, `path`, `showOrder`) values('10','2','基础设置','el-icon-setting','当前窗口','菜单',NULL,'1');",
+      "insert into `sys_res` (`id`, `pid`, `label`, `icon`, `openStyle`, `resStyle`, `path`, `showOrder`) values('101','10','菜单列表','el-icon-menu','当前窗口','菜单','/sys/res/list','1');",
+      "insert into `sys_res` (`id`, `pid`, `label`, `icon`, `openStyle`, `resStyle`, `path`, `showOrder`) values('102','10','角色列表','el-icon-menu','当前窗口','菜单','/sys/role/list','1');",
+      "insert into `sys_res` (`id`, `pid`, `label`, `icon`, `openStyle`, `resStyle`, `path`, `showOrder`) values('103','10','部门列表','el-icon-menu','当前窗口','菜单','/sys/org/list','1');",
+      "insert into `sys_res` (`id`, `pid`, `label`, `icon`, `openStyle`, `resStyle`, `path`, `showOrder`) values('104','10','系统公告','el-icon-menu','当前窗口','菜单',NULL,'6');",
+      "insert into `sys_res` (`id`, `pid`, `label`, `icon`, `openStyle`, `resStyle`, `path`, `showOrder`) values('105','10','用户管理','el-icon-menu','当前窗口','菜单','/sys/user/list','1');",
+      "insert into `sys_res` (`id`, `pid`, `label`, `icon`, `openStyle`, `resStyle`, `path`, `showOrder`) values('106','10','权限管理','el-icon-menu','当前窗口','菜单',NULL,'5');",
+      "insert into `sys_res` (`id`, `pid`, `label`, `icon`, `openStyle`, `resStyle`, `path`, `showOrder`) values('107','10','数据字典','el-icon-menu','当前窗口','菜单',NULL,'1');",
+      "insert into `sys_res` (`id`, `pid`, `label`, `icon`, `openStyle`, `resStyle`, `path`, `showOrder`) values('108','10','分类字典','el-icon-menu','当前窗口','菜单',NULL,'6');",
+      "insert into `sys_res` (`id`, `pid`, `label`, `icon`, `openStyle`, `resStyle`, `path`, `showOrder`) values('109','10','系统公告','el-icon-menu','当前窗口','菜单',NULL,'6');",
+
+      "insert into `sys_res` (`id`, `pid`, `label`, `icon`, `openStyle`, `resStyle`, `path`, `showOrder`) values('3','0','应用开发','el-icon-menu','当前窗口','菜单',NULL,'1');",
+      "insert into `sys_res` (`id`, `pid`, `label`, `icon`, `openStyle`, `resStyle`, `path`, `showOrder`) values('31','3','表单管理','el-icon-s-data','当前窗口','菜单',NULL,'1');",
+      "insert into `sys_res` (`id`, `pid`, `label`, `icon`, `openStyle`, `resStyle`, `path`, `showOrder`) values('310','31','设计表单','el-icon-menu','当前窗口','菜单',NULL,'1');",
+      "insert into `sys_res` (`id`, `pid`, `label`, `icon`, `openStyle`, `resStyle`, `path`, `showOrder`) values('311','31','表单模板','el-icon-menu','当前窗口','菜单',NULL,'1');",
+      "insert into `sys_res` (`id`, `pid`, `label`, `icon`, `openStyle`, `resStyle`, `path`, `showOrder`) values('32','3','设计表格','el-icon-s-grid','当前窗口','菜单',NULL,'1');",
+      "insert into `sys_res` (`id`, `pid`, `label`, `icon`, `openStyle`, `resStyle`, `path`, `showOrder`) values('320','32','设计表单','el-icon-menu','当前窗口','菜单',NULL,'1');",
+      "insert into `sys_res` (`id`, `pid`, `label`, `icon`, `openStyle`, `resStyle`, `path`, `showOrder`) values('321','32','表单模板','el-icon-menu','当前窗口','菜单',NULL,'1');",
     ];
     h.exec(sys_res_sql);
 
     // 2 初始化用户
     h.exec("truncate table sys_user");
     const sys_user_staff = [
-      "insert into `sys_user` (`id`, `realname`, `username`, `password`, `style`, `canlogin`, `status`) values('1','管理员','root','admin','staff','0','在职')",
+      "insert into `sys_user` (`id`, `realname`, `username`, `password`, `style`, `canlogin`, `status`) values('1','管理员','root','$2b$10$T8sMqOL1smHDoazINRANbuU3W1jMATFKWxVt1khlBfskRoiHp9FfC','staff','0','在职')",
     ];
     h.exec(sys_user_staff);
 
     // 3 初始化组织机构
     h.exec("truncate table sys_org");
     const sys_org_sql = [
-      "insert into `sys_org` (`id`, `pid`, `label`, `manager`, `contact`, `showOrder`) values('1','0','集团公司',NULL,NULL,'1');               ",
+      "insert into `sys_org` (`id`, `pid`, `label`, `manager`, `contact`, `showOrder`) values('1','0','集团公司',NULL,NULL,'1');   ",
       "insert into `sys_org` (`id`, `pid`, `label`, `manager`, `contact`, `showOrder`) values('2','1','北京教育科技发展公司',NULL,NULL,'1');   ",
-      "insert into `sys_org` (`id`, `pid`, `label`, `manager`, `contact`, `showOrder`) values('3','1','北京软件开发公司',NULL,NULL,'2');       ",
-      "insert into `sys_org` (`id`, `pid`, `label`, `manager`, `contact`, `showOrder`) values('4','1','河南分公司',NULL,NULL,'3');             ",
-      "insert into `sys_org` (`id`, `pid`, `label`, `manager`, `contact`, `showOrder`) values('5','2','开发部',NULL,NULL,'1');                 ",
-      "insert into `sys_org` (`id`, `pid`, `label`, `manager`, `contact`, `showOrder`) values('6','2','市场部',NULL,NULL,'2');                 ",
-      "insert into `sys_org` (`id`, `pid`, `label`, `manager`, `contact`, `showOrder`) values('7','2','财务部',NULL,NULL,'3');                 ",
+      "insert into `sys_org` (`id`, `pid`, `label`, `manager`, `contact`, `showOrder`) values('3','1','北京软件开发公司',NULL,NULL,'2'); ",
+      "insert into `sys_org` (`id`, `pid`, `label`, `manager`, `contact`, `showOrder`) values('4','1','河南分公司',NULL,NULL,'3'); ",
+      "insert into `sys_org` (`id`, `pid`, `label`, `manager`, `contact`, `showOrder`) values('5','2','开发部',NULL,NULL,'1');",
+      "insert into `sys_org` (`id`, `pid`, `label`, `manager`, `contact`, `showOrder`) values('6','2','市场部',NULL,NULL,'2');",
+      "insert into `sys_org` (`id`, `pid`, `label`, `manager`, `contact`, `showOrder`) values('7','2','财务部',NULL,NULL,'3');",
     ];
     h.exec(sys_org_sql);
 
     // 4 初始化角色
     h.exec("truncate table sys_role");
     const sys_role_sql = [
-      "insert into `sys_role` (`id`, `label`) values('100000','开发人员');      ",
-      "insert into `sys_role` (`id`, `label`) values('100002','讲师');        ",
+      "insert into `sys_role` (`id`, `label`) values('100000','开发人员');",
+      "insert into `sys_role` (`id`, `label`) values('100002','讲师');  ",
       "insert into `sys_role` (`id`, `label`) values('100003','财务-出纳');   ",
       "insert into `sys_role` (`id`, `label`) values('100004','财务-会计');   ",
     ];
@@ -217,7 +229,7 @@ module.exports = (app) => {
    * /api/metatable/:id  数据表格元数据:
    *  get:
    *    tags:
-   *     - sys/default
+   *- sys/default
    */
   router.get("/metatable/:id", async (req, res) => {
     const result = {

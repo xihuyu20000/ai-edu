@@ -26,8 +26,8 @@ export default {
   props: {
     data: {
       type: Object,
-      require: true,
-    },
+      require: true
+    }
   },
   data() {
     return {
@@ -35,26 +35,26 @@ export default {
       formFields: [],
       queryFields: [],
       tableFields: [],
-      editData: {},
-    };
+      editData: {}
+    }
   },
   watch: {
     data: function(newVal) {
       // console.log("元数据", newVal);
-      this.config = newVal.data.config;
-      this.formFields = newVal.data.formFields;
-      this.queryFields = newVal.data.queryFields;
-      this.tableFields = newVal.data.tableFields;
-      this.$refs.dataTable.handleQueryForm(this.config.url);
-    },
+      this.config = newVal.data.config
+      this.formFields = newVal.data.formFields
+      this.queryFields = newVal.data.queryFields
+      this.tableFields = newVal.data.tableFields
+      this.$refs.dataTable.handleQueryForm(this.config.url)
+    }
   },
   methods: {
     relateRes: function(row) {
-      console.log("关联用户", row);
-    },
+      console.log('关联用户', row)
+    }
   },
-  created() {},
-};
+  created() {}
+}
 </script>
 
 <style lang="scss" scoped></style>

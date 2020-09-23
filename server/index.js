@@ -6,7 +6,7 @@ const app = express();
 app.use(require("cors")());
 app.use(express.json());
 
-require("./api/swagger-api")(app);
+// require("./api/swagger-api")(app);
 require("./api/dev/mysql/meta-api")(app);
 require("./api/sys/mysql/default-api")(app);
 require("./api/sys/mysql/auth-api")(app);

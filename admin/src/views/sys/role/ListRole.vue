@@ -27,38 +27,38 @@ export default {
     return {
       data: {
         type: Object,
-        require: true,
+        require: true
       },
       config: {},
       formFields: [],
       queryFields: [],
       tableFields: [],
-      editData: {},
-    };
+      editData: {}
+    }
   },
   watch: {
     data: function(newVal) {
       // console.log("元数据", newVal);
-      this.config = newVal.data.config;
-      this.formFields = newVal.data.formFields;
-      this.queryFields = newVal.data.queryFields;
-      this.tableFields = newVal.data.tableFields;
-      this.$refs.dataTable.handleQueryForm(this.config.url);
-    },
+      this.config = newVal.data.config
+      this.formFields = newVal.data.formFields
+      this.queryFields = newVal.data.queryFields
+      this.tableFields = newVal.data.tableFields
+      this.$refs.dataTable.handleQueryForm(this.config.url)
+    }
   },
   methods: {
     async fetch() {
-      const { data: resp } = await this.$http.get("/meta/table/1000");
-      this.data = resp;
+      const { data: resp } = await this.$http.get('/meta/table/1000')
+      this.data = resp
     },
     relateRes: function(row) {
-      console.log("关联用户", row);
-    },
+      console.log('关联用户', row)
+    }
   },
   created() {
-    this.fetch();
-  },
-};
+    this.fetch()
+  }
+}
 </script>
 
 <style lang="scss" scoped></style>

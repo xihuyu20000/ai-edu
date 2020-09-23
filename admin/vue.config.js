@@ -3,4 +3,4 @@ module.exports = {
     port: 22222,
     open: true
   }
-};
+}

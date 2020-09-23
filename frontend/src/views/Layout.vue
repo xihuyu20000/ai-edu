@@ -1,5 +1,5 @@
 <template>
-  <a-layout>
+  <a-layout style="height:100vh">
     <a-layout-header class="header"
       ><div class="header-left">
         <img :src="logo" class="logo" /><span class="title"
@@ -47,7 +47,12 @@
             </a-menu-item>
           </a-menu>
         </a-dropdown>
-        <a-button type="primary" icon="play-circle" style="margin-left:20px">
+        <a-button
+          @click="logout"
+          type="primary"
+          icon="play-circle"
+          style="margin-left:20px"
+        >
           退出登录
         </a-button>
       </div></a-layout-header
@@ -118,6 +123,11 @@ export default {
       logo: require('../assets/logo.jpg'),
       collapsed: false,
       navMenu: []
+    }
+  },
+  methods: {
+    logout: function() {
+      this.$router.push('/login')
     }
   }
 }

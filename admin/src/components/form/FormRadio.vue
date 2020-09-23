@@ -16,14 +16,14 @@ export default {
       type: Object,
       required: true,
       default: function() {
-        return {};
+        return {}
       }
     }
   },
   setup() {
-    return {};
+    return {}
   }
-};
+}
 </script>
 
 <style lang="scss" scoped></style>

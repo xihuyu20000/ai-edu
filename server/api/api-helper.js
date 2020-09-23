@@ -23,9 +23,10 @@ function fail(res, obj) {
 /**
  * 生成资源树
  * @param {Array} 资源数组
- * @param {Number} 顶级节点的id号；主要用域页面构建虚拟选项
+ * @param {Number} 顶级节点的id号；主要用于页面构建虚拟选项
  */
 function tree(resArr, top = 0) {
+  //取顶级菜单
   const menu1 = resArr.filter((item) => item.pid == top);
   menu1.sort((a, b) => a.showOrder - b.showOrder);
   for (const mi1 of menu1) {
