@@ -1,8 +1,9 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Home from '@/views/Home.vue'
-import Default from '@/views/Default.vue'
-import Login from '@/views/Login.vue'
+import Home from '@/views/common/Home.vue'
+import Default from '@/views/common/Default.vue'
+import Login from '@/views/common/Login.vue'
+import V404 from '@/views/common/404.vue'
 import ListRole from '@/views/sys/role/ListRole.vue'
 import ListOrg from '@/views/sys/org/ListOrg.vue'
 import ListRes from '@/views/sys/res/ListRes.vue'
@@ -65,6 +66,10 @@ const routes = [
     path: '/login',
     name: '登录',
     component: Login
+  },
+  {
+    path: '*',
+    component: V404
   }
 ]
 

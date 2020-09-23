@@ -30,8 +30,7 @@
           active-text-color="#ffd04b"
           @select="headerNav"
         >
-        
-          <el-menu-item>
+          <el-menu-item
             v-for="nav in headerMenus"
             :index="nav.id + ''"
             :key="nav.id"
@@ -100,15 +99,19 @@
         </el-menu>
       </el-aside>
       <el-main>
-        <el-tabs editable v-model="activeTabName" @tab-click="selectTab">
-          <el-tab-pane label="首页" name="first" :closable="false"
-            >首页</el-tab-pane
-          >
-          <el-tab-pane label="配置管理" name="second">配置管理</el-tab-pane>
-          <el-tab-pane label="角色管理" name="third">角色管理</el-tab-pane>
-          <el-tab-pane label="定时任务补偿" name="fourth"
-            >定时任务补偿</el-tab-pane
-          >
+        <el-tabs
+          editable
+          v-model="activeTabName"
+          @tab-click="selectTab"
+          @tab-remove="removeTab"
+        >
+          <el-tab-pane label="首页" name="首页" :closable="false"></el-tab-pane>
+          <el-tab-pane
+            v-for="item in tabs"
+            :label="item.label"
+            :name="item.name"
+            :key="item.label"
+          ></el-tab-pane>
         </el-tabs>
         <router-view
       /></el-main>
@@ -124,24 +127,29 @@ export default {
       collapsed: false,
       activeTopMenu: '2',
       activeLeftActive: '',
-      activeTabName: '',
+      activeTabName: '首页',
       headerMenus1: [],
-      leftMenus: []
+      leftMenus: [],
+      tabs: []
     }
   },
   computed: {
     menuTree: function() {
-      return JSON.parse(localStorage.getItem('menuTree'))
+      let t = JSON.parse(localStorage.getItem('menuTree'))
+      if (!t) console.error('没有获得导航菜单数据', t)
+      return t
     },
     headerMenus: function() {
       // eslint-disable-next-line vue/no-side-effects-in-computed-properties
       this.headerMenus1 = this.menuTree.filter(item => item.pid == 0)
+      if (this.headerMenus1.length == 0)
+        console.log('没有获得顶部导航菜单', this.headerMenus1)
       return this.headerMenus1
     }
   },
   watch: {
-    headerMenus1: function(newVal) {
-      this.headerNav(newVal[0].id)
+    headerMenus1: function() {
+      this.headerNav(this.activeTopMenu)
     }
   },
   methods: {
@@ -167,13 +175,33 @@ export default {
     },
     selectLeftMenu(menu) {
       sessionStorage.setItem('curr_menu', menu.path)
+      // 判断是否已经打开该菜单
+      let existed = this.tabs.filter(item => item.label == menu.label)
+      if (existed.length == 0) {
+        this.tabs.push({ label: menu.label, name: menu.path })
+      }
+      this.activeTabName = menu.path
     },
-    activeLeftMenu(path) {
-      this.activeLeftActive = path
-      this.$router.push(path)
+    selectTab() {
+      this.$router.push(this.activeTabName)
+      sessionStorage.setItem('curr_menu', this.activeTabName)
     },
-    selectTab(tab, event) {
-      console.log(tab, event)
+    removeTab(targetName) {
+      let tabs = this.tabs
+      let activeName = this.activeTabName
+      if (activeName === targetName) {
+        tabs.forEach((tab, index) => {
+          if (tab.name === targetName) {
+            let nextTab = tabs[index + 1] || tabs[index - 1]
+            if (nextTab) {
+              activeName = nextTab.name
+            }
+          }
+        })
+      }
+
+      this.activeName = activeName
+      this.tabs = tabs.filter(tab => tab.name !== targetName)
     }
   },
   created() {
