@@ -1,33 +1,34 @@
 <template>
   <div class="data-container">
-    <div class="query-box">
-      <el-form
-        v-if="queryFields.length > 0"
-        :inline="true"
-        :model="queryForm"
-        class="query-form-inline"
-      >
-        <el-form-item v-for="(field, index) in queryFields" :key="index">
-          <el-input
-            v-if="field.style == 'textline'"
-            v-model="queryForm[field.field]"
-            :placeholder="field.label"
-          ></el-input>
-        </el-form-item>
-        <el-form-item>
-          <el-button
-            type="primary"
-            icon="el-icon-search"
-            @click="handleQueryForm(config.url)"
-            >查询</el-button
-          >
-        </el-form-item>
-      </el-form>
-      <div class="operator-bar">
-        <slot name="header"></slot>
-      </div>
+    <div class="header">
       <div class="operate-bar">
         <el-button type="primary" @click="handleCreate">新增</el-button>
+      </div>
+      <div class="query-box">
+        <el-form
+          v-if="queryFields.length > 0"
+          :inline="true"
+          :model="queryForm"
+        >
+          <el-form-item v-for="(field, index) in queryFields" :key="index">
+            <el-input
+              v-if="field.style == 'textline'"
+              v-model="queryForm[field.field]"
+              :placeholder="field.label"
+            ></el-input>
+          </el-form-item>
+          <el-form-item>
+            <el-button
+              type="primary"
+              icon="el-icon-search"
+              @click="handleQueryForm(config.url)"
+              >查询</el-button
+            >
+          </el-form-item>
+        </el-form>
+        <div class="operator-bar">
+          <slot name="header"></slot>
+        </div>
       </div>
     </div>
     <div class="data-box">
@@ -132,9 +133,14 @@ export default {
 
 <style lang="scss" scoped>
 .data-container {
-  .query-box {
+  .header {
     display: flex;
-    justify-content: space-between;
+    .operate-bar {
+      margin-right: 20px;
+    }
+    .query-box {
+      display: flex;
+    }
   }
   .data-box {
   }

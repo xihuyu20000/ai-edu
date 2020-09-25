@@ -10,6 +10,8 @@ import ListRes from '@/views/sys/res/ListRes.vue'
 import ListUser from '@/views/sys/user/ListUser.vue'
 import ListAuth from '@/views/sys/auth/ListAuth.vue'
 import ListDict from '@/views/sys/dict/ListDict.vue'
+import ListRule from '@/views/sys/rule/ListRule.vue'
+import DesignForm from '@/views/dev/form/DesignForm.vue'
 import DataTemplate1Loader from '@/components/DataTemplate1Loader.vue'
 
 Vue.use(VueRouter)
@@ -49,6 +51,16 @@ const routes = [
         path: '/sys/dict/list',
         name: '数据字典',
         component: ListDict
+      },
+      {
+        path: '/sys/rule/list',
+        name: '校验规则',
+        component: ListRule
+      },
+      {
+        path: '/dev/form/design',
+        name: '制作表单',
+        component: DesignForm
       },
       {
         path: '/dt1/:id',

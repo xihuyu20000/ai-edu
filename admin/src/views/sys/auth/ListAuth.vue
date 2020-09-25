@@ -13,7 +13,11 @@ export default {
   methods: {
     async fetch() {
       const { data: resp } = await this.$http.get('/meta/table/600')
-      console.log('授权配置信息', resp)
+      if (resp.status != 200)
+        return this.$notify.error({
+          title: '严重错误',
+          message: '没有获取到配置信息'
+        })
       this.data = resp
     }
   },

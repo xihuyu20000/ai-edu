@@ -48,7 +48,7 @@ export default {
   },
   methods: {
     async fetch() {
-      const { data: resp } = await this.$http.get('/meta/table/1000')
+      const { data: resp } = await this.$http.get('/meta/table/role')
       this.data = resp
     },
     relateRes: function(row) {

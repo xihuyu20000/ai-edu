@@ -4,7 +4,7 @@ module.exports = (app) => {
   glob("api/**/*-api.js", function (er, files) {
     files.forEach((file) => {
       file = "./" + file.substr(4);
-      console.info("注册api文件", file);
+      console.info("register api file   ", file);
       require(file)(app);
     });
   });

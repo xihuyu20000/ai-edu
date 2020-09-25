@@ -70,7 +70,12 @@ export default {
         // this.$router.addRoutes([])
         // 转向主页
         this.$router.push('/')
-        this.$message.success('登录成功')
+        this.$notify({
+          title: '登录成功',
+          message: '欢迎登录系统',
+          position: 'bottom-right',
+          type: 'success'
+        })
       })
     },
     resetForm(formName) {

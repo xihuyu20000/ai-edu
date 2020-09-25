@@ -4,18 +4,18 @@
       <div class="left-header">
         <div class="big-title">
           <img :src="logo" style="margin:10px;height:45px;width:45px" />
-          <h3 v-show="!collapsed" style="margin:10px">
+          <h3 v-show="!collapsed" style="margin:0px">
             {{ this.$config.title }}
           </h3>
           <span
             class="iconfont"
-            style="cursor:pointer;font-size: 40px;margin-left:20px"
+            style="cursor:pointer;font-size: 40px;margin-left:50px;margin-right:30px"
             @click="toggle"
             ><template v-if="collapsed">&#xe86f;</template
             ><template v-else>&#xe870;</template></span
           >
           <h5
-            style="margin:30px;font-size:20px;font-family:cursive;color:#fff;text-align:center"
+            style="margin:0px;font-size:20px;font-family:cursive;color:#fff;text-align:center"
           >
             {{ this.$config.subtitle }}
           </h5>
@@ -148,7 +148,7 @@ export default {
     }
   },
   watch: {
-    headerMenus1: function() {
+    activeTopMenu: function() {
       this.headerNav(this.activeTopMenu)
     }
   },
@@ -169,7 +169,6 @@ export default {
       this.$message.success('显示个人用户')
     },
     logout() {
-      this.$message.success('成功退出')
       window.sessionStorage.clear()
       this.$router.push('/login')
     },
@@ -205,7 +204,7 @@ export default {
     }
   },
   created() {
-    this.activeTopMenu = sessionStorage.getItem('top_menu')
+    this.activeTopMenu = sessionStorage.getItem('top_menu') || '3'
   }
 }
 </script>

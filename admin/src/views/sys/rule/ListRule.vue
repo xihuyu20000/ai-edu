@@ -15,15 +15,10 @@
         <form-radio :formData="formData" :field="field" />
       </el-form-item>
       <el-form-item>
-        <el-button type="primary" @click="validateSQL">验证SQL</el-button>
         <el-button type="primary" @click="saveForm">保 存</el-button>
       </el-form-item>
     </el-form>
-    <div>
-      <p style="color:red">
-        控件类型是列表时，sql语句必须含有id和label两个字段；控件类型是树时，sql语句必须含有id、pid和label三个字段
-      </p>
-    </div>
+
     <vxe-grid ref="xTable" v-bind="gridOptions" :data="tableData">
       <vxe-table-column type="seq" width="60" />
       <vxe-table-column
@@ -46,11 +41,6 @@
         </template>
       </vxe-table-column>
     </vxe-grid>
-    <el-drawer :visible.sync="visible" direction="rtl">
-      <ol>
-        <li :key="index" v-for="(item, index) in sqlTableData">{{ item }}</li>
-      </ol>
-    </el-drawer>
   </div>
 </template>
 
@@ -80,24 +70,14 @@ export default {
           mode: 'row',
           showStatus: true
         }
-      },
-      visible: false,
-
-      sqlTableData: []
+      }
     }
   },
   computed: {},
   watch: {},
   methods: {
-    async validateSQL() {
-      this.visible = true
-      const { data: resp } = await this.$http.get(
-        '/dict/sql/' + this.formData.query_sql
-      )
-      console.log('返回数据', resp.data)
-      this.sqlTableData = resp.data
-    },
     async saveForm() {
+      console.log('传递表单', this.formData)
       const { data: resp } = await this.$http.patch(
         this.config.url,
         this.formData
@@ -122,7 +102,7 @@ export default {
       })
     },
     async fetch() {
-      const { data: resp } = await this.$http.get('/meta/table/dict')
+      const { data: resp } = await this.$http.get('/meta/table/rule')
       if (resp.status != 200)
         return this.$notify.error({
           title: '严重错误',
