@@ -1,7 +1,0 @@
-@url = http://localhost:44444
-
-### html内容
-GET {{url}}/get
-
-### json内容
-GET  {{url}}/getjson

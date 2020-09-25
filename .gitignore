@@ -1,3 +1,5 @@
 /node_modules
 /server/node_modules
 /crawler/node_modules
+/spider/node_modules
+/spider/.vscode
