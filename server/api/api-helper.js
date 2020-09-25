@@ -1,23 +1,8 @@
-const {
-  query,
-  exec,
-  create,
-  update,
-  replace,
-  remove,
-  find,
-  findOne,
-} = require("../db/mysql");
-
 function ok(res, obj) {
-  const result = { status: 200, msg: "", data: [] };
-  Object.assign(result, obj);
-  res.json(result);
+  res.json(Object.assign({ status: 200, msg: "", data: [] }, obj));
 }
 function fail(res, obj) {
-  const result = { status: 400, msg: "", data: [] };
-  Object.assign(result, obj);
-  res.json(result);
+  res.json(Object.assign({ status: 400, msg: "", data: [] }, obj));
 }
 
 /**
@@ -69,20 +54,7 @@ function tree(resArr, top = 0) {
         });
     }
   });
-
   return menu1;
 }
 
-module.exports = {
-  query,
-  exec,
-  create,
-  update,
-  replace,
-  remove,
-  find,
-  findOne,
-  ok,
-  fail,
-  tree,
-};
+module.exports = Object.assign({ ok, fail, tree }, require("../db/mysql"));

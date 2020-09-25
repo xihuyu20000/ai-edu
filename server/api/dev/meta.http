@@ -2,4 +2,4 @@
 @json = Content-Type: application/json
 
 ### 元数据
-get {{url}}/table/100
+get {{url}}/table/user

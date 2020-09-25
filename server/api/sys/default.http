@@ -1,11 +1,14 @@
 @url = http://localhost:33333/api
 @json = Content-Type: application/json
 
+
 ### 首页
 get {{url}}
 
+
 ### 全部用户
 get {{url}}/users
+
 
 ### 注册
 post {{url}}/register
@@ -42,8 +45,10 @@ Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNjAwODIw
 ### 初始化
 put {{url}}/init
 
+
 ### 表格配置
 get {{url}}/metatable/:id
+
 
 ### 表单配置
 get {{url}}/metaform/:id

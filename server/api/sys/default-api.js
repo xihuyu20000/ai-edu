@@ -2,7 +2,7 @@
 module.exports = (app) => {
   const bcrypt = require("bcrypt");
   const jwt = require("jsonwebtoken");
-  const h = require("../../api-helper");
+  const h = require("../api-helper");
   const express = require("express");
   const router = express.Router();
 
@@ -135,9 +135,10 @@ module.exports = (app) => {
    *    - sys/default
    */
   router.put("/init", async (req, res) => {
+    const sqls = {};
     // 1 初始化资源
-    h.exec("truncate table sys_res");
-    const sys_res_sql = [
+    sqls.sys_res_sql = [
+      "truncate table sys_res",
       "insert into `sys_res` (`id`, `pid`, `label`, `icon`, `openStyle`, `resStyle`, `path`, `showOrder`) values('1','0','业务管理','el-icon-menu','当前窗口','菜单',NULL,'1');",
       "insert into `sys_res` (`id`, `pid`, `label`, `icon`, `openStyle`, `resStyle`, `path`, `showOrder`) values('20','1','教务设置','el-icon-s-ticket','当前窗口','菜单',NULL,'2');",
       "insert into `sys_res` (`id`, `pid`, `label`, `icon`, `openStyle`, `resStyle`, `path`, `showOrder`) values('200','20','班级管理','el-icon-menu','当前窗口','菜单',NULL,'1');",
@@ -178,30 +179,27 @@ module.exports = (app) => {
       "insert into `sys_res` (`id`, `pid`, `label`, `icon`, `openStyle`, `resStyle`, `path`, `showOrder`) values('104','10','系统公告','el-icon-menu','当前窗口','菜单',NULL,'6');",
       "insert into `sys_res` (`id`, `pid`, `label`, `icon`, `openStyle`, `resStyle`, `path`, `showOrder`) values('105','10','用户管理','el-icon-menu','当前窗口','菜单','/sys/user/list','1');",
       "insert into `sys_res` (`id`, `pid`, `label`, `icon`, `openStyle`, `resStyle`, `path`, `showOrder`) values('106','10','权限管理','el-icon-menu','当前窗口','菜单',NULL,'5');",
-      "insert into `sys_res` (`id`, `pid`, `label`, `icon`, `openStyle`, `resStyle`, `path`, `showOrder`) values('107','10','数据字典','el-icon-menu','当前窗口','菜单',NULL,'1');",
-      "insert into `sys_res` (`id`, `pid`, `label`, `icon`, `openStyle`, `resStyle`, `path`, `showOrder`) values('108','10','分类字典','el-icon-menu','当前窗口','菜单',NULL,'6');",
-      "insert into `sys_res` (`id`, `pid`, `label`, `icon`, `openStyle`, `resStyle`, `path`, `showOrder`) values('109','10','系统公告','el-icon-menu','当前窗口','菜单',NULL,'6');",
+      "insert into `sys_res` (`id`, `pid`, `label`, `icon`, `openStyle`, `resStyle`, `path`, `showOrder`) values('107','10','控件字典','el-icon-menu','当前窗口','菜单','/sys/dict/list','1');",
+      "insert into `sys_res` (`id`, `pid`, `label`, `icon`, `openStyle`, `resStyle`, `path`, `showOrder`) values('108','10','校验规则','el-icon-menu','当前窗口','菜单','/sys/rule/list','1');",
 
       "insert into `sys_res` (`id`, `pid`, `label`, `icon`, `openStyle`, `resStyle`, `path`, `showOrder`) values('3','0','应用开发','el-icon-menu','当前窗口','菜单',NULL,'1');",
       "insert into `sys_res` (`id`, `pid`, `label`, `icon`, `openStyle`, `resStyle`, `path`, `showOrder`) values('31','3','表单管理','el-icon-s-data','当前窗口','菜单',NULL,'1');",
-      "insert into `sys_res` (`id`, `pid`, `label`, `icon`, `openStyle`, `resStyle`, `path`, `showOrder`) values('310','31','设计表单','el-icon-menu','当前窗口','菜单',NULL,'1');",
+      "insert into `sys_res` (`id`, `pid`, `label`, `icon`, `openStyle`, `resStyle`, `path`, `showOrder`) values('310','31','制作表单','el-icon-menu','当前窗口','菜单','/dev/form/design','1');",
       "insert into `sys_res` (`id`, `pid`, `label`, `icon`, `openStyle`, `resStyle`, `path`, `showOrder`) values('311','31','表单模板','el-icon-menu','当前窗口','菜单',NULL,'1');",
       "insert into `sys_res` (`id`, `pid`, `label`, `icon`, `openStyle`, `resStyle`, `path`, `showOrder`) values('32','3','设计表格','el-icon-s-grid','当前窗口','菜单',NULL,'1');",
-      "insert into `sys_res` (`id`, `pid`, `label`, `icon`, `openStyle`, `resStyle`, `path`, `showOrder`) values('320','32','设计表单','el-icon-menu','当前窗口','菜单',NULL,'1');",
+      "insert into `sys_res` (`id`, `pid`, `label`, `icon`, `openStyle`, `resStyle`, `path`, `showOrder`) values('320','32','制作表格','el-icon-menu','当前窗口','菜单',NULL,'1');",
       "insert into `sys_res` (`id`, `pid`, `label`, `icon`, `openStyle`, `resStyle`, `path`, `showOrder`) values('321','32','表单模板','el-icon-menu','当前窗口','菜单',NULL,'1');",
     ];
-    h.exec(sys_res_sql);
 
     // 2 初始化用户
-    h.exec("truncate table sys_user");
-    const sys_user_staff = [
+    sqls.sys_user_staff = [
+      "truncate table sys_user",
       "insert into `sys_user` (`id`, `realname`, `username`, `password`, `style`, `canlogin`, `status`) values('1','管理员','root','$2b$10$T8sMqOL1smHDoazINRANbuU3W1jMATFKWxVt1khlBfskRoiHp9FfC','staff','0','在职')",
     ];
-    h.exec(sys_user_staff);
 
     // 3 初始化组织机构
-    h.exec("truncate table sys_org");
-    const sys_org_sql = [
+    sqls.sys_org_sql = [
+      "truncate table sys_org",
       "insert into `sys_org` (`id`, `pid`, `label`, `manager`, `contact`, `showOrder`) values('1','0','集团公司',NULL,NULL,'1');   ",
       "insert into `sys_org` (`id`, `pid`, `label`, `manager`, `contact`, `showOrder`) values('2','1','北京教育科技发展公司',NULL,NULL,'1');   ",
       "insert into `sys_org` (`id`, `pid`, `label`, `manager`, `contact`, `showOrder`) values('3','1','北京软件开发公司',NULL,NULL,'2'); ",
@@ -210,17 +208,20 @@ module.exports = (app) => {
       "insert into `sys_org` (`id`, `pid`, `label`, `manager`, `contact`, `showOrder`) values('6','2','市场部',NULL,NULL,'2');",
       "insert into `sys_org` (`id`, `pid`, `label`, `manager`, `contact`, `showOrder`) values('7','2','财务部',NULL,NULL,'3');",
     ];
-    h.exec(sys_org_sql);
 
     // 4 初始化角色
-    h.exec("truncate table sys_role");
-    const sys_role_sql = [
+    sqls.sys_role_sql = [
+      "truncate table sys_role",
       "insert into `sys_role` (`id`, `label`) values('100000','开发人员');",
       "insert into `sys_role` (`id`, `label`) values('100002','讲师');  ",
-      "insert into `sys_role` (`id`, `label`) values('100003','财务-出纳');   ",
+      "insert into `sys_role` (`id`, `label`) values('100003,'财务-出纳');   ",
       "insert into `sys_role` (`id`, `label`) values('100004','财务-会计');   ",
     ];
-    h.exec(sys_role_sql);
+
+    for (let key in sqls) {
+      h.exec(sqls[key]);
+    }
+    h.exec("SHOW tables");
     h.ok(res, { msg: "初始化所有数据" });
   });
 

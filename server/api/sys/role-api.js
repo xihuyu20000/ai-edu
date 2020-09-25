@@ -1,7 +1,7 @@
 module.exports = (app) => {
   const express = require("express");
   const router = express.Router();
-  const h = require("../../api-helper");
+  const h = require("../api-helper");
 
   const T_ROLE = "sys_role";
 
