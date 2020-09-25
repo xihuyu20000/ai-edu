@@ -1,18 +1,7 @@
 <template>
-  <el-dialog
-    :title="config.editTitle"
-    :visible.sync="dialogFormVisible"
-    @open="open"
-    @close="close"
-  >
+  <el-dialog :title="config.editTitle" :visible.sync="dialogFormVisible" @open="open" @close="close">
     <el-form :model="formData" ref="form1" :rules="rules">
-      <el-form-item
-        v-for="(field, index) in formFields"
-        :label="field.label"
-        :label-width="field.width"
-        :key="index"
-        :prop="field.field"
-      >
+      <el-form-item v-for="(field, index) in formFields" :label="field.label" :label-width="field.width" :key="index" :prop="field.field">
         <form-textline :formData="formData" :field="field" />
         <form-textarea :formData="formData" :field="field" />
         <form-select-list :formData="formData" :field="field" />
@@ -72,10 +61,7 @@ export default {
       this.$refs['form1'].validate(async valid => {
         if (!valid) return false
 
-        const { data: resp } = await this.$http.put(
-          this.config.url + '/' + this.formData.id,
-          this.formData
-        )
+        const { data: resp } = await this.$http.put(this.config.url + '/' + this.formData.id, this.formData)
 
         if (resp.status != 200) return this.$message.error(resp.msg)
         this.$bus.$emit(this.$bus.loadData)

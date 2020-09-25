@@ -1,13 +1,7 @@
 <template>
   <div style="height:auto">
     <el-form :inline="true" :model="formData" ref="form1" :rules="rules">
-      <el-form-item
-        v-for="(field, index) in formFields"
-        :label="field.label"
-        :label-width="field.width"
-        :key="index"
-        :prop="field.field"
-      >
+      <el-form-item v-for="(field, index) in formFields" :label="field.label" :label-width="field.width" :key="index" :prop="field.field">
         <form-textline :formData="formData" :field="field" />
         <form-textarea :formData="formData" :field="field" />
         <form-select-list :formData="formData" :field="field" />
@@ -26,23 +20,11 @@
     </div>
     <vxe-grid ref="xTable" v-bind="gridOptions" :data="tableData">
       <vxe-table-column type="seq" width="60" />
-      <vxe-table-column
-        v-for="(item, index) in tableFields"
-        :field="item.field"
-        :title="item.label"
-        :key="index"
-      />
+      <vxe-table-column v-for="(item, index) in tableFields" :field="item.field" :title="item.label" :key="index" />
       <vxe-table-column title="操作" width="160">
         <template v-slot="{ row }"
-          ><vxe-button type="primary" @click="editRowEvent(row)"
-            >编辑</vxe-button
-          >
-          <vxe-button
-            status="danger"
-            icon="fa fa-trash-o"
-            @click="removeRowEvent(row)"
-            >删除</vxe-button
-          >
+          ><vxe-button type="primary" @click="editRowEvent(row)">编辑</vxe-button>
+          <vxe-button status="danger" icon="fa fa-trash-o" @click="removeRowEvent(row)">删除</vxe-button>
         </template>
       </vxe-table-column>
     </vxe-grid>
@@ -91,17 +73,12 @@ export default {
   methods: {
     async validateSQL() {
       this.visible = true
-      const { data: resp } = await this.$http.get(
-        '/dict/sql/' + this.formData.query_sql
-      )
+      const { data: resp } = await this.$http.get('/dict/sql/' + this.formData.query_sql)
       console.log('返回数据', resp.data)
       this.sqlTableData = resp.data
     },
     async saveForm() {
-      const { data: resp } = await this.$http.patch(
-        this.config.url,
-        this.formData
-      )
+      const { data: resp } = await this.$http.patch(this.config.url, this.formData)
       if (resp.status != 200)
         return this.$notify.error({
           title: '严重错误',

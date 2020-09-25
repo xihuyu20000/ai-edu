@@ -1,23 +1,8 @@
 <template>
   <div>
-    <common-table
-      :config="config"
-      :queryFields="queryFields"
-      :tableFields="tableFields"
-      ref="dataTable"
-    >
-    </common-table>
-    <create-form
-      :config="config"
-      :formFields="formFields"
-      :formData="editData"
-      ref="createDialog"
-    ></create-form>
-    <edit-form
-      :config="config"
-      :formFields="formFields"
-      ref="editDialog"
-    ></edit-form>
+    <common-table :config="config" :queryFields="queryFields" :tableFields="tableFields" ref="dataTable"> </common-table>
+    <create-form :config="config" :formFields="formFields" :formData="editData" ref="createDialog"></create-form>
+    <edit-form :config="config" :formFields="formFields" ref="editDialog"></edit-form>
   </div>
 </template>
 

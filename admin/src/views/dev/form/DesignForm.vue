@@ -1,22 +1,14 @@
 <template>
   <div style="height:auto">
     <el-form :inline="true" :model="formData" ref="form1" :rules="rules">
-      <el-form-item
-        v-for="(field, index) in formFields"
-        :label="field.label"
-        :label-width="field.width"
-        :key="index"
-        :prop="field.field"
-      >
+      <el-form-item v-for="(field, index) in formFields" :label="field.label" :label-width="field.width" :key="index" :prop="field.field">
         <form-textline :formData="formData" :field="field" />
         <form-textarea :formData="formData" :field="field" />
         <form-select-list :formData="formData" :field="field" />
         <form-select-tree :formData="formData" :field="field" />
         <form-radio :formData="formData" :field="field" />
       </el-form-item>
-      <el-form-item
-        ><el-button type="primary" @click="saveForm">保 存</el-button>
-      </el-form-item>
+      <el-form-item><el-button type="primary" @click="saveForm">保 存</el-button> </el-form-item>
     </el-form>
     <vxe-toolbar>
       <template v-slot:buttons>
@@ -32,38 +24,14 @@
       <vxe-table-column field="valid_rules" title="校验规则" />
       <vxe-table-column title="操作" width="100" show-overflow>
         <template v-slot="{ row }">
-          <vxe-button
-            type="text"
-            icon="fa fa-edit"
-            @click="editEvent(row)"
-          ></vxe-button>
-          <vxe-button
-            type="text"
-            icon="fa fa-trash-o"
-            @click="removeEvent(row)"
-          ></vxe-button>
+          <vxe-button type="text" icon="fa fa-edit" @click="editEvent(row)"></vxe-button>
+          <vxe-button type="text" icon="fa fa-trash-o" @click="removeEvent(row)"></vxe-button>
         </template>
       </vxe-table-column>
     </vxe-grid>
-    <vxe-modal
-      v-model="showEdit"
-      :title="selectRow ? '编辑&保存' : '新增&保存'"
-      width="800"
-      min-width="600"
-      min-height="300"
-      :loading="submitLoading"
-      resize
-      destroy-on-close
-    >
+    <vxe-modal v-model="showEdit" :title="selectRow ? '编辑&保存' : '新增&保存'" width="800" min-width="600" min-height="300" :loading="submitLoading" resize destroy-on-close>
       <template v-slot>
-        <vxe-form
-          :data="formData"
-          :items="subFormItems"
-          :rules="subFormRules"
-          title-align="right"
-          title-width="100"
-          @submit="submitEvent"
-        ></vxe-form>
+        <vxe-form :data="formData" :items="subFormItems" :rules="subFormRules" title-align="right" title-width="100" @submit="submitEvent"></vxe-form>
       </template>
     </vxe-modal>
   </div>
@@ -129,10 +97,7 @@ export default {
           titleAlign: 'left',
           itemRender: {
             name: '$buttons',
-            children: [
-              { props: { type: 'submit', content: '提交', status: 'primary' } },
-              { props: { type: 'reset', content: '重置' } }
-            ]
+            children: [{ props: { type: 'submit', content: '提交', status: 'primary' } }, { props: { type: 'reset', content: '重置' } }]
           }
         }
       ],

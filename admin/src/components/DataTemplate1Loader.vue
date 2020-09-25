@@ -11,9 +11,7 @@ export default {
   },
   methods: {
     async fetch() {
-      const { data: resp } = await this.$http.get(
-        `/meta/table/` + this.$route.params.id
-      )
+      const { data: resp } = await this.$http.get(`/meta/table/` + this.$route.params.id)
       this.data = resp
     }
   },

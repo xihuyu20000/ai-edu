@@ -22,6 +22,12 @@ const routes = [
     name: 'Home',
     component: Home,
     children: [
+      { path: '/', redirect: '/default' },
+      {
+        path: '/default',
+        name: '首页',
+        component: Default
+      },
       {
         path: '/sys/res/list',
         name: '资源列表',
@@ -69,11 +75,7 @@ const routes = [
       }
     ]
   },
-  {
-    path: '/default',
-    name: '首页',
-    component: Default
-  },
+
   {
     path: '/login',
     name: '登录',

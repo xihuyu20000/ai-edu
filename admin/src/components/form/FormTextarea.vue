@@ -1,12 +1,5 @@
 <template>
-  <tooltip :field="field">
-    <el-input
-      v-if="field.style == 'textarea'"
-      type="textarea"
-      v-model="formData[field.field]"
-      :placeholder="field.label"
-    ></el-input
-  ></tooltip>
+  <tooltip :field="field"> <el-input v-if="field.style == 'textarea'" type="textarea" v-model="formData[field.field]" :placeholder="field.label"></el-input></tooltip>
 </template>
 
 <script>

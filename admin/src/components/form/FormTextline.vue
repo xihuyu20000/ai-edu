@@ -1,12 +1,5 @@
 <template>
-  <tooltip :field="field"
-    ><el-input
-      v-if="field.style == 'textline'"
-      v-model="formData[field.field]"
-      autocomplete="off"
-      :placeholder="field.label"
-    ></el-input
-  ></tooltip>
+  <tooltip :field="field"><el-input v-if="field.style == 'textline'" v-model="formData[field.field]" autocomplete="off" :placeholder="field.label"></el-input></tooltip>
 </template>
 
 <script>

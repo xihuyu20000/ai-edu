@@ -1,36 +1,16 @@
 <template>
   <div class="login-container">
     <div class="login-box">
-      <el-form
-        :model="loginForm"
-        status-icon
-        :rules="rules"
-        ref="loginForm"
-        label-width="0px"
-        class="login-form"
-        size="large"
+      <el-form :model="loginForm" status-icon :rules="rules" ref="loginForm" label-width="0px" class="login-form" size="large"
         ><h2 style="text-align:center">{{ this.$config.title }}</h2>
         <el-form-item prop="username">
-          <el-input
-            prefix-icon="iconfont aliuser"
-            v-model="loginForm.username"
-            placeholder="用户名"
-            autocomplete="off"
-          ></el-input>
+          <el-input prefix-icon="iconfont aliuser" v-model="loginForm.username" placeholder="用户名" autocomplete="off"></el-input>
         </el-form-item>
         <el-form-item prop="password">
-          <el-input
-            prefix-icon="iconfont alilock"
-            type="password"
-            v-model="loginForm.password"
-            placeholder="密码"
-            autocomplete="off"
-          ></el-input>
+          <el-input prefix-icon="iconfont alilock" type="password" v-model="loginForm.password" placeholder="密码" autocomplete="off"></el-input>
         </el-form-item>
         <el-form-item class="actions">
-          <el-button type="primary" @click="submitForm('loginForm')"
-            >提交</el-button
-          >
+          <el-button type="primary" @click="submitForm('loginForm')">提交</el-button>
           <el-button @click="resetForm('loginForm')">重置</el-button>
         </el-form-item>
       </el-form>
@@ -47,9 +27,7 @@ export default {
         password: 'admin'
       },
       rules: {
-        username: [
-          { required: true, message: '请输入用户名', trigger: 'blur' }
-        ],
+        username: [{ required: true, message: '请输入用户名', trigger: 'blur' }],
         password: [{ required: true, message: '请输入密码', trigger: 'blur' }]
       }
     }

@@ -1,12 +1,5 @@
 <template>
-  <el-tree
-    :data="data"
-    :props="defaultProps"
-    node-key="id"
-    default-expand-all
-    @node-click="handleNodeClick"
-    :render-content="renderContent"
-  ></el-tree>
+  <el-tree :data="data" :props="defaultProps" node-key="id" default-expand-all @node-click="handleNodeClick" :render-content="renderContent"></el-tree>
 </template>
 
 <script>

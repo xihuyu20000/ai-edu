@@ -1,11 +1,5 @@
 <template>
-  <el-tooltip
-    class="item"
-    effect="dark"
-    :disabled="disabled"
-    :content="field.tip"
-    placement="bottom"
-  >
+  <el-tooltip class="item" effect="dark" :disabled="disabled" :content="field.tip" placement="bottom">
     <slot></slot>
   </el-tooltip>
 </template>
@@ -22,9 +16,7 @@ export default {
     disabled: function() {
       return (
         // eslint-disable-next-line no-prototype-builtins
-        !this.field.hasOwnProperty('tip') ||
-        this.field.tip == undefined ||
-        this.field.tip == null
+        !this.field.hasOwnProperty('tip') || this.field.tip == undefined || this.field.tip == null
       )
     }
   },

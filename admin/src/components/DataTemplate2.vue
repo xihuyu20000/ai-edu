@@ -1,18 +1,9 @@
 <template>
   <el-row :gutter="10">
-    <el-col :span="6"
-      ><common-tree :config="config" ref="dataTree"></common-tree
-    ></el-col>
+    <el-col :span="6"><common-tree :config="config" ref="dataTree"></common-tree></el-col>
     <el-col :span="18"
-      ><common-table
-        :config="config"
-        :queryFields="queryFields"
-        :tableFields="tableFields"
-        ref="dataTable"
-      >
-        <template v-slot:header>
-          <el-button>员工</el-button><el-button>学生</el-button>
-        </template>
+      ><common-table :config="config" :queryFields="queryFields" :tableFields="tableFields" ref="dataTable">
+        <template v-slot:header> <el-button>员工</el-button><el-button>学生</el-button> </template>
       </common-table></el-col
     >
   </el-row>

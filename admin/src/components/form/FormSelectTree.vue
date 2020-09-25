@@ -1,12 +1,5 @@
 <template>
-  <treeselect
-    v-if="field.style == 'selecttree'"
-    v-model="formData[field.field]"
-    :default-expand-level="2"
-    :options="field.options.values"
-    :multiple="field.multiple"
-    :placeholder="field.label"
-  />
+  <treeselect v-if="field.style == 'selecttree'" v-model="formData[field.field]" :default-expand-level="2" :options="field.options.values" :multiple="field.multiple" :placeholder="field.label" />
 </template>
 
 <script>
