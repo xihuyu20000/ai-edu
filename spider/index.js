@@ -9,7 +9,28 @@ const doGet = () =>
       log(i, $(v).find("label").text(), $(v).find("a").text())
     );
   });
-doGet();
+//https://doaj.org/news
+function doGet1() {
+  get("https://doaj.org/news").then(($) => {
+    $(".content h2:contains('News')")
+      .nextAll()
+      .each((i, a) =>
+        log(
+          i,
+          "\r\n",
+          "发布日期",
+          $(a).find("em").html(),
+          "\r\n",
+          "标题",
+          $(a).find("a").text(),
+          "\r\n",
+          "链接地址",
+          $(a).find("a").attr("href")
+        )
+      );
+  });
+}
+doGet1();
 
 const doPost = () => {
   for (let i = 1; i < 7; i++) {
