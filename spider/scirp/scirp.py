@@ -29,4 +29,49 @@ def parse_table():
                 fwriter.write(url)
                 fwriter.write('\n')
 
-parse_table()
+# parse_table()
+
+def parse_article(baseURL):
+    root = get(baseURL)
+    jd = root.xpath('//div[@id="JournalInfor_div_nav_journal"]/div/a/text()')
+    journal_name = jd[0].strip()    # 期刊名称
+    pubdate = jd[1].strip() # 卷期、日期
+    print('出版卷期',pubdate)
+    ## 标题
+    title = root.xpath('//div[@id="JournalInfor_div_paper"]/div[1]/p/strong/text()')[0]
+    print('标题',title)
+
+    ## 作者
+    sta = root.xpath('//div[@id="JournalInfor_div_affs"]//text()')
+    # sta = [item.strip() for item in sta]
+    print('作者和单位',sta)
+
+    ### 版本链接
+    doi = root.xpath('//span[@id="JournalInfor_showDOI"]/following-sibling::*[1]/text()')[0].strip()
+    pdf_url = 'http:'+root.xpath('//a[contains(@href,"//www.scirp.org/pdf/")]/@href')[0]
+    html_url = 'http:'+root.xpath('//a[contains(@href, "//www.scirp.org/journal/paperinformation.aspx?paperid=")]/@href')[0]
+    xml_url = 'http:' + root.xpath('//a[contains(@href,"//www.scirp.org/xml/")]/@href')[0]
+    print('下载链接',doi, pdf_url, html_url, xml_url)
+
+    ## 摘要
+    abstract = root.xpath('//a[@name="abstract"]/parent::p/following-sibling::div//text()')[0]
+    print('摘要',abstract)
+
+    ## 关键词
+    kws = root.xpath('//div[@id="JournalInfor_div_showkeywords"]//text()')
+    kws = [item.strip() for item in kws if item.strip()][1:]
+    kws = [item for item in kws if item!=',']
+    print('关键词',kws)
+
+    ## 正文
+    content = root.xpath('//div[@id="htmlContent"]/*')
+    content = [etree.tostring(item, pretty_print=True, with_tail=False) for item in content]
+    print('正文',content)
+
+    ## 参考文献
+    refs = root.xpath('//a[@name="reference"]/parent::p/following-sibling::table//tr')
+    refs = [etree.tostring(item, pretty_print=True, with_tail=False) for item in refs]
+    print('参考文献', refs)
+
+url = 'https://www.scirp.org/journal/paperinformation.aspx?paperid=103134'
+parse_article(url)
