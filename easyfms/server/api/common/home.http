@@ -1,0 +1,54 @@
+@url = http://localhost:33333/api
+@json = Content-Type: application/json
+
+
+### 首页
+get {{url}}
+
+
+### 全部用户
+get {{url}}/users
+
+
+### 注册
+post {{url}}/register
+{{json}}
+
+{
+    "realname":"管理员",
+    "username":"root",
+    "password":"admin",
+    "style":"staff",
+    "status":"在岗"
+}
+
+
+### 登录
+post {{url}}/login
+{{json}}
+
+{
+    "username":"root",
+    "password":"admin"
+}
+
+### 刷新token
+get {{url}}/token
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVmNjZjNTQyNDMxM2M4NTJmODhhZDkzMCIsImlhdCI6MTYwMDU3ODA3OCwiZXhwIjoxNjAwNTgxNjc4fQ.GmTWcq0TfJy_aFhAC8F6qW35CcRqC6xtJ3agmQQXBC4
+
+
+### 导航菜单
+get {{url}}/navs
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNjAwODIwOTI5LCJleHAiOjE2MDA4MjQ1Mjl9.DQcy8iOKGLXGYBlhZicQcqGn9CscJaC8plbYyoy1h18
+
+
+### 初始化
+put {{url}}/init
+
+
+### 表格配置
+get {{url}}/metatable/:id
+
+
+### 表单配置
+get {{url}}/metaform/:id

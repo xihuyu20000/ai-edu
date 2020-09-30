@@ -1,0 +1,29 @@
+@url = http://localhost:33333/api/role
+@json = Content-Type: application/json
+
+
+### 列表
+get {{url}}
+
+
+### 查找
+get {{url}}/1
+
+### 修改
+put {{url}}/2
+{{json}}
+
+{
+    "label":"讲师123345"
+}
+
+### 新增
+post {{url}}
+{{json}}
+
+{
+    "label":"大数据讲师"
+}
+
+### 删除
+delete {{url}}/14

@@ -1,0 +1,5 @@
+@url = http://localhost:33333/api/meta
+@json = Content-Type: application/json
+
+### 元数据
+get {{url}}/table/user
