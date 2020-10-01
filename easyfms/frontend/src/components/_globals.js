@@ -16,12 +16,14 @@ Vue.component('tooltip', Tooltip)
 
 import CommonTable from './CommonTable'
 import CommonTree from './CommonTree'
+import CountDown from './CountDown'
 import CreateForm from './CreateForm'
 import DataTemplate1 from './DataTemplate1'
 import DataTemplate2 from './DataTemplate2'
 import EditForm from './EditForm'
 Vue.component('common-table', CommonTable)
 Vue.component('common-tree', CommonTree)
+Vue.component('count-down2', CountDown)
 Vue.component('create-form', CreateForm)
 Vue.component('dt1', DataTemplate1)
 Vue.component('dt2', DataTemplate2)

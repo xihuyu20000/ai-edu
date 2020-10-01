@@ -14,6 +14,9 @@ import ListRule from '@/views/sys/rule/ListRule.vue'
 import DesignForm from '@/views/dev/form/DesignForm.vue'
 import IndexMaterial from '@/views/teach/IndexMaterial.vue'
 import IndexPlan from '@/views/teach/IndexPlan.vue'
+import IndexScheduler from '@/views/teach/IndexScheduler.vue'
+import IndexExamRoom from '@/views/center/IndexExamRoom.vue'
+import IndexExamScreen from '@/views/center/IndexExamScreen.vue'
 
 Vue.use(VueRouter)
 
@@ -75,9 +78,24 @@ const routes = [
         component: IndexMaterial
       },
       {
+        path: '/teach/scheduler/index',
+        name: '教学计划',
+        component: IndexScheduler
+      },
+      {
         path: '/teach/plan/index',
         name: '教学计划',
         component: IndexPlan
+      },
+      {
+        path: '/center/examroom/index',
+        name: '进入考场',
+        component: IndexExamRoom
+      },
+      {
+        path: '/center/examscreen/index',
+        name: '考试中',
+        component: IndexExamScreen
       },
       {
         path: '/a',
