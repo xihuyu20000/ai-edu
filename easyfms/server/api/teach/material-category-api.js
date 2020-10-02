@@ -34,27 +34,33 @@ module.exports = (app) => {
   //     h.ok(res, { data: resource });
   //   });
 
-  //   //修改
-  //   router.put("/:id", async (req, res) => {
-  //     const id = await h.update(h.vars.T_USER, req.body, { id: req.params.id });
-  //     h.ok(res, { data: id });
-  //   });
+  //修改
+  router.put("/:id", async (req, res) => {
+    const params = {
+      pid: req.body.pid,
+      label: req.body.label,
+      showOrder: req.body.showOrder,
+    };
+    const id = await h.update(h.vars.T_MATERIAL_CATEGORY, req.body, {
+      id: req.params.id,
+    });
+    h.ok(res, { data: id });
+  });
 
-  //   //创建
-  //   router.post("/", async (req, res) => {
-  //     req.body.password = require("bcrypt").hashSync(req.body.password, 10);
-  //     if (await h.findOne(h.vars.T_USER, "*", { realname: req.body.realname })) {
-  //       return h.fail(res, { msg: "用户名已经存在" });
-  //     }
-  //     const id = await h.create(h.vars.T_USER, req.body);
-  //     h.ok(res, { data: id });
-  //   });
+  //创建
+  router.post("/", async (req, res) => {
+    const params = { pid: req.body.pid, label: req.body.label };
+    const id = await h.create(h.vars.T_MATERIAL_CATEGORY, params);
+    h.ok(res, { data: id });
+  });
 
-  //   //删除
-  //   router.delete("/:id", async (req, res) => {
-  //     const id = await h.remove(h.vars.T_USER, { id: req.params.id });
-  //     h.ok(res, { data: id });
-  //   });
+  //删除
+  router.delete("/:id", async (req, res) => {
+    const id = await h.remove(h.vars.T_MATERIAL_CATEGORY, {
+      id: req.params.id,
+    });
+    h.ok(res, { data: id });
+  });
 
   app.use("/api/material_category", router);
 };

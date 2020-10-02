@@ -1,11 +1,11 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-// import home from './modules/home'
-Vue.use(Vuex)
 
+Vue.use(Vuex)
+import material from '../views/teach/material/vuex-material'
 export default new Vuex.Store({
   state: {},
   mutations: {},
-  actions: {}
-  // modules: { home }
+  actions: {},
+  modules: { material }
 })

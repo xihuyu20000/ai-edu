@@ -28,27 +28,43 @@ module.exports = (app) => {
   //     h.ok(res, { data: all });
   //   });
 
-  //   //查找
-  //   router.get("/:id", async (req, res) => {
-  //     const resource = await h.findOne(h.vars.T_USER, "*", { id: req.params.id });
-  //     h.ok(res, { data: resource });
-  //   });
+  //查找
+  router.get("/:id", async (req, res) => {
+    const material = await h.findOne(h.vars.T_MATERIAL, "*", {
+      id: req.params.id,
+    });
+    h.ok(res, { data: material });
+  });
 
-  //   //修改
-  //   router.put("/:id", async (req, res) => {
-  //     const id = await h.update(h.vars.T_USER, req.body, { id: req.params.id });
-  //     h.ok(res, { data: id });
-  //   });
+  //根据分类查询
+  router.get("/category/:id", async (req, res) => {
+    const material = await h.findOne(h.vars.T_MATERIAL, "*", {
+      category_id: req.params.id,
+    });
+    material ? h.ok(res, { data: material }) : h.fail(res);
+  });
 
-  //   //创建
-  //   router.post("/", async (req, res) => {
-  //     req.body.password = require("bcrypt").hashSync(req.body.password, 10);
-  //     if (await h.findOne(h.vars.T_USER, "*", { realname: req.body.realname })) {
-  //       return h.fail(res, { msg: "用户名已经存在" });
-  //     }
-  //     const id = await h.create(h.vars.T_USER, req.body);
-  //     h.ok(res, { data: id });
-  //   });
+  //修改
+  router.put("/:id", async (req, res) => {
+    const params = {
+      category_id: req.body.category_id,
+      content: req.body.content,
+      content_html: req.body.content_html,
+    };
+    const id = await h.update(h.vars.T_MATERIAL, params, { id: req.params.id });
+    h.ok(res, { data: id });
+  });
+
+  //创建
+  router.post("/", async (req, res) => {
+    const params = {
+      category_id: req.body.category_id,
+      content: req.body.content,
+      content_html: req.body.content_html,
+    };
+    const id = await h.create(h.vars.T_MATERIAL, params);
+    h.ok(res, { data: id });
+  });
 
   //   //删除
   //   router.delete("/:id", async (req, res) => {
