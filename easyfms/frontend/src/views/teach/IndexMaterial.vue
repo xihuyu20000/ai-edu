@@ -1,13 +1,43 @@
 <template>
   <el-container>
-    <el-aside width="50%">
-      <el-tree :data="treedata" node-key="id" default-expand-all :draggable="true" :expand-on-click-node="false" :render-content="renderTreeContent" @node-click="clickTreeLeaf"> </el-tree>
+    <el-aside :width="treeExpandable ? '400px' : '50px'">
+      <el-button-group>
+        <el-button type="primary" size="medium" :icon="treeExpandable ? 'el-icon-arrow-left' : 'el-icon-arrow-right'" @click="toggleTree" style="width:50px"></el-button>
+        <el-tooltip class="item" effect="dark" content="添加下级" placement="right">
+          <el-button type="primary" size="medium" style="width:50px" @click="formDialog = true">+</el-button>
+        </el-tooltip>
+      </el-button-group>
+      <el-tree :data="treedata" node-key="id" default-expand-all :draggable="true" :expand-on-click-node="false" @node-click="clickTreeLeaf">
+        <span class="custom-tree-node" slot-scope="{ node, data }">
+          <span>{{ node.label }}</span>
+          <span>
+            <el-button type="text" size="mini" @click="() => edit(node, data)">
+              修改
+            </el-button>
+            <el-button type="text" size="mini" @click="() => remove(node, data)">
+              删除
+            </el-button>
+            <el-button type="text" size="mini" @click="() => append(node, data)">
+              添加下级
+            </el-button>
+          </span>
+        </span>
+      </el-tree>
+      <el-dialog title="添加目录" :visible="formDialog" @open="openDialog" @close="closeDialog">
+        <el-form :model="formData" ref="form1">
+          <el-form-item label="名称">
+            <el-input v-model="formData.label"></el-input>
+          </el-form-item>
+        </el-form>
+        <div slot="footer" class="dialog-footer">
+          <el-button @click="closeDialog">取 消</el-button>
+          <el-button type="primary" @click="saveDialog">保 存</el-button>
+        </div>
+      </el-dialog>
     </el-aside>
     <el-main>
       <div id="editor-main">
         <le-editor v-model="mdvalue" :hljs-css="hljsCss" :image-uploader="imageUploader" @save="saveMD"></le-editor>
-        <create-form :config="config" :formFields="formFields" :formData="editData" ref="createDialog"></create-form>
-        <edit-form :config="config" :formFields="formFields" ref="editDialog"></edit-form>
       </div>
     </el-main>
   </el-container>
@@ -15,65 +45,14 @@
 
 <script>
 export default {
-  props: {
-    data: {
-      type: Object,
-      require: true
-    }
-  },
+  props: {},
   data() {
-    const treedata = [
-      {
-        id: 1,
-        label: '一级 1',
-        children: [
-          {
-            id: 4,
-            label: '二级 1-1',
-            children: [
-              {
-                id: 9,
-                label: '三级 1-1-1'
-              },
-              {
-                id: 10,
-                label: '三级 1-1-2'
-              }
-            ]
-          }
-        ]
-      },
-      {
-        id: 2,
-        label: '一级 2',
-        children: [
-          {
-            id: 5,
-            label: '二级 2-1'
-          },
-          {
-            id: 6,
-            label: '二级 2-2'
-          }
-        ]
-      },
-      {
-        id: 3,
-        label: '一级 3',
-        children: [
-          {
-            id: 7,
-            label: '二级 3-1'
-          },
-          {
-            id: 8,
-            label: '二级 3-2'
-          }
-        ]
-      }
-    ]
     return {
-      treedata: JSON.parse(JSON.stringify(treedata)),
+      treeExpandable: true,
+      treedata: [],
+      formDialog: false,
+      formData: {},
+      rules: [{ label: [{ required: true, message: '名称', trigger: 'blur' }] }],
       hljsCss: 'agate',
       mdvalue: '这里放markdown内容',
       imageUploader: {
@@ -102,24 +81,8 @@ export default {
     }
   },
   methods: {
-    // eslint-disable-next-line no-unused-vars
-    renderTreeContent(h, { node, data, store }) {
-      return (
-        <span class="custom-tree-node">
-          <span>{node.label}</span>
-          <span style="margin-left:200px;">
-            <el-button size="mini" type="text" on-click={() => this.edit(node, data)}>
-              修改
-            </el-button>
-            <el-button size="mini" type="text" on-click={() => this.remove(node, data)}>
-              删除
-            </el-button>
-            <el-button size="mini" type="text" on-click={() => this.append(data)}>
-              添加下级
-            </el-button>
-          </span>
-        </span>
-      )
+    toggleTree() {
+      this.treeExpandable = !this.treeExpandable
     },
     clickTreeLeaf(item, node, self) {
       if (node.isLeaf) {
@@ -134,37 +97,58 @@ export default {
     remove: async function(node, data) {
       console.log('删除节点', node, data)
       this.$message.success('删除成功')
-      // const { data: resp } = await this.$http.delete(this.config.url + '/')
-      // console.log('删除', resp)
-      // if (resp.data == 1) {
-      //   this.$message.success('删除成功')
-      //   this.handleQueryForm(this.config.url)
-      // } else {
-      //   this.$message.error('删除失败')
-      // }
     },
     append: function(node, data) {
       console.log('添加下级节点', node, data)
       this.$bus.$emit(this.$bus.showCreateDialog)
+    },
+    openDialog: function() {},
+    closeDialog: function() {
+      this.formDialog = false
+    },
+    saveDialog: function() {
+      this.formDialog = false
     },
     saveMD: function(val) {
       // 获取预览文本
       console.log(this.value) // 这里是原markdown文本
       console.log(val) // 这个是解析出的html
       this.$message.success('保存成功')
+    },
+    onMouseoverEnvDelBtn: function(event) {
+      event.target.parentElement.querySelector('.env-del-btn-span').style.cssText += 'display:block'
+    },
+    onMouseleaveEnvDelBtn: function(event) {
+      event.target.parentElement.querySelector('.env-del-btn-span').style.cssText += 'display:none'
+    },
+    fetch: async function() {
+      const { data: resp } = await this.$http.get('/material_category')
+      this.treedata = JSON.parse(JSON.stringify(resp.data))
+      console.log('分类', resp)
     }
   },
-  created() {}
+  created() {
+    this.fetch()
+  }
 }
 </script>
 
 <style lang="scss" scoped>
-.custom-tree-node {
-  flex: 1;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  font-size: 14px;
+.el-aside {
+  margin-right: 10px;
+  .tree-node {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 14px;
+    .node-bar {
+      margin-left: 20px;
+    }
+  }
+}
+
+.el-main {
+  padding: 0;
 }
 #editor-main {
   color: #2c3e50;

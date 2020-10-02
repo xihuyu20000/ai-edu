@@ -35,11 +35,11 @@ export default {
       topic: {},
       answer: '',
       disablePrevious: true,
-      disableNext: true,
+      disableNext: true
     }
   },
   watch: {
-    topic: function () {
+    topic: function() {
       if (this.topic.showOrder == 0) {
         this.disablePrevious = true
         this.disableNext = false
@@ -50,12 +50,13 @@ export default {
         this.disablePrevious = false
         this.disableNext = false
       }
-    },
+    }
   },
   methods: {
     async fetch() {
       const { data: resp } = await this.$http.get('/examscreen/meta')
       this.tableData = resp.data.tableData
+      this.topic = this.tableData[0]
     },
     clickCurrent(topic) {
       this.topic = topic
@@ -65,12 +66,12 @@ export default {
     },
     clickNext() {
       this.topic = this.tableData[this.topic.showOrder + 1]
-    },
+    }
   },
   components: { CountDown },
   created() {
     this.fetch()
-  },
+  }
 }
 </script>
 
