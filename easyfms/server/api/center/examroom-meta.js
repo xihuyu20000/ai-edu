@@ -1,10 +1,11 @@
 module.exports = {
-  config: {
+  globalConfig: {
     url: "/examroom",
+    label: "考场",
     pagable: false,
   },
-  queryFields: [],
-  tableFields: [
+  queryConfig: [],
+  tableConfig: [
     {
       label: "考试名称",
       field: "label",
@@ -34,5 +35,5 @@ module.exports = {
       sortable: true,
     },
   ],
-  formFields: [],
+  formConfig: [],
 };

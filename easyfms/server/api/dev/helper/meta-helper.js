@@ -11,10 +11,10 @@ async function getMetaTable(id) {
   if (!metaJson.hasOwnProperty(id)) return null;
 
   let metaTable = metaJson[id];
-  if (!metaTable.hasOwnProperty("formFields")) return metaTable;
+  if (!metaTable.hasOwnProperty("formConfig")) return metaTable;
 
   // 对配置数据进行后期处理
-  for (let formField of metaTable["formFields"]) {
+  for (let formField of metaTable["formConfig"]) {
     if (formField.hasOwnProperty("options")) {
       if (formField.options.style == "sql") {
         formField.options.values = await h.query(formField.options.sql);

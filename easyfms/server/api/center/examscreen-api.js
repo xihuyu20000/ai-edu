@@ -11,7 +11,7 @@ module.exports = (app) => {
   });
   //列表
   router.get("/", async (req, res) => {
-    // const all = await h.find(h.vars.T_RES, "*",);
+    // const all = await h.find(h.vars.T_MENU, "*",);
     const data = [];
     h.ok(res, { data: data });
   });

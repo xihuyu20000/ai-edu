@@ -6,8 +6,9 @@ import Login from '@/views/common/Login.vue'
 import V404 from '@/views/common/404.vue'
 import IndexRole from '@/views/sys/IndexRole.vue'
 import IndexOrg from '@/views/sys/IndexOrg.vue'
-import IndexRes from '@/views/sys/IndexRes.vue'
+import IndexMenu from '@/views/sys/IndexMenu.vue'
 import IndexUser from '@/views/sys/IndexUser.vue'
+import IndexGrade from '@/views/affair/IndexGrade.vue'
 import ListAuth from '@/views/sys/auth/ListAuth.vue'
 import ListDict from '@/views/sys/dict/ListDict.vue'
 import ListRule from '@/views/sys/rule/ListRule.vue'
@@ -33,9 +34,9 @@ const routes = [
         component: Default
       },
       {
-        path: '/sys/res/index',
+        path: '/sys/menu/index',
         name: '资源列表',
-        component: IndexRes
+        component: IndexMenu
       },
       {
         path: '/sys/role/index',
@@ -98,9 +99,9 @@ const routes = [
         component: IndexExamScreen
       },
       {
-        path: '/a',
-        name: 'a',
-        component: () => import('../views/common/template/A.vue')
+        path: '/affair/grade/index',
+        name: '班级管理',
+        component: IndexGrade
       }
     ]
   },

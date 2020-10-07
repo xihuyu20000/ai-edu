@@ -1,18 +1,18 @@
 module.exports = {
-  config: {
-    url: "/res",
-    createTitle: "创建资源",
-    editTitle: "修改资源",
+  globalConfig: {
+    url: "/menu",
+    label: "资源",
     pagable: false,
   },
-  queryFields: [
+  queryConfig: [
     {
       style: "textline",
       label: "资源名称",
       field: "label",
+      relation: "like",
     },
   ],
-  tableFields: [
+  tableConfig: [
     {
       label: "资源名称",
       field: "label",
@@ -45,7 +45,7 @@ module.exports = {
       style: "text",
     },
   ],
-  formFields: [
+  formConfig: [
     {
       style: "selecttree",
       label: "上级资源",
@@ -55,7 +55,7 @@ module.exports = {
       options: {
         style: "sql",
         sql:
-          "select 0 as id, -1 as pid, '==顶级=='as label union SELECT id, pid, label FROM sys_res ",
+          "select 0 as id, -1 as pid, '==顶级=='as label union SELECT id, pid, label FROM sys_menu ",
         values: [],
       },
     },

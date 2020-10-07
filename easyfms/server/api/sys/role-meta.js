@@ -1,12 +1,11 @@
 module.exports = {
-  config: {
+  globalConfig: {
     url: "/role",
-    createTitle: "创建角色",
-    editTitle: "修改角色",
+    label: "角色",
     pagable: false,
   },
-  queryFields: [],
-  tableFields: [
+  queryConfig: [],
+  tableConfig: [
     {
       label: "机构名称",
       field: "rog_name",
@@ -22,7 +21,7 @@ module.exports = {
       sortable: true,
     },
   ],
-  formFields: [
+  formConfig: [
     {
       style: "selecttree",
       label: "所属机构",

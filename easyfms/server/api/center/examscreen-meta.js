@@ -1,9 +1,9 @@
 module.exports = {
-  config: {
+  globalConfig: {
     url: "/examscreen",
     pagable: false,
   },
-  queryFields: [],
+  queryConfig: [],
   tableData: [
     {
       showOrder: 0,
@@ -36,5 +36,5 @@ module.exports = {
       options: ["选项1", "选项2", "选项3", "选项4"],
     },
   ],
-  formFields: [],
+  formConfig: [],
 };

@@ -1,12 +1,12 @@
 module.exports = {
-  config: {
+  globalConfig: {
     url: "/rule",
     createTitle: "添加规则",
     editTitle: "修改规则",
     pagable: false,
   },
-  queryFields: [],
-  tableFields: [
+  queryConfig: [],
+  tableConfig: [
     {
       label: "名称",
       field: "label",
@@ -39,7 +39,7 @@ module.exports = {
       width: "100px",
     },
   ],
-  formFields: [
+  formConfig: [
     {
       style: "textline",
       label: "名称",

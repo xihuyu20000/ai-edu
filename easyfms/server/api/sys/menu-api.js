@@ -5,7 +5,7 @@ module.exports = (app) => {
 
   //元数据
   router.get("/meta", async (req, res) => {
-    const metaTable = require("./res-meta");
+    const metaTable = require("./menu-meta");
     const meta = await h.meta(metaTable);
     h.ok(res, { data: meta });
   });
@@ -20,14 +20,14 @@ module.exports = (app) => {
       };
     }
 
-    const all = await h.find(h.vars.T_RES, "*", params);
+    const all = await h.find(h.vars.T_MENU, "*", params);
     const tree = h.tree(all);
     h.ok(res, { data: tree });
   });
 
   //显示
   router.get("/:id", async (req, res) => {
-    const resource = await h.findOne(h.vars.T_RES, "*", { id: req.params.id });
+    const resource = await h.findOne(h.vars.T_MENU, "*", { id: req.params.id });
     h.ok(res, { data: resource });
   });
 
@@ -43,13 +43,13 @@ module.exports = (app) => {
       path: req.body.path,
       showOrder: req.body.showOrder,
     };
-    const id = await h.update(h.vars.T_RES, data, { id: req.params.id });
+    const id = await h.update(h.vars.T_MENU, data, { id: req.params.id });
     h.ok(res, { data: id });
   });
 
   //新建
   router.post("/", async (req, res) => {
-    if (await h.findOne(h.vars.T_RES, "*", { label: req.body.label })) {
+    if (await h.findOne(h.vars.T_MENU, "*", { label: req.body.label })) {
       return h.fail(res, { msg: "名称已经存在" });
     }
     let data = {
@@ -61,15 +61,15 @@ module.exports = (app) => {
       path: req.body.path,
       showOrder: req.body.showOrder,
     };
-    const id = await h.create(h.vars.T_RES, data);
+    const id = await h.create(h.vars.T_MENU, data);
     h.ok(res, { data: id });
   });
 
   //删除
   router.delete("/:id", async (req, res) => {
-    const id = await h.remove(h.vars.T_RES, { id: req.params.id });
+    const id = await h.remove(h.vars.T_MENU, { id: req.params.id });
     h.ok(res, { data: id });
   });
 
-  app.use("/api/res", router);
+  app.use("/api/menu", router);
 };

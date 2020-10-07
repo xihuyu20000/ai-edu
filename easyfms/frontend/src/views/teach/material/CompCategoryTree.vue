@@ -7,7 +7,7 @@
       </el-tooltip>
     </el-button-group>
     <el-tree :data="treedata" node-key="id" default-expand-all :draggable="true" :expand-on-click-node="false" @node-click="clickTreeLeaf">
-      <span class="custom-tree-node" slot-scope="{ node, data }">
+      <span class="tree-node-span" slot-scope="{ node, data }">
         <span>{{ node.label }}</span>
         <span>
           <el-button type="text" size="mini" @click="() => toedit(node, data)">
@@ -111,11 +111,14 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.tree-node {
+.el-tree-node {
+  height: 50px;
+}
+.tree-node-span {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  font-size: 14px;
+  font-size: 12px;
   .node-bar {
     margin-left: 20px;
   }

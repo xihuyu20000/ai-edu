@@ -5,7 +5,7 @@
 <script>
 export default {
   props: {
-    config: {
+    globalConfig: {
       type: Object,
       required: true,
       default: function() {
@@ -29,7 +29,7 @@ export default {
     },
     async handleNodeClick(data) {
       if (data.style != '角色') return false
-      let _url = this.config.url + '/user/' + data.id
+      let _url = this.globalConfig.url + '/user/' + data.id
       console.log('蓝线节点', _url)
       const { data: resp } = await this.$http.get(_url)
       console.log(resp)

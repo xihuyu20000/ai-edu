@@ -11,7 +11,7 @@ export default {
   },
   methods: {
     async fetch() {
-      const { data: resp } = await this.$http.get('/role/meta')
+      const { data: resp } = await this.$http.get('/menu/meta')
       if (resp.status != 200)
         return this.$notify.error({
           title: '严重错误',

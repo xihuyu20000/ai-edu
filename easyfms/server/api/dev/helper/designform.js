@@ -1,11 +1,11 @@
 module.exports = {
-  config: {
+  globalConfig: {
     url: "/dict",
     createTitle: "添加控件字典",
     editTitle: "修改控件字典",
     pagable: false,
   },
-  formFields: [
+  formConfig: [
     {
       style: "textline",
       label: "表单名称",

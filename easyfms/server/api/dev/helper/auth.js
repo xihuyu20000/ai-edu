@@ -1,12 +1,12 @@
 module.exports = {
-  config: {
+  globalConfig: {
     url: "/auth",
     createTitle: "添加权限",
     editTitle: "修改权限信息",
     pagable: false,
   },
-  queryFields: [],
-  tableFields: [
+  queryConfig: [],
+  tableConfig: [
     {
       label: "真实姓名",
       field: "realname",
@@ -33,7 +33,7 @@ module.exports = {
       width: "100px",
     },
   ],
-  formFields: [
+  formConfig: [
     {
       style: "textline",
       label: "真实姓名",

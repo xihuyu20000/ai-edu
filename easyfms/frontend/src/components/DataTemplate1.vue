@@ -1,8 +1,7 @@
 <template>
   <div>
-    <common-table :config="config" :queryFields="queryFields" :tableFields="tableFields" ref="dataTable"> </common-table>
-    <create-form :config="config" :formFields="formFields" :formData="editData" ref="createDialog"></create-form>
-    <edit-form :config="config" :formFields="formFields" ref="editDialog"></edit-form>
+    <common-table :globalConfig="globalConfig" :queryConfig="queryConfig" :tableConfig="tableConfig" ref="dataTable"> </common-table>
+    <create-form :globalConfig="globalConfig" :formConfig="formConfig"></create-form>
   </div>
 </template>
 
@@ -16,21 +15,20 @@ export default {
   },
   data() {
     return {
-      config: {},
-      formFields: [],
-      queryFields: [],
-      tableFields: [],
+      globalConfig: {},
+      formConfig: [],
+      queryConfig: [],
+      tableConfig: [],
       editData: {}
     }
   },
   watch: {
     data: function(newVal) {
-      // console.log("元数据", newVal);
-      this.config = newVal.data.config
-      this.formFields = newVal.data.formFields
-      this.queryFields = newVal.data.queryFields
-      this.tableFields = newVal.data.tableFields
-      this.$refs.dataTable.handleQueryForm(this.config.url)
+      this.globalConfig = newVal.data.globalConfig
+      this.formConfig = newVal.data.formConfig
+      this.queryConfig = newVal.data.queryConfig
+      this.tableConfig = newVal.data.tableConfig
+      this.$refs.dataTable.handleQueryForm(this.globalConfig.url)
     }
   },
   methods: {

@@ -8,8 +8,10 @@ const vars = {
   T_MATERIAL_CATEGORY: "sys_material_category",
   T_META_FORM: "sys_meta_form",
   T_META_FORM_FIELD: "sys_meta_form_field",
+  T_GRADE: "sys_grade",
   T_ORG: "sys_org",
-  T_RES: "sys_res",
+  T_MENU: "sys_menu",
+  T_ROLE: "sys_role",
   T_RULE: "sys_rule",
   T_TEMPLATE: "sys_template",
   T_USER: "sys_user",
@@ -90,7 +92,7 @@ function tree(resArr, top = 0) {
  */
 async function meta(metaTable) {
   // 对配置数据进行后期处理
-  for (let formField of metaTable["formFields"]) {
+  for (let formField of metaTable["formConfig"]) {
     if (formField.hasOwnProperty("options")) {
       //选择树
       if (formField.style == "selecttree") {

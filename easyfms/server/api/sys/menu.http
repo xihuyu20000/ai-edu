@@ -1,6 +1,8 @@
-@url = http://localhost:33333/api/res
+@url = http://localhost:33333/api/menu
 @json = Content-Type: application/json
 
+### 元数据
+get {{url}}/meta
 
 ### 列表
 get {{url}}

@@ -1,18 +1,17 @@
 module.exports = {
-  config: {
+  globalConfig: {
     url: "/org",
-    createTitle: "创建机构",
-    editTitle: "修改机构",
+    label: "机构",
     pagable: false,
   },
-  queryFields: [
+  queryConfig: [
     {
       style: "textline",
       label: "机构名称",
       field: "label",
     },
   ],
-  tableFields: [
+  tableConfig: [
     {
       label: "机构名称",
       field: "label",
@@ -33,7 +32,7 @@ module.exports = {
       width: "300px",
     },
   ],
-  formFields: [
+  formConfig: [
     {
       style: "selecttree",
       label: "上级机构",

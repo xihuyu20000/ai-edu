@@ -1,12 +1,13 @@
 <template>
-  <el-dialog :title="config.createTitle" :visible.sync="dialogFormVisible" @open="open" @close="close">
+  <el-dialog :title="creatable ? '创建' : '修改' + globalConfig.label" :visible.sync="dialogFormVisible" @open="open" @close="close">
     <el-form :model="formData" ref="form1" :rules="rules">
-      <el-form-item v-for="(field, index) in formFields" :label="field.label" :label-width="field.width" :key="index" :prop="field.field">
+      <el-form-item v-for="(field, index) in formConfig" :label="field.label" :label-width="field.width" :key="index" :prop="field.field">
         <form-textline :formData="formData" :field="field" />
         <form-textarea :formData="formData" :field="field" />
         <form-select-list :formData="formData" :field="field" />
         <form-select-tree :formData="formData" :field="field" />
         <form-radio :formData="formData" :field="field" />
+        <form-date :formData="formData" :field="field" />
       </el-form-item>
     </el-form>
     <div slot="footer" class="dialog-footer">
@@ -19,25 +20,25 @@
 <script>
 export default {
   props: {
-    config: {
+    globalConfig: {
       type: Object,
       required: true,
       default: function() {
         return { url: '' }
       }
     },
-    formFields: { type: Array }
+    formConfig: { type: Array }
   },
   data() {
     return {
-      title: '',
+      creatable: true,
       dialogFormVisible: false,
       formData: { type: Object, required: true },
       rules: {}
     }
   },
   watch: {
-    formFields: function(newVal) {
+    formConfig: function(newVal) {
       let _this = this
       newVal.forEach(function(field) {
         _this.rules[field.field] = field.rule
@@ -61,16 +62,30 @@ export default {
     async save() {
       this.$refs['form1'].validate(async valid => {
         if (!valid) return false
-
-        const { data: resp } = await this.$http.post(this.config.url, this.formData)
-        if (resp.status != 200) return this.$message.error(resp.msg)
+        let _resp = undefined
+        if (this.creatable) {
+          let data = await this.$http.post(this.globalConfig.url, this.formData)
+          _resp = data.data
+        } else {
+          let data = await this.$http.put(this.globalConfig.url + '/' + this.formData.id, this.formData)
+          _resp = data.data
+        }
+        if (_resp.status != 200) return this.$message.error(_resp.msg)
         this.$bus.$emit(this.$bus.loadData)
         this.close()
       })
     }
   },
   mounted() {
-    this.$bus.$on(this.$bus.showCreateDialog, () => (this.dialogFormVisible = true))
+    this.$bus.$on(this.$bus.showCreateDialog, () => {
+      this.dialogFormVisible = true
+      this.creatable = true
+    })
+    this.$bus.$on(this.$bus.showEditDialog, row => {
+      this.dialogFormVisible = true
+      this.creatable = false
+      this.formData = row
+    })
   }
 
   // beforeRouteEnter(to, from, next) {

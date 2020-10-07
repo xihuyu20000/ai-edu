@@ -1,12 +1,12 @@
 module.exports = {
-  config: {
+  globalConfig: {
     url: "/dict",
     createTitle: "添加控件字典",
     editTitle: "修改控件字典",
     pagable: false,
   },
-  queryFields: [],
-  tableFields: [
+  queryConfig: [],
+  tableConfig: [
     {
       label: "名称",
       field: "label",
@@ -45,7 +45,7 @@ module.exports = {
       width: "100px",
     },
   ],
-  formFields: [
+  formConfig: [
     {
       style: "textline",
       label: "名称",

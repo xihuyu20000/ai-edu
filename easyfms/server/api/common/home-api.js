@@ -64,7 +64,7 @@ module.exports = (app) => {
    */
   router.post("/login", async (req, res) => {
     // 1 查询用户
-    const user = await h.findOne("sys_user", "*", {
+    const user = await h.findOne(h.vars.T_USER, "*", {
       username: req.body.username,
     });
     // 2 判断用户是否存在
@@ -117,7 +117,7 @@ module.exports = (app) => {
    *- sys/default
    */
   router.get("/navs", auth, async (req, res) => {
-    const all = await h.find("sys_res", "*");
+    const all = await h.find(h.vars.T_MENU, "*");
     const tree = h.tree(all);
     h.ok(res, { data: tree });
   });
@@ -230,7 +230,7 @@ module.exports = (app) => {
   router.get("/metatable/:id", async (req, res) => {
     const result = {
       queryUrl: "/role/",
-      formFields: [
+      formConfig: [
         {
           style: "textline",
           label: "名称",
@@ -239,7 +239,7 @@ module.exports = (app) => {
           match: "like",
         },
       ],
-      tableFields: [{ prop: "label", label: "名称", width: 140 }],
+      tableConfig: [{ prop: "label", label: "名称", width: 140 }],
     };
     h.ok(res, { data: result });
   });

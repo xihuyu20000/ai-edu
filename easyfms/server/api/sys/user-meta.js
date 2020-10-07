@@ -1,11 +1,10 @@
 module.exports = {
-  config: {
+  globalConfig: {
     url: "/user",
-    createTitle: "添加用户",
-    editTitle: "修改用户信息",
+    label: "用户",
     pagable: false,
   },
-  queryFields: [
+  queryConfig: [
     {
       style: "textline",
       label: "真实姓名",
@@ -17,7 +16,7 @@ module.exports = {
       field: "username",
     },
   ],
-  tableFields: [
+  tableConfig: [
     {
       label: "真实姓名",
       field: "realname",
@@ -44,7 +43,7 @@ module.exports = {
       width: "100px",
     },
   ],
-  formFields: [
+  formConfig: [
     {
       style: "textline",
       label: "真实姓名",
