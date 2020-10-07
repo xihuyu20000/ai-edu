@@ -1,28 +1,23 @@
 <template>
-  <el-container>
-    <el-header><CountDown></CountDown><el-button type="success" size="medium">交卷</el-button></el-header>
-    <el-container>
-      <el-aside width="400px">
-        <template v-for="(item, index) in tableData">
-          <el-button type="primary" :key="index" @click="clickCurrent(item)">{{ index + 1 }}</el-button></template
-        >
-      </el-aside>
-      <el-container>
-        <el-main>
-          <h1>第{{ topic.showOrder + 1 }}题</h1>
-          <h2>{{ topic.title }}</h2>
-          <el-form>
-            <template v-if="topic.style == 'sselect'">
-              <el-radio-group v-model="answer">
-                <el-radio :key="index" v-for="(option, index) in topic.options" :label="option"></el-radio>
-              </el-radio-group>
-            </template>
-          </el-form>
-        </el-main>
-        <el-footer><el-button type="primary" :disabled="disablePrevious" @click="clickPrevious">上一题</el-button><el-button type="primary" :disabled="disableNext" @click="clickNext">下一题</el-button></el-footer>
-      </el-container>
-    </el-container>
-  </el-container>
+  <div>
+    <el-form>
+      <div><CountDown :period="period"></CountDown><el-button type="primary" @click="onSubmit" size="medium">交卷</el-button></div>
+      <el-tabs tab-position="left" @tab-click="clickTopic">
+        <el-tab-pane v-for="(topic, index) in topicData" :label="'第' + (index + 1) + '题'" :key="index">
+          <template v-if="topic.style == 'sselect'">
+            <div>单选题：{{ topic.title }}</div>
+            <hr />
+            <el-radio-group v-model="answer">
+              <el-radio v-if="topic.a" :label="topic.a"></el-radio>
+              <el-radio v-if="topic.b" :label="topic.b"></el-radio>
+              <el-radio v-if="topic.c" :label="topic.c"></el-radio>
+              <el-radio v-if="topic.d" :label="topic.d"></el-radio>
+            </el-radio-group>
+          </template>
+        </el-tab-pane>
+      </el-tabs>
+    </el-form>
+  </div>
 </template>
 
 <script>
@@ -31,66 +26,38 @@ import CountDown from '../../components/CountDown'
 export default {
   data() {
     return {
-      tableData: [],
+      period: 20,
+      topicData: [],
       topic: {},
-      answer: '',
-      disablePrevious: true,
-      disableNext: true
+      answer: ''
     }
   },
-  watch: {
-    topic: function() {
-      if (this.topic.showOrder == 0) {
-        this.disablePrevious = true
-        this.disableNext = false
-      } else if (this.topic.showOrder == this.tableData.length - 1) {
-        this.disablePrevious = false
-        this.disableNext = true
-      } else {
-        this.disablePrevious = false
-        this.disableNext = false
-      }
-    }
-  },
+  watch: {},
   methods: {
     async fetch() {
-      const { data: resp } = await this.$http.get('/examscreen/meta')
-      this.tableData = resp.data.tableData
-      this.topic = this.tableData[0]
+      const { data: resp } = await this.$http.get('/examscreen/' + this.$route.params.id)
+      this.topicData = resp.data
     },
-    clickCurrent(topic) {
-      this.topic = topic
+    async onSubmit() {
+      this.sendEvent('end')
+      const { data: resp } = await this.$http.post('/examscreen', {})
+      if (resp.status != 200) return this.$message.error('交卷失败')
+      this.$message.success('成功交卷')
+      this.$router.push('/center/examroom/index')
     },
-    clickPrevious() {
-      this.topic = this.tableData[this.topic.showOrder - 1]
+    clickTopic(tab) {
+      this.sendEvent('topic', tab.index)
     },
-    clickNext() {
-      this.topic = this.tableData[this.topic.showOrder + 1]
+    sendEvent(style, index) {
+      this.$http.post('/examscreen/event', { event: style, exam: this.$route.params.id, topic: index })
     }
   },
   components: { CountDown },
   created() {
     this.fetch()
+    this.sendEvent('topic', 0)
   }
 }
 </script>
 
-<style lang="scss" scoped>
-.el-container {
-  height: 500px;
-}
-.el-header {
-  background-color: #ccc;
-  display: flex;
-  justify-content: space-between;
-}
-.el-aside {
-  background-color: #bbb;
-  padding: 10px;
-}
-.el-footer {
-  background-color: #fff;
-  display: flex;
-  justify-content: space-around;
-}
-</style>
+<style lang="scss" scoped></style>

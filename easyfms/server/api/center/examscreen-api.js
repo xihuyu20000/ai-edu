@@ -3,17 +3,24 @@ module.exports = (app) => {
   const router = express.Router();
   const h = require("../api-helper");
 
-  //元数据
-  router.get("/meta", async (req, res) => {
-    const metaTable = require("./examscreen-meta");
-    const meta = await h.meta(metaTable);
-    h.ok(res, { data: meta });
-  });
   //列表
   router.get("/", async (req, res) => {
     // const all = await h.find(h.vars.T_MENU, "*",);
     const data = [];
     h.ok(res, { data: data });
+  });
+  // 获取
+  router.get("/:id", async (req, res) => {
+    const template = await h.find(h.vars.T_EXAM_TOPIC, "*", {
+      exam_id: req.params.id,
+    });
+    h.ok(res, { data: template });
+  });
+
+  //创建
+  router.post("/", async (req, res) => {
+    // const id = await h.create(h.vars.T_USER, req.body);
+    h.ok(res, { data: {} });
   });
 
   //记录事件

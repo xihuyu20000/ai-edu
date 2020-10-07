@@ -83,7 +83,7 @@ const routes = [
         component: IndexExamRoom
       },
       {
-        path: '/center/examscreen/index',
+        path: '/center/examscreen/index/:id',
         name: '考试中',
         component: IndexExamScreen
       },

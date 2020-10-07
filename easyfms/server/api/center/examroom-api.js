@@ -11,17 +11,9 @@ module.exports = (app) => {
   });
   //列表
   router.get("/", async (req, res) => {
-    // const all = await h.find(h.vars.T_MENU, "*",);
-    const data = [
-      {
-        id: 1,
-        label: "第一次考试",
-        class_name: "我的班级",
-        start_time: "2020-12-12 12:00:00",
-        until_time: "35分钟",
-      },
-    ];
-    h.ok(res, { data: data });
+    const all = await h.find(h.vars.T_EXAM, "*");
+    h.ok(res, { data: all });
   });
+
   app.use("/api/examroom", router);
 };

@@ -4,6 +4,8 @@ const vars = {
   // 表名称
   T_AUTH: "sys_role_user",
   T_DICT: "sys_dict",
+  T_EXAM: "sys_exam",
+  T_EXAM_TOPIC: "sys_exam_topic",
   T_MATERIAL: "sys_material",
   T_MATERIAL_CATEGORY: "sys_material_category",
   T_META_FORM: "sys_meta_form",

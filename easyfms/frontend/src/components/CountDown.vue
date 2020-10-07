@@ -6,17 +6,18 @@
 
 <script>
 export default {
+  props: ['period'],
   data() {
-    return { day: 0, hr: 0, min: 0, sec: 0 }
+    return { end: new Date(), day: 0, hr: 0, min: 0, sec: 0 }
   },
   mounted: function() {
+    this.end = Date.parse(new Date(new Date().setMinutes(new Date().getMinutes() + this.period)))
     this.countdown()
   },
   methods: {
     countdown: function() {
-      const end = Date.parse(new Date('2020-10-01 12:00:00'))
       const now = Date.parse(new Date())
-      const msec = end - now
+      const msec = this.end - now
       let day = parseInt(msec / 1000 / 60 / 60 / 24)
       let hr = parseInt((msec / 1000 / 60 / 60) % 24)
       let min = parseInt((msec / 1000 / 60) % 60)
