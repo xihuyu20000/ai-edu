@@ -28,7 +28,7 @@ export default {
       this.formConfig = newVal.data.formConfig
       this.queryConfig = newVal.data.queryConfig
       this.tableConfig = newVal.data.tableConfig
-      this.$refs.dataTable.handleQueryForm(this.globalConfig.url)
+      this.$refs.dataTable.queryForm(this.globalConfig.url)
     }
   },
   methods: {

@@ -88,7 +88,7 @@ module.exports = {
       rule: [{ required: true, message: "请选择角色", trigger: "blur" }],
       options: {
         style: "sql",
-        sql: "SELECT id, label FROM sys_res ",
+        sql: "SELECT id, label FROM sys_role ",
         values: [],
       },
       multiple: true,

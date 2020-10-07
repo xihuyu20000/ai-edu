@@ -1,5 +1,5 @@
 <template>
-  <el-dialog :title="creatable ? '创建' : '修改' + globalConfig.label" :visible.sync="dialogFormVisible" @open="open" @close="close">
+  <el-dialog :title="creatable ? '创建' : '修改' + globalConfig.label" :visible.sync="isShow" @close="close">
     <el-form :model="formData" ref="form1" :rules="rules">
       <el-form-item v-for="(field, index) in formConfig" :label="field.label" :label-width="field.width" :key="index" :prop="field.field">
         <form-textline :formData="formData" :field="field" />
@@ -19,25 +19,22 @@
 
 <script>
 export default {
-  props: {
-    globalConfig: {
-      type: Object,
-      required: true,
-      default: function() {
-        return { url: '' }
-      }
-    },
-    formConfig: { type: Array }
-  },
+  props: ['config'],
   data() {
     return {
       creatable: true,
-      dialogFormVisible: false,
+      isShow: false,
       formData: { type: Object, required: true },
-      rules: {}
+      rules: {},
+      globalConfig: {},
+      formConfig: []
     }
   },
   watch: {
+    config: function(newVal) {
+      this.globalConfig = newVal.globalConfig
+      this.formConfig = newVal.formConfig
+    },
     formConfig: function(newVal) {
       let _this = this
       newVal.forEach(function(field) {
@@ -46,15 +43,12 @@ export default {
     }
   },
   methods: {
-    open() {
-      console.log('open')
-    },
     show() {
-      this.dialogFormVisible = true
+      this.isShow = true
     },
     close() {
       this.reset()
-      this.dialogFormVisible = false
+      this.isShow = false
     },
     reset() {
       this.$refs['form1'].resetFields()
@@ -78,28 +72,15 @@ export default {
   },
   mounted() {
     this.$bus.$on(this.$bus.showCreateDialog, () => {
-      this.dialogFormVisible = true
+      this.isShow = true
       this.creatable = true
     })
     this.$bus.$on(this.$bus.showEditDialog, row => {
-      this.dialogFormVisible = true
+      this.isShow = true
       this.creatable = false
       this.formData = row
     })
   }
-
-  // beforeRouteEnter(to, from, next) {
-  //   console.log("beforeRouteEnter");
-  //   next();
-  // },
-  // beforeRouteUpdate(to, from, next) {
-  //   console.log("beforeRouteUpdate");
-  //   next();
-  // },
-  // beforeRouteLeave(to, from, next) {
-  //   console.log("beforeRouteLeave");
-  //   next();
-  // },
 }
 </script>
 

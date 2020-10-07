@@ -4,9 +4,6 @@ import Home from '@/views/common/Home.vue'
 import Default from '@/views/common/Default.vue'
 import Login from '@/views/common/Login.vue'
 import V404 from '@/views/common/404.vue'
-import IndexRole from '@/views/sys/IndexRole.vue'
-import IndexOrg from '@/views/sys/IndexOrg.vue'
-import IndexMenu from '@/views/sys/IndexMenu.vue'
 import IndexUser from '@/views/sys/IndexUser.vue'
 import IndexGrade from '@/views/affair/IndexGrade.vue'
 import ListAuth from '@/views/sys/auth/ListAuth.vue'
@@ -18,6 +15,8 @@ import IndexPlan from '@/views/teach/IndexPlan.vue'
 import IndexScheduler from '@/views/teach/IndexScheduler.vue'
 import IndexExamRoom from '@/views/center/IndexExamRoom.vue'
 import IndexExamScreen from '@/views/center/IndexExamScreen.vue'
+
+import TemplateLoader from '@/views/common/TemplateLoader.vue'
 
 Vue.use(VueRouter)
 
@@ -34,19 +33,9 @@ const routes = [
         component: Default
       },
       {
-        path: '/sys/menu/index',
-        name: '资源列表',
-        component: IndexMenu
-      },
-      {
-        path: '/sys/role/index',
-        name: '角色列表',
-        component: IndexRole
-      },
-      {
-        path: '/sys/org/index',
-        name: '组织机构列表',
-        component: IndexOrg
+        path: '/dt/:id/index',
+        name: '加载模板',
+        component: TemplateLoader
       },
       {
         path: '/sys/user/index',

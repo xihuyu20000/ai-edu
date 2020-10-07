@@ -5,12 +5,12 @@
         <el-button type="primary" @click="handleCreate">新增</el-button>
       </div>
       <div class="query-box">
-        <el-form v-if="queryConfig.length > 0" :inline="true" :model="queryForm">
-          <el-form-item v-for="(field, index) in queryConfig" :key="index">
-            <el-input v-if="field.style == 'textline'" v-model="queryForm[field.field]" :placeholder="field.label"></el-input>
+        <el-form v-if="queryConfig.length > 0" :inline="true" :model="formModel">
+          <el-form-item v-for="(config, index) in queryConfig" :key="index">
+            <el-input v-if="config.style == 'textline'" v-model="formModel[config.field]" :placeholder="config.label"></el-input>
           </el-form-item>
           <el-form-item>
-            <el-button type="primary" icon="el-icon-search" @click="handleQueryForm(globalConfig.url)">查询</el-button>
+            <el-button type="primary" icon="el-icon-search" @click="queryForm(globalConfig.url)">查询</el-button>
           </el-form-item>
         </el-form>
         <div class="operator-bar">
@@ -21,14 +21,13 @@
     <div class="data-box">
       <el-table :data="tableData" row-key="id" border default-expand-all>
         <el-table-column type="selection" width="55"> </el-table-column>
-
-        <template v-for="(field, index) in tableConfig">
-          <el-table-column v-if="field.style === 'icon'" :key="index" :label="field.label" :prop="field.field" :width="field.width" :sortable="field.sortable">
+        <template v-for="(config, index) in tableConfig">
+          <el-table-column v-if="config.style === 'icon'" :key="index" :label="config.label" :prop="config.field" :width="config.width" :sortable="config.sortable">
             <template slot-scope="scope">
               <i :class="scope.row.icon"></i>
             </template>
           </el-table-column>
-          <el-table-column v-else :key="index" :label="field.label" :prop="field.field" :width="field.width" :sortable="field.sortable"> </el-table-column>
+          <el-table-column v-else :key="index" :label="config.label" :prop="config.field" :width="config.width" :sortable="config.sortable"> </el-table-column>
         </template>
         <el-table-column label="操作">
           <template slot-scope="scope">
@@ -46,24 +45,27 @@
 
 <script>
 export default {
-  props: {
-    globalConfig: {
-      type: Object,
-      required: true,
-      default: function() {
-        return { url: '' }
-      }
-    },
-    queryConfig: { type: Array },
-    tableConfig: { type: Array }
-  },
+  props: ['config'],
   data() {
-    return { queryForm: {}, tableData: [] }
+    return {
+      globalConfig: { url: '' },
+      queryConfig: [],
+      tableConfig: [],
+      formModel: {},
+      tableData: []
+    }
   },
-  watch: {},
+  watch: {
+    config: function(newVal) {
+      this.globalConfig = newVal.globalConfig
+      this.queryConfig = newVal.queryConfig
+      this.tableConfig = newVal.tableConfig
+      this.tableData = newVal.tableData
+    }
+  },
   methods: {
-    async handleQueryForm(url) {
-      const { data: resp } = await this.$http(url + '?' + this.$ser(this.queryForm))
+    async queryForm(url) {
+      const { data: resp } = await this.$http(url + '?' + this.$ser(this.formModel))
       this.tableData = resp.data
     },
     async handleCreate() {
@@ -77,7 +79,7 @@ export default {
       console.log('删除', resp)
       if (resp.data == 1) {
         this.$message.success('删除成功')
-        this.handleQueryForm(this.globalConfig.url)
+        this.queryForm(this.globalConfig.url)
       } else {
         this.$message.error('删除失败')
       }
@@ -85,8 +87,7 @@ export default {
   },
   mounted() {
     this.$bus.$on(this.$bus.loadData, () => {
-      console.log('回调，执行查询')
-      this.handleQueryForm(this.globalConfig.url)
+      this.queryForm(this.globalConfig.url)
     })
   }
 }
