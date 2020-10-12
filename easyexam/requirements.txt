@@ -1,0 +1,5 @@
+opencv-python==4.4.0.44
+pillow==7.2.0
+pyinstaller==4.0
+PyAudio==0.2.11
+moviepy==1.0.3
