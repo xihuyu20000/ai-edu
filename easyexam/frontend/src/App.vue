@@ -1,32 +1,58 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">关于</router-link>
+    <img src="./assets/logo.png" />
+    <div>
+      <el-tabs tab-position="left" style="height: 600px;">
+        <el-tab-pane
+          v-for="(topic, index) in topics"
+          :label="'第' + index + '题'"
+          :key="index"
+        >
+          {{ topic.title }}
+          <br />
+          <el-radio-group v-model="answer">
+            <el-radio
+              v-for="(option, index) in topic.options"
+              :key="index"
+              :label="option"
+              >{{ option }}</el-radio
+            >
+            <el-radio :label="6">备选项</el-radio>
+            <el-radio :label="9">备选项</el-radio>
+          </el-radio-group>
+        </el-tab-pane>
+      </el-tabs>
+      <el-button>el-button</el-button>
     </div>
-    <router-view />
   </div>
 </template>
 
-<style lang="scss">
+<script>
+export default {
+  name: "app",
+  data() {
+    return { topics: [], answer: "" };
+  },
+  methods: {
+    change: function() {},
+  },
+  components: {},
+  mounted: async function() {
+    // eslint-disable-next-line no-undef
+    // this.topics = await eel.topics()();
+    const { data: resp } = await this.$http.get("/topics");
+    this.topics = JSON.parse(resp.data);
+  },
+};
+</script>
+
+<style>
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
+  font-family: "Avenir", Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-}
-
-#nav {
-  padding: 30px;
-
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-
-    &.router-link-exact-active {
-      color: #42b983;
-    }
-  }
+  margin-top: 60px;
 }
 </style>
