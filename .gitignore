@@ -3,3 +3,16 @@
 /crawler/node_modules
 /spider/node_modules
 /spider/.vscode
+/spider/.idea
+/easyfms/server/node_modules
+/easyfms/server/.vscode
+/easyexam/build
+/easyexam/env
+/easyexam/.idea
+/easyexam/.venv
+/easyexam/__pycache__
+/easyexam/modules/__pycache__
+/easyexam/web
+/easyexam/dist/easyexam.exe
+/easyexam/easyexam.spec
+/easyexam/venv
