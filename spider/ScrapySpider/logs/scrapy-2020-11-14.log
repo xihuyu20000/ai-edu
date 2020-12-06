@@ -1,0 +1,10 @@
+2020-11-14 16:08:36 [scrapy.utils.log] INFO: Scrapy 2.4.0 started (bot: ScrapySpider)
+2020-11-14 16:08:36 [scrapy.utils.log] INFO: Versions: lxml 4.6.1.0, libxml2 2.9.5, cssselect 1.1.0, parsel 1.6.0, w3lib 1.22.0, Twisted 20.3.0, Python 3.8.3 (default, Jul  2 2020, 17:30:36) [MSC v.1916 64 bit (AMD64)], pyOpenSSL 19.1.0 (OpenSSL 1.1.1h  22 Sep 2020), cryptography 3.2.1, Platform Windows-10-10.0.18362-SP0
+2020-11-14 16:09:14 [scrapy.utils.log] INFO: Scrapy 2.4.0 started (bot: ScrapySpider)
+2020-11-14 16:09:14 [scrapy.utils.log] INFO: Versions: lxml 4.6.1.0, libxml2 2.9.5, cssselect 1.1.0, parsel 1.6.0, w3lib 1.22.0, Twisted 20.3.0, Python 3.8.3 (default, Jul  2 2020, 17:30:36) [MSC v.1916 64 bit (AMD64)], pyOpenSSL 19.1.0 (OpenSSL 1.1.1h  22 Sep 2020), cryptography 3.2.1, Platform Windows-10-10.0.18362-SP0
+2020-11-14 16:09:43 [scrapy.utils.log] INFO: Scrapy 2.4.0 started (bot: ScrapySpider)
+2020-11-14 16:09:43 [scrapy.utils.log] INFO: Versions: lxml 4.6.1.0, libxml2 2.9.5, cssselect 1.1.0, parsel 1.6.0, w3lib 1.22.0, Twisted 20.3.0, Python 3.8.3 (default, Jul  2 2020, 17:30:36) [MSC v.1916 64 bit (AMD64)], pyOpenSSL 19.1.0 (OpenSSL 1.1.1h  22 Sep 2020), cryptography 3.2.1, Platform Windows-10-10.0.18362-SP0
+2020-11-14 16:10:07 [scrapy.utils.log] INFO: Scrapy 2.4.0 started (bot: ScrapySpider)
+2020-11-14 16:10:07 [scrapy.utils.log] INFO: Versions: lxml 4.6.1.0, libxml2 2.9.5, cssselect 1.1.0, parsel 1.6.0, w3lib 1.22.0, Twisted 20.3.0, Python 3.8.3 (default, Jul  2 2020, 17:30:36) [MSC v.1916 64 bit (AMD64)], pyOpenSSL 19.1.0 (OpenSSL 1.1.1h  22 Sep 2020), cryptography 3.2.1, Platform Windows-10-10.0.18362-SP0
+2020-11-14 16:26:07 [scrapy.utils.log] INFO: Scrapy 2.3.0 started (bot: ScrapySpider)
+2020-11-14 16:26:07 [scrapy.utils.log] INFO: Versions: lxml 4.6.1.0, libxml2 2.9.5, cssselect 1.1.0, parsel 1.6.0, w3lib 1.22.0, Twisted 20.3.0, Python 3.8.3 (default, Jul  2 2020, 17:30:36) [MSC v.1916 64 bit (AMD64)], pyOpenSSL 19.1.0 (OpenSSL 1.1.1h  22 Sep 2020), cryptography 3.2.1, Platform Windows-10-10.0.18362-SP0

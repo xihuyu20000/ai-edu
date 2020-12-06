@@ -12,6 +12,7 @@ export default {
   data() {
     return {}
   },
+  created() {},
   methods: {
     startExam() {
       this.$router.push('/exam')

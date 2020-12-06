@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>首页</title>
+    <link rel="icon" href="titleLogo.PNG" sizes="32x32">
+    <link rel="stylesheet" type="text/css" href="bootstrap.min.css">
+    <script src="jquery.min.js"></script>
+    <script src="bootstrap.min.js"></script>
+    <style>
+        .logo-img{
+            height: 33px;
+            width: 110px;
+            margin: auto
+        }
+        #div1{
+            border: 2px solid #c4c7ce;
+            border-radius: 10px 0px 0px 10px;
+            height: 36px;
+            width: 100%;
+            padding-left: 10px;
+            font-family:"楷体,宋体";
+            font-size: large;
+        }
+        .my-list-group-item{
+            position: relative;
+            display: block;
+            padding: 9px 16px;
+            margin-bottom: -1px;
+            background-color: #fff;
+        }
+        h3{
+            color: blue;
+        }
+        p{
+            font-size: large;
+        }
+        a:link,a:hover{
+            font-style: italic;
+            color: #84cd5f;
+        }
+        a:visited{
+            color: #ac84ac;
+        }
+        small{
+            color: gray;
+            font-size: smaller;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <br><br>
+        <!-- 查询框 -->
+        <div id="query-form" class="row">
+            <form action="http://127.0.0.1:5000/search" method="get">
+                <div class="col-md-2" style=" padding: 0px">
+                    <img src="logo.PNG" class="img-responsive logo-img"></div>
+                <div class="col-md-10">
+                    <div  class="col-md-10" style=" padding: 0px"><input id="div1" name="kw" value="{{kw}}" placeholder="输入搜索内容......"/></div>
+                    <div  class="col-md-2" style=" padding: 0px"><button type="submit" class="btn btn-info" style="height: 36px;width: 112px;border-radius:0px 10px 10px 0px;">搜索</button></div>
+                </div>
+            </form>
+        </div>
+        <br>
+        <!-- 查询结果 -->
+        <div id="data-list">
+            {% for art in result %}
+            <div class="row">
+                <ul class="list-group">
+                    <li class="my-list-group-item"><h3>{{art.title| safe}}</h3></li>
+                    <li class="my-list-group-item">
+                        <p>摘要：{{art.abstract| safe}}</p>
+                        <p>关键词：{{art.kws| safe}}</p>
+                    </li>
+                    <li class="my-list-group-item">
+                        <a href="#0">http://www.zuowen.com/e/20190903/5d6de02877f8f.shtml</a> —<a><small>百度快照</small></a>
+                              <a href="#">作者：{{art.content| safe}}</a>
+                        <a href="#">出处：{{art.content| safe}}</a>
+                    </li>
+                </ul>
+            </div>
+            {% endfor %}
+        </div>
+        <!-- footer-->
+
+    </div>
+    <div class="footer">
+        底部
+    </div>
+</body>
+</html>

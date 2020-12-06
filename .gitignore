@@ -16,3 +16,8 @@
 /easyexam/dist/easyexam.exe
 /easyexam/easyexam.spec
 /easyexam/venv
+venv
+.idea
+__pycache__
+build
+dist

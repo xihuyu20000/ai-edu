@@ -1,0 +1,8 @@
+PyInstaller
+PyQt5
+pyqt5-stubs
+msgpack
+lxml
+scrapy
+jieba
+nltk

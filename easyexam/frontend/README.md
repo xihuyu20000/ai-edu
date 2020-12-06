@@ -1,24 +1,10 @@
-# frontend
+# 中国的首都在哪里
 
-## Project setup
-```
-npm install
-```
+单选    10
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
+北京
 
-### Compiles and minifies for production
-```
-npm run build
-```
+**上海**
 
-### Lints and fixes files
-```
-npm run lint
-```
+南京
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).

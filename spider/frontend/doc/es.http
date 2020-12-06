@@ -1,0 +1,351 @@
+### 定义变量，一定使用@开头
+@url = http://localhost:9200
+@json = Content-Type: application/json
+@idx = index1
+
+### 首页
+GET {{url}}
+
+### 健康状况
+GET {{url}}/_cat/health?v
+
+###############################入门操作#######################
+# 假设要存储一个员工信息，直接创建一个文档，保存员工信息
+# megacorp是公司名称，作为索引；employee是雇员，表示类型；1是ID，作为唯一标识符
+PUT {{url}}/megacorp/employee/1
+{{json}}
+
+{
+    "first_name" : "John",
+    "last_name" :  "Smith",
+    "age" :        25,
+    "about" :      "I love to go rock climbing",
+    "interests": [ "sports", "music" ]
+}
+### 再插入一条
+PUT {{url}}/megacorp/employee/2
+{{json}}
+
+{
+    "first_name" :  "Jane",
+    "last_name" :   "Smith",
+    "age" :         32,
+    "about" :       "I like to collect rock albums",
+    "interests":  [ "music" ]
+}
+
+### 再插入一条
+PUT {{url}}/megacorp/employee/3
+{{json}}
+
+{
+    "first_name" :  "Douglas",
+    "last_name" :   "Fir",
+    "age" :         35,
+    "about":        "I like to build cabinets",
+    "interests":  [ "forestry" ]
+}
+
+### 查看文档是否存在
+HEAD {{url}}/megacorp/employee/1
+
+### 根据ID查询 【将 PUT {{url}}/megacorp/employee/1 中的PUT，改为HEAD是判断是否存在，改为GET就是查询，改为DELETE就是删除，】
+GET {{url}}/megacorp/employee/1
+
+### 空搜索，表示查询全部，结果放在hits数组中
+GET {{url}}/megacorp/employee/_search
+
+### 删除文档
+DELETE {{url}}/megacorp/employee/1/
+
+###  插入文档【指定ID】
+PUT {{url}}/{{idx}}/_doc/1
+{{json}}
+
+{
+    "title":"人民日报：立即停止美台官方往来 以免损害台海和平",
+    "content":"中方有坚定的意志、充分的信心、足够的能力，挫败一切外部势力干涉和“台独”分裂行径，坚决捍卫国家主权和领土完整.近日，美方执意安排美国副国务卿克拉奇访问台湾。"
+}
+
+### 插入文档【不指定ID】
+POST {{url}}/{{idx}}/_doc
+{{json}}
+
+{
+    "title":"人民日报：立即停止美台官方往来 以免损害台海和平",
+    "content":"中方有坚定的意志、充分的信心、足够的能力，挫败一切外部势力干涉和“台独”分裂行径，坚决捍卫国家主权和领土完整.近日，美方执意安排美国副国务卿克拉奇访问台湾。这是继上月美国卫生与公众服务部部长亚历克斯·阿扎访台后，美国又一高官对台湾进行访问。"
+}
+
+### 查看文档数量
+GET {{url}}/_count
+
+### 查询【根据ID查询】
+GET {{url}}/{{idx}}/_doc/1
+
+### 查询结果显示部分字段
+GET {{url}}/{{idx}}/_doc/1?_source=title
+
+
+### 模糊搜索(大小写不敏感)，使用查询参数q
+GET {{url}}/megacorp/employee/_search?q=last_name:smith
+
+
+### 修改文档的部分字段
+POST {{url}}/megacorp/employee/1/_update
+{
+   "doc" : {
+      "tags" : [ "testing" ],
+      "views": 0
+   }
+}
+
+### 全文搜索(带分数)，使用json作为查询体
+GET {{url}}/megacorp/employee/_search
+{{json}}
+
+{
+    "query" : {
+        "match" : {
+            "about" : "rock climbing"
+        }
+    }
+}
+
+### 返回一部分字段
+GET {{url}}/megacorp/employee/1?_source=first_name,last_name
+
+### 只返回_source
+GET {{url}}/megacorp/employee/1/_source
+
+### 模糊查询
+GET {{url}}/{{idx}}/_doc/_search
+{{json}}
+
+{
+    "query":{
+        "match":{
+            "title":"台独"
+        }
+    }
+}
+
+### 多字段查询
+GET {{url}}/{{idx}}/_doc/_search
+{{json}}
+
+{
+    "query":{
+        "multi_match":{
+            "query":"台独",
+            "fields":["title", "content"]
+        }
+    }
+}
+
+### 分页查询
+GET {{url}}/{{idx}}/_search
+{{json}}
+
+{
+    "query":{
+        "multi_match":{
+            "query":"台独",
+            "fields":["title", "content"]
+        }
+    },
+    "from":0,   //显示应该跳过的记录数
+    "size":10   //每次显示多少
+}
+
+
+
+###########################################################################
+
+### 查看有哪些索引
+### 结果显示有多个索引库，相当于mysql中的数据库
+GET {{url}}/_settings
+
+### 创建索引
+PUT {{url}}/{{idx}}
+{{json}}
+
+{
+    "mappings":{
+        "properties":{
+            "title":{
+                "type":"text",
+                "analyzer":"ik_max_word"
+            },
+            "content":{
+                "type":"text",
+                "analyzer":"ik_max_word"
+            }
+        }
+    }
+}
+
+### 查看索引是否使用了分词器
+GET {{url}}/{{idx}}/_mappings
+
+
+### 删除索引
+DELETE {{url}}/{{idx}}
+
+##########################################################################################3
+
+### 创建分词器
+PUT {{url}}/ii2
+{{json}}
+
+{
+  "settings": {
+    "analysis": {
+      "analyzer": {
+        "my_custom_analyzer": { 
+          "type": "custom",
+          "char_filter": [
+            "emoticons"
+          ],
+          "tokenizer": "punctuation",
+          "filter": [
+            "lowercase",
+            "english_stop"
+          ]
+        }
+      },
+      "tokenizer": {
+        "punctuation": { 
+          "type": "pattern",
+          "pattern": "[ .,!?]"
+        }
+      },
+      "char_filter": {
+        "emoticons": { 
+          "type": "mapping",
+          "mappings": [
+            ":) => _happy_",
+            ":( => _sad_"
+          ]
+        }
+      },
+      "filter": {
+        "english_stop": { 
+          "type": "stop",
+          "stopwords": "_english_"
+        }
+      }
+    }
+  }
+}
+### 测试分词器，使用ik_max_word会尽可能多的拆分词
+POST {{url}}/ii2/_analyze
+{{json}}
+
+{
+    "analyzer":"my_custom_analyzer",
+    "text":"An analysis of the effects of different network-based ionosphere stimation models on rover positioning accuracy"
+}
+
+### 测试分词器，使用ik_smart分词器
+POST {{url}}/_analyze
+{{json}}
+
+{
+    "analyzer":"ik_smart",
+    "text":"我们中将产生几位研究生"
+}
+
+
+
+
+
+#########  """
+#########  使用python操作es的步骤
+#########  1、先安装模块  pip install elasticsearch
+#########  2、先创建索引  create_index
+#########  3、插入数据    put_index
+#########  4、全文查询    search
+#########  """
+#########  from elasticsearch import Elasticsearch
+#########  
+#########  es = Elasticsearch()
+#########  
+#########  def create_index(name):
+#########      '''
+#########      创建索引，并且指定分词器。下面写死了2个字段，分别是title和content
+#########      :param name:  索引名
+#########      :return:
+#########      '''
+#########      ret = es.indices.create(index=name, body={
+#########          "mappings":{
+#########              "properties":{
+#########                  "title":{   #title是字段名
+#########                      "type":"text",
+#########                      "analyzer":"ik_max_word",
+#########                  },
+#########                  "content":{   #title是字段名
+#########                      "type":"text",
+#########                      "analyzer":"ik_max_word",
+#########                  },
+#########              }
+#########          }
+#########      })
+#########      print(ret)
+#########      return ret
+#########  # create_index('sxau3')
+#########  
+#########  
+#########  def put_index(name, id, body):
+#########      """
+#########      插入一条文档。默认的类型是_doc
+#########      :param name: 索引名称
+#########      :param id:
+#########      :param body: 这里面一定要注意字符编码
+#########      :return:
+#########      """
+#########      ret = es.create(index=name, doc_type='_doc', id=id, body=body)
+#########      print(ret)
+#########      return ret
+#########  
+#########  # put_index('lcu4', 2, {
+#########  #         'title':'我的谁',
+#########  #         'content':'十三届全国人大常委会第二十次会议分组审议香港特别行政区维护国家安全法草案我是吴超'
+#########  #     })
+#########  
+#########  
+#########  def search(name, value):
+#########      """
+#########      全文检索
+#########      :param name:
+#########      :param value:
+#########      :return:
+#########      """
+#########      ret = es.search(index=name, doc_type='_doc', body={
+#########          'query':{
+#########              'multi_match':{
+#########                  'query':value,
+#########                  'fields':['title', 'content']
+#########              }
+#########          }
+#########      })
+#########      ret = ret['hits']['hits']
+#########      ret_new =[]
+#########      if ret:
+#########          for art in ret:
+#########              ret_new.append(art['_source'])
+#########      for art in  ret_new:
+#########          print('标题：'+art['title'])
+#########          print('正文：'+art['content'])
+#########      return ret_new
+#########  search('sxau1', '中国')
+
+
+
+
+### 使用sql
+GET http://localhost:9200/_nlpcn/sql
+Content-Type: application/json
+
+{
+    "sql":"select count(*) from scirp where title like 'health'"
+}
